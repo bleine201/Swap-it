@@ -1,9 +1,9 @@
 @component('mail::message')
 # Introduction
+    {{$email}}
+<b>Thank You For Using our App Confirm Your Email </b> 
 
-The body of your message.
-
-@component('mail::button', ['url' => ''])
+@component('mail::button', ['url' => url('/callback/' . $token . '/' . $email)])
 Button Text
 @endcomponent
 

@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ActiveEmail extends Mailable
+class ResetPasswordEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -17,15 +17,11 @@ class ActiveEmail extends Mailable
      * @return void
      */
 
-    public $token;
-    public $email;
-    
+    public $code;
 
-
-    public function __construct($token,$email)
+    public function __construct($code)
     {
-        $this->token = $token;
-        $this->email = $email;
+       $this->code = $code;
     }
 
     /**
@@ -35,6 +31,6 @@ class ActiveEmail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('email');
+        return $this->markdown('ResetPasswordEmail');
     }
 }

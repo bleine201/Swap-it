@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Mail\ActiveEmail;
+use App\Mail\ResetPasswordEmail;
 use Mail;
 
 class AuthController extends Controller
@@ -15,7 +16,7 @@ class AuthController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register','resetPassword','changePassword']]);
 
     }//end __construct()
 
@@ -77,7 +78,7 @@ class AuthController extends Controller
             $token = time()  .'_'. uniqid() . '_' . uniqid() .  '_' .  $user->email;
             $user->remember_token = $token;
             $user->save();
-            Mail::to($user->email)->send(new ActiveEmail($token));
+            Mail::to($user->email)->send(new ActiveEmail($token,$user->email));
         }
 
         return response()->json(['message' => 'User created successfully', 'user' => $user]);
@@ -126,6 +127,72 @@ class AuthController extends Controller
         return Auth::guard();
 
     }//end guard()
+
+
+    public function resetPassword(Request $request){
+        $validator = Validator::make(
+            $request->all(),
+            [
+              
+                'email'    => 'required|email',
+              
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(
+                [$validator->errors()],
+                422
+            );
+        }
+          $user =   User::where('email',$request->email)->first();
+            if($user){
+                    //send email reset password 
+                    $code = rand(10000,99999);
+                    $user->remember_token = $code;
+                    $user->save();
+                    Mail::to($user->email)->send(new ResetPasswordEmail($code));
+
+            }else{
+                //error
+            }
+    }
+
+    public function changePassword(Request $request){
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'code'=>'required',
+                'email'    => 'required|email',
+                'password' => 'required|confirmed|min:6',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(
+                [$validator->errors()],
+                422
+            );
+        } ;
+
+        $user = User::where('email',$request->email)->first();
+        if($user){
+                   
+                    if($user->remember_token == $request->code){
+                                //reset password
+                                $user->password =  bcrypt($request->password);
+                                $user->remember_token = "";
+                                $user->save();
+                                return "password reset";
+                    }else{
+                         return   response()->json('Wrong code',401);
+                    }
+        }else{
+           return response()->json('The email does not exist',401);
+        }
+    }
+  
+
 
 
 }//end class
