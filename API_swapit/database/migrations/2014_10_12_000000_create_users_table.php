@@ -27,7 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('city');
             $table->float('avg_ratings');
             $table->integer('is_admin')->default(0);
-            $table->foreign('ads_id')->references('id')->on('ads')->onUpdate('cascade')->onDelete('cascade'); 
+            //$table->foreign('ads_id')->references('id')->on('ads')->onUpdate('cascade')->onDelete('cascade'); 
             $table->rememberToken();
             $table->timestamps();
         });
