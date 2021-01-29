@@ -48,8 +48,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    // RELATIONSHIP : a user could have many comments (one to many relationship) 
-    // CREATE CLASS COMMENTS
+    // // RELATIONSHIP : a user could have many comments (one to many relationship) 
+    // // CREATE CLASS COMMENTS
     // public function comments (){
     //     return $this->hasMany(Comments::class);
     // }
