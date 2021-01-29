@@ -17,9 +17,9 @@ class CommentsController extends Controller
             'content' => $request->content,
             'ratings' => $request->ratings,
         ])) {
-           /* $user = User::find($request->comment_target);
-            $user->avg_rating = Comments::where('comment_target', '=', $request->comment_target)->get()->avg('ratings');
-            $user->update();*/
+            $user = User::find($request->comment_target);
+            $user->avg_ratings = Comments::where('comment_target', '=', $request->comment_target)->get()->avg('ratings');
+            $user->update();
             return "Rating successfull published";
         } else {
             return "error";
