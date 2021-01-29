@@ -17,9 +17,16 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
+        'firstname',
+        'lastname',
+        'username',
+        'phone_number',
         'email',
-        'password',
+        'address',
+        'postcode',
+        'city',
+        'avg_ratings',
+        'is_admin',
     ];
 
     /**
@@ -40,4 +47,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // RELATIONSHIP : a user could have many comments (one to many relationship) 
+    // CREATE CLASS COMMENTS
+    // public function comments (){
+    //     return $this->hasMany(Comments::class);
+    // }
 }
