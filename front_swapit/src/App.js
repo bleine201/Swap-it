@@ -1,11 +1,12 @@
 import { Navbar } from "./components/navbar";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Login} from "./components/Pages/Login";
-import { Register } from "./components/Pages/Register";
-import SignIn from "./SignIn";
-import SignUp from "./SignUp";
-import Chat from "./Chat";
+import SignIn from "./components/Pages/SignIn";
+import SignUp from "./components/Pages/SignUp";
+import Chat from "./components/Pages/Chat";
+import ResetPassword from "./components/Pages/ResetPassword";
+import SecretKey from "./components/Pages/SecretKey";
+import NewPassword from "./components/Pages/NewPassword";
 
 
 function App() {
@@ -17,21 +18,16 @@ function App() {
 
         <div className="pages">
           <Switch>
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
-          
+            <Route path="/login" component={SignIn} />
+            <Route path="/register" component={SignUp} />
+            <Route path="/chat" component={Chat} />
+            <Route path="/resetpassword" component={ResetPassword} />
+            <Route path="/newpassword" component={NewPassword} />
+            <Route path="/secretkey" component={SecretKey} />
+
           </Switch>
         </div>
       </Router>
-
-
-
-
-
-
-      <SignUp/>
-      <SignIn/>
-      <Chat/>
     </>
   );
 }
