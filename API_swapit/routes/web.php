@@ -5,6 +5,8 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserSettings;
 
+use App\Http\Controllers\ImageController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,7 +19,7 @@ use App\Http\Controllers\UserSettings;
 */
 
 Route::get('/', function () {
-    return rand(10000,99999);
+    // return rand(10000,99999);
 });
 
 Route::get('/callback/{token}/{email}',[UserSettings::class,'activeEmail']);

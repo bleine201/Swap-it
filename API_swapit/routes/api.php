@@ -3,6 +3,7 @@
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdsController;
+use App\Http\Controllers\ImageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -64,6 +65,16 @@ Route::get('get_all_comment/{id}/{number}', [CommentsController::class , 'getAll
 Route::put('update_one_comment', [CommentsController::class , 'updateOne']);// use "comment_id" to identfy comment as params. Send everything as params, content to send is the same as "create" route.
 Route::delete('delete_one_comment', [CommentsController::class , 'deleteOne']);// use "comment_id" to identfy comment as params
 
+//Get all images
+Route::get('/images', [ImageController::class, 'images']);
+//Upload image
+Route::post('/upload', [ ImageController::class, 'upload' ]);
+//Get image by ad id
+Route::get('/images/{id}', [ImageController::class, 'post']);
+//Delete image
+Route::delete('images/{id}', [ImageController::class, 'delete']);
+//Update image
+Route::put('images/{id}', [ImageController::class, 'update']);
 
 // Get all Categories
 Route::get('ads/category', [AdsController::class,'categories']);
