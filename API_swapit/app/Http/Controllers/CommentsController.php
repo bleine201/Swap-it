@@ -12,12 +12,7 @@ class CommentsController extends Controller
 {
     public function create(Request $request)
     {
-        if (Comments::create([
-            'comment_author' => $request->comment_author,
-            'comment_target' => $request->comment_target,
-            'content' => $request->content,
-            'ratings' => $request->ratings,
-        ])) {
+        if (Comments::create($request->all())) {
             $this->updateRating($request);
             return "Rating successfull published";
         } else {
@@ -49,11 +44,7 @@ class CommentsController extends Controller
     {
         if ($request->comment_id !== "null") {
             $comment = Comments::find($request->comment_id);
-            $comment->comment_author = $request->comment_author;
-            $comment->comment_target = $request->comment_target;
-            $comment->content = $request->content;
-            $comment->ratings = $request->ratings;
-            if ($comment->update()) {
+            if ($comment->update($request->all())) {
                 $this->updateRating($request);
                 return "update successfull";
             } else {
