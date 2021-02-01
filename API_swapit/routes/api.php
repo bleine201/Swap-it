@@ -76,7 +76,6 @@ Route::get('ads/condition', [AdsController::class,'conditions']);
 Route::get('ads/condition/{id}', [AdsController::class,'CondById']);
 
 //Ad
-
 Route::get('ads', [AdsController::class,'index']);
 Route::post('ads', [AdsController::class,'store']);
 Route::get('ads/{id}', [AdsController::class,'show']);

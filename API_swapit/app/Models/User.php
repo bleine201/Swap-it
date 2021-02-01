@@ -28,6 +28,7 @@ class User extends Authenticatable implements JWTSubject
         'postcode',
         'city',
         'avg_ratings',
+        'ad_id',
         'is_admin',
     ];
 

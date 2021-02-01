@@ -12,12 +12,14 @@ class Ad extends Model
     protected $table = 'ads';
     protected $fillable = [
         'title',
-        'description'
-       // 'category_id',
-       // 'user_id',
-       // 'images_id',
-       // 'exchange_id',
-       // 'username',
-      // 'product_condition',
+        'description',
+
+        'exchange_id',
+        'category_id',
+        'condition_id',
+        'user_id',
+        'username',
+        'address',
+       // 'image_id',
     ];
 }
