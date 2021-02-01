@@ -10,6 +10,14 @@ composer install
 php artisan serve
 ```
 
+### Upload image
+
+Create a storage file with these following line:
+
+```bash
+php artisan storage:link
+```
+
 ## Front React
 
 ```bash
