@@ -24,14 +24,14 @@ class CreateAdsTable extends Migration
            // $table->foreignId('exchange_id');
             //$table->foreignId('username');
             //$table->foreignId('location');
-           // $table->foreignId('product_condition');
+           // $table->foreignId('condition_id');
            // $table->foreign('user_id')->references('id')->on('users');
             //$table->foreign('category_id')->references('id')->on('categories');
            // $table->foreign('image_id')->references('id')->on('images');
           //  $table->foreign('exchange_id')->references('id')->on('exchanges');
            // $table->foreign('username')->references('username')->on('users');
            // $table->foreign('location')->references('address')->on('users');
-            //$table->foreign('product_condition')->references('condition')->on('product_condition');
+            //$table->foreign('condition_id')->references('condition')->on('product_condition');
         });
     }
 

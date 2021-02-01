@@ -61,6 +61,16 @@ Route::post('post_comment', [CommentsController::class , 'create']);//post as bo
 Route::get('get_one_comment', [CommentsController::class , 'getOne']);//use "comment_id" as params
 Route::get('get_all_comment/{id}/{number}', [CommentsController::class , 'getAllById']);//id=> de l'utilisateur dont on veut recevoir les comments// number => pagination, default = 10
 
+// Get all Categories
+Route::get('ads/category', [AdsController::class,'categories']);
+// Route filter by category
+Route::get('ads/category/{id}', [AdsController::class,'CatById']);
+
+// Get all Conditions
+Route::get('ads/condition', [AdsController::class,'conditions']);
+// ROute filter by condition
+Route::get('ads/condition/{id}', [AdsController::class,'CondById']);
+
 //Ad
 
 Route::get('ads', [AdsController::class,'index']);
