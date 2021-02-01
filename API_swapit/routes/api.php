@@ -6,6 +6,18 @@ use App\Http\Controllers\AdsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register API routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| is assigned the "api" middleware group. Enjoy building your API!
+|
+*/
+
+
 
 
 Route::group(
@@ -24,6 +36,16 @@ Route::group(
         Route::post('refresh', 'AuthController@refresh');
     }
 );
+
+Route::get("search/{name}",[DeviceController::class,'search']);
+
+
+Route::get('/add-product',[ProductController::class,'addProducts']);
+
+Route::get('/search',[ProductController::class,'search']);
+
+
+Route::get('/autocomplete',[ProductController::class,'autocomplete'])->name('autocomplete');
 
 
 
@@ -47,8 +69,6 @@ Route::get('ads/{id}', [AdsController::class,'show']);
 Route::put('ads/{id}', [AdsController::class,'update']);
 Route::delete('ads/{id}', [AdsController::class,'destroy']);
 
-
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-
