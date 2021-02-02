@@ -48,11 +48,11 @@ const Index = () => {
                   User Parameter
                 </Typography>
                 <Typography className={classes.pos} color="textSecondary">
-                  Setting of all user
+                Setting of all user
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small">+</Button>
+                <Button href="/admin/user" size="small">+</Button>
               </CardActions>
           </Card>
 
@@ -66,7 +66,7 @@ const Index = () => {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small">+</Button>
+                <Button href="/admin/ad" size="small">+</Button>
               </CardActions>
             </Card>
             <Card className={classes.root}>
@@ -79,7 +79,7 @@ const Index = () => {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small">+</Button>
+                <Button href="/admin/image" size="small">+</Button>
               </CardActions>
             </Card>
             <Card className={classes.root}>
@@ -92,7 +92,7 @@ const Index = () => {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small">+</Button>
+                <Button href="/admin/comment" size="small">+</Button>
               </CardActions>
             </Card>
             
