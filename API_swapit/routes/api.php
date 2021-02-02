@@ -39,17 +39,6 @@ Route::group(
     }
 );
 
-Route::get("search/{name}",[DeviceController::class,'search']);
-
-
-Route::get('/add-product',[ProductController::class,'addProducts']);
-
-Route::get('/search',[ProductController::class,'search']);
-
-
-Route::get('/autocomplete',[ProductController::class,'autocomplete'])->name('autocomplete');
-
-
 
 //Users
 Route::get('user', [UserController::class , 'index']);
@@ -101,13 +90,8 @@ Route::put('ads/{id}', [AdsController::class,'update']);
 Route::delete('ads/{id}', [AdsController::class,'destroy']);
 
 
-
-Route::get('/search/{name}', [AdController::class, 'search']);
-
-
-
-
-
+//Search ad by title
+Route::get('/search/{name}', [AdsController::class, 'search']);
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
