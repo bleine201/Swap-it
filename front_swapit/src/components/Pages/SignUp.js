@@ -17,7 +17,7 @@ import axios from 'axios';
 
 
 
-export default function SignUp() {
+export default function SignUp(props) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -37,6 +37,7 @@ export default function SignUp() {
       })
       .then((response) => {
         console.log(response);
+        props.history.push('/login');
       }).catch((error) => {
         console.log(error.response.data)
       });

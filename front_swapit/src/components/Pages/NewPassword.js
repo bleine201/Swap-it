@@ -15,7 +15,7 @@ import Container from '@material-ui/core/Container';
 import axios from 'axios';
 
 
-export default function NewPassword() {
+export default function NewPassword(props) {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,6 +35,7 @@ export default function NewPassword() {
       })
       .then((response) => {
        console.log(response)
+       props.history.push('/login');
 
       }).catch((error) => {
         console.log(error.response.data)
@@ -72,7 +73,6 @@ export default function NewPassword() {
                 fullWidth
                 name="digit-code"
                 label="digit-code"
-                type="number"
                 id="digit-code"
                 autoComplete="digit-code"
                 onChange={(event) => setCode(event.target.value)}
@@ -83,8 +83,8 @@ export default function NewPassword() {
                 variant="outlined"
                 required
                 fullWidth
-                name="password"
-                label="Password"
+                name="New password"
+                label="New password"
                 type="New password"
                 id="password"
                 autoComplete="current-password"

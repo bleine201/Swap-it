@@ -1,13 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import {Link} from 'react-router-dom';
+var is_login = localStorage.getItem('token')
 
-const AccessibilityContainer = styled.div`
+
+const AccessibilityContainer = styled.div `
   display: flex;
   margin-left: 10px;
 `;
 
-const RegisterButton = styled.button`
+const RegisterButton = styled.button `
   border: 0;
   outline: 0;
   padding: 8px 1em;
@@ -29,7 +31,7 @@ const RegisterButton = styled.button`
   }
 `;
 
-const LoginButton = styled.button`
+const LoginButton = styled.button `
   border: 0;
   outline: 0;
   padding: 8px 1em;
@@ -52,15 +54,31 @@ const LoginButton = styled.button`
   }
 `;
 
+
+
 export function Accessibility(props) {
-  return (
-    <AccessibilityContainer>
-      <Link to="/register">
-      <RegisterButton>Register</RegisterButton>
-      </Link>
-      <Link to="/login">
-      <LoginButton >Login</LoginButton>
-      </Link>
-    </AccessibilityContainer>
-  );
+
+  var logout = () => {
+
+    localStorage.clear();
+    props.history.push('/login');
+
+  }
+    return (<AccessibilityContainer>
+        <Link to="/register">
+            <RegisterButton>Register</RegisterButton>
+        </Link>
+
+
+        {
+        is_login == null ? (<Link to="/login">
+            <LoginButton>Login</LoginButton>
+        </Link>) : (< LoginButton onClick =
+            {() => logout()
+        } > logout </LoginButton>
+    
+         
+    )
+    } </AccessibilityContainer>
+);;
 }

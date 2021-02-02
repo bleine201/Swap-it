@@ -17,7 +17,7 @@ import {Redirect} from 'react-router-dom';
 
 
 
-export default function ResetPassword() {
+export default function ResetPassword(props) {
   
   const classes = useStyles();
   const [email, setEmail] = useState("");
@@ -35,11 +35,11 @@ export default function ResetPassword() {
 
       })
       .then((response) => {
-          // history.push("/newpassword")
+        props.history.push('/newpassword');
           console.log('working!')
-      //  return <Redirect to="/newpassword"></Redirect>
+      
        
-      this.props.history.push('/newpassword')
+    
 
       }).catch((error) => {
         console.log(error)

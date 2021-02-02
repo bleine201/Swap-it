@@ -15,7 +15,9 @@ import Container from '@material-ui/core/Container';
 import axios from 'axios'
 
 
-export default function SignIn() {
+
+
+export default function SignIn(props) {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -34,8 +36,12 @@ export default function SignIn() {
       .then((response) => {
         console.log(response.data.token);
         localStorage.setItem("token",response.data.token)
+        props.history.push('/home');
+       
+      
 
-      }).catch((error) => {
+      })
+      .catch((error) => {
         console.log(error.response.data)
       });
   };
