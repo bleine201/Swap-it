@@ -1,4 +1,4 @@
-import React from 'react';
+import { React, useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -13,6 +13,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import Fab from '@material-ui/core/Fab';
 import SendIcon from '@material-ui/icons/Send';
+import axios from 'axios';
+
+
 
 const useStyles = makeStyles({
   table: {
@@ -35,10 +38,57 @@ const useStyles = makeStyles({
 });
 
 const Chat = () => {
-  const classes = useStyles();
 
-  return (
+    const [users, setUsers] = useState("");
+   var token = localStorage.getItem("token");
+    const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    };
+
+  const classes = useStyles();
+   var sendmessage = (to) => {
+    alert(to)
+    };
+
+    var getmessage = () =>{
+        axios
+           .post("http://localhost:8000/api/getmessage", config, {
+                user_id: 4,
+             })
+            .then((response) => {
+                setUsers(response.data)  
+                console.log(users)
+                console.log('working!')
+            }).catch((error) => {
+                console.log(error)
+            });
+     
+    };
+
+
+    // useEffect(() => {
+    //     axios
+    //         .post("http://localhost:8000/api/getmessage", config, {
+    //             user_id: 4,
+    //         })
+    //         .then((response) => {
+    //             setUsers(response.data)
+    //             console.log('working!')
+    //         }).catch((error) => {
+    //             console.log(error)
+    //         });
+    //     console.log('lol')
+    // });
+
+
+  return  (
+
+
       <div>
+{
+    getmessage()
+}
+
         <Grid container>
             <Grid item xs={12} >
                 <Typography variant="h5" className="header-message">Chat</Typography>
