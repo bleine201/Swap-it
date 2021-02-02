@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ChatController;
+
 use App\Http\Controllers\AdsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +27,9 @@ Route::group(
     }
 );
 
+//chat message
+Route::post('/getmessage', [ChatController::class , 'getMessage']);
+Route::post('/sendmessage', [ChatController::class , 'SendMessage']);
 
 
 //Users
