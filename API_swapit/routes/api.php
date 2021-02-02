@@ -100,7 +100,18 @@ Route::get('ads/{id}', [AdsController::class,'show']);
 Route::put('ads/{id}', [AdsController::class,'update']);
 Route::delete('ads/{id}', [AdsController::class,'destroy']);
 
+
+
+Route::get('/search/{name}', [AdController::class, 'search']);
+
+
+
+
+
+
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+
+
 
