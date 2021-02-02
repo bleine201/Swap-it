@@ -26,6 +26,8 @@ class CreateUsersTable extends Migration
             $table->string('city');
             $table->float('avg_ratings');
             $table->integer('is_admin')->default(0);
+            // $table->string('location');
+            // $table->foreign('location')->references('city')->on('locations');
 
             // $table->foreignId('ad_id')->constrained('ads');
 
