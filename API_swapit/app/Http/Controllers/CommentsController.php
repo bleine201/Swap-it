@@ -12,11 +12,16 @@ class CommentsController extends Controller
 {
     public function create(Request $request)
     {
-        if (Comments::create($request->all())) {
-            $this->updateRating($request);
-            return "Rating successfull published";
-        } else {
-            return "error";
+        if ($request->comment_target !== $request->comment_author){
+            if(Comments::create($request->all())) {
+                $this->updateRating($request);
+                return "Rating successfull published";
+            } else {
+                return "error";
+            }
+        }
+        else{
+            return "Target can't be the author";
         }
     }
     private function updateRating($request)

@@ -24,7 +24,6 @@ function App() {
             <Route path="/resetpassword" component={ResetPassword} />
             <Route path="/newpassword" component={NewPassword} />
             <Route path="/secretkey" component={SecretKey} />
-
           </Switch>
         </div>
       </Router>
