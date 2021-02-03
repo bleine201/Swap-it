@@ -63,7 +63,7 @@ const NewComment = (props) => {
     return (
         <div>
             <form class={classes.form} id="commentForm">
-                <input placeholder="Titre du commentaire" className={classes.input} nom ="title"></input>
+                <input placeholder="Titre du commentaire" className={classes.input} name="title"></input>
                 <input value={val} type="hidden" name="ratings"></input>
                 <input value={props.comment_author} type="hidden" name="comment_author"></input>
                 <input value={props.comment_target} type="hidden" name="comment_target"></input>

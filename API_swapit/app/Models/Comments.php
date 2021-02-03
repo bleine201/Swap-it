@@ -15,5 +15,6 @@ class Comments extends Model
         'comment_target',
         'content',
         'ratings',
+        'title'
     ];
 }

@@ -12,7 +12,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import NewComment from './NewComment';
 
 function Copyright() {
   return (
@@ -135,9 +134,6 @@ export default function SignUp() {
       </div>
       <Box mt={5}>
         <Copyright />
-      </Box>
-      <Box>
-        <NewComment comment_author="1" comment_target="1"></NewComment>
       </Box>
     </Container>
   );
