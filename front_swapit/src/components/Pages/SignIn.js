@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios'
-
+import {useHistory} from 'react-router-dom'
 
 
 
@@ -21,7 +21,7 @@ export default function SignIn(props) {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+  let history = useHistory();
 
   var login = () => {
 
@@ -36,7 +36,7 @@ export default function SignIn(props) {
       .then((response) => {
         console.log(response.data.token);
         localStorage.setItem("token",response.data.token)
-        props.history.push('/home');
+        history.push('/home');
        
       
 

@@ -13,14 +13,14 @@ function App() {
   return (
     <>
 
-      <Router>
+      <Router forceRefresh>
         <Navbar />
 
         <div className="pages">
           <Switch>
             <Route path="/login" component={SignIn} />
             <Route path="/register" component={SignUp} />
-            <Route path="/chat" component={Chat} />
+            <Route path="/home" component={Chat} />
             <Route path="/resetpassword" component={ResetPassword} />
             <Route path="/newpassword" component={NewPassword} />
             <Route path="/secretkey" component={SecretKey} />
@@ -29,7 +29,6 @@ function App() {
         </div>
       </Router>
     </>
-  );
-}
+  )}
 
-export default App;
+  export default App;
