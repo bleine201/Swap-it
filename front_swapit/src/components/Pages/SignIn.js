@@ -17,7 +17,7 @@ import {useHistory} from 'react-router-dom'
 
 
 
-export default function SignIn(props) {
+export default function SignIn() {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

@@ -1,6 +1,6 @@
 import React , { useState , useEffect } from "react";
 import styled from "styled-components";
-import {Link} from 'react-router-dom';
+import {Link , useHistory} from 'react-router-dom';
 
 const AccessibilityContainer = styled.div `
   display: flex;
@@ -54,22 +54,16 @@ const LoginButton = styled.button `
 
 
 
-export function Accessibility(props) {
-  const [isLoggedIn,setIsLoggedIn] = useState(false);
+export function Accessibility({isLoggedIn}) {
+  let history = useHistory();
 
-  useEffect(() => {
-      const token = localStorage.getItem('token');
-      setIsLoggedIn(token)
-  
-  }, [localStorage.getItem('token')]);
-
-  var logout = () => {
+  const logout = () => {
 
     localStorage.clear();
-    props.history.push('/login');
+    history.push('/login');
 
   }
-  console.log({isLoggedIn , storage : localStorage.getItem('token')}) 
+
     return (<AccessibilityContainer>
         <Link to="/register">
             <RegisterButton>Register</RegisterButton>
