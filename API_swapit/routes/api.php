@@ -32,6 +32,8 @@ Route::post('/getmessage', [ChatController::class , 'getMessage']);
 Route::post('/sendmessage', [ChatController::class , 'SendMessage']);
 
 
+
+
 //Users
 Route::get('user', [UserController::class , 'index']);
 Route::get('user/{id}', [UserController::class , 'show']);

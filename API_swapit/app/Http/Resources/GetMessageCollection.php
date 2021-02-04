@@ -19,7 +19,9 @@ class GetMessageCollection extends JsonResource
             'id'=>$this->id,
             'to'=>$this->to,
             'from'=>$this->from,
-            'message'=>$this->message,         
+            'message'=>$this->message,  
+            'is_my_message'=>$this->from == auth()->id() ? true : false, 
+
         ];
     }
 }
