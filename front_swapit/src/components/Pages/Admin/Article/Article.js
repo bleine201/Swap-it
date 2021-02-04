@@ -68,7 +68,7 @@ const Article = () => {
     const btn = useButton();
 
     return (
-        <section className='ad-index'>
+        <section className='article-index'>
             <h1 className={classes.title}>Article</h1>
             <div className={classes.adTable}>
             <TableContainer component={Paper}>
@@ -77,7 +77,7 @@ const Article = () => {
                     <TableRow>
                     <StyledTableCell>Article</StyledTableCell>
                     <StyledTableCell align="right">Name</StyledTableCell>
-                    <StyledTableCell align="right">Ad</StyledTableCell>
+                    <StyledTableCell align="right">Article</StyledTableCell>
                     <StyledTableCell align="center">Action</StyledTableCell>
                     </TableRow>
                 </TableHead>
