@@ -1,4 +1,4 @@
-import { React, useState, useEffect, Component} from 'react';
+import { React, useState, useEffect, Component } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -18,23 +18,23 @@ import axios from 'axios';
 
 
 const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
-  },
-  chatSection: {
-    width: '100%',
-    height: '80vh'
-  },
-  headBG: {
-      backgroundColor: '#e0e0e0'
-  },
-  borderRight500: {
-      borderRight: '1px solid #e0e0e0'
-  },
-  messageArea: {
-    height: '70vh',
-    overflowY: 'auto'
-  }
+    table: {
+        minWidth: 650,
+    },
+    chatSection: {
+        width: '100%',
+        height: '80vh'
+    },
+    headBG: {
+        backgroundColor: '#e0e0e0'
+    },
+    borderRight500: {
+        borderRight: '1px solid #e0e0e0'
+    },
+    messageArea: {
+        height: '70vh',
+        overflowY: 'auto'
+    }
 });
 
 class Chat extends Component {
@@ -45,8 +45,8 @@ class Chat extends Component {
         this.state = {
             user: [],
             chat: [],
-            to: [],
-            classes:''
+            to: 0,
+            classes: ''
 
         }
         //alert(user.id);
@@ -56,65 +56,58 @@ class Chat extends Component {
         // this.loadChats = this.loadChats.bind(this);
         // this.getActiveUser = this.getActiveUser.bind(this);
         this.loaduser();
-        this.state.classes =  makeStyles({
-  table: {
-    minWidth: 650,
-  },
-  chatSection: {
-    width: '100%',
-    height: '80vh'
-  },
-  headBG: {
-      backgroundColor: '#e0e0e0'
-  },
-  borderRight500: {
-      borderRight: '1px solid #e0e0e0'
-  },
-  messageArea: {
-    height: '70vh',
-    overflowY: 'auto'
-  }
-});
+        this.state.classes = makeStyles({
+            table: {
+                minWidth: 650,
+            },
+            chatSection: {
+                width: '100%',
+                height: '80vh'
+            },
+            headBG: {
+                backgroundColor: '#e0e0e0'
+            },
+            borderRight500: {
+                borderRight: '1px solid #e0e0e0'
+            },
+            messageArea: {
+                height: '70vh',
+                overflowY: 'auto'
+            }
+        });
     }
 
-
-
-   
-
-
-//   const classes = useStyles();
+    //   const classes = useStyles();
     sendmessage = (to) => {
-    alert(to)
+        alert(to)
     };
 
-    loaduser(){
+    loaduser() {
         axios
-            .post("http://localhost:8000/api/user")
+            .get("http://localhost:8000/api/user")
             .then((response) => {
-                this.setState({ user:response.data});              
+                this.setState({ user: response.data });
                 console.log('working!')
             }).catch((error) => {
                 console.log(error)
             });
     }
-
-     getmessage = () =>{
-        var  token =  localStorage.getItem("token");
+    
+    getmessage = (id) => {
+         this.setState({ to:id}); 
+        var token = localStorage.getItem("token");
         const config = {
             headers: { Authorization: `Bearer ${token}` }
         };
-        axios
-           .post("http://localhost:8000/api/getmessage", config, {
-                user_id: 4,
-             })
+
+        axios .post("http://localhost:8000/api/getmessage", {user_id: id},config)
             .then((response) => {
-               
-               
-                console.log('working!')
+                this.setState({ chat: response.data.data });
+  console.log('working!')
             }).catch((error) => {
                 console.log(error)
             });
-     
+
     };
 
 
@@ -133,53 +126,52 @@ class Chat extends Component {
     // });
 
 
-render(){
-  return  (
+    render() {
+        return (
 
 
-      <div>
+            <div>
 
 
-        <Grid container>
-            <Grid item xs={12} >
-                <Typography variant="h5" className="header-message">Chat</Typography>
-            </Grid>
-        </Grid>
-        <Grid container component={Paper} className={this.state.classes.chatSection}>
-            <Grid item xs={3} className={this.state.classes.borderRight500}>
-                <List>
-                    <ListItem button key="RemySharp">
-                        <ListItemIcon>
-                        <Avatar alt="Remy Sharp" src="https://material-ui.com/static/images/avatar/1.jpg" />
-                        </ListItemIcon>
-                        <ListItemText primary="John Wick"></ListItemText>
-                    </ListItem>
-                </List>
-                <Divider />
-                <Grid item xs={12} style={{padding: '10px'}}>
-                    <TextField id="outlined-basic-email" label="Search" variant="outlined" fullWidth />
+                <Grid container>
+                    <Grid item xs={12} >
+                        <Typography variant="h5" className="header-message">Chat</Typography>
+                    </Grid>
                 </Grid>
-                <Divider />
-                <List>
-{this.state.user.map((item) =>
-    <ListItem button key={item.id}>
-                        <ListItemIcon>
-                            <Avatar alt="Remy Sharp" src="https://material-ui.com/static/images/avatar/1.jpg" />
-                        </ListItemIcon>
-                            <ListItemText primary= {
-                                item.username
-                            }
-                            > {
-                                item.username
-                            }
-                            </ListItemText>
+                <Grid container component={Paper} className={this.state.classes.chatSection}>
+                    <Grid item xs={3} className={this.state.classes.borderRight500}>
+                        <List>
+                            <ListItem button key="RemySharp">
+                                <ListItemIcon>
+                                    <Avatar alt="Remy Sharp" src="https://material-ui.com/static/images/avatar/1.jpg" />
+                                </ListItemIcon>
+                                <ListItemText primary="John Wick"></ListItemText>
+                            </ListItem>
+                        </List>
+                        <Divider />
+                        <Divider />
+                        <List>
+                            {
 
-                        <ListItemText secondary="online" align="right"></ListItemText>
-                    </ListItem>
-)}
+            this.state.user.map((item) =>                                
+                <ListItem button="button" key={item.id} onClick={() => this.getmessage(item.id)}>  
+                                    <ListItemIcon>
+                                        <Avatar alt="Remy Sharp" src="https://material-ui.com/static/images/avatar/1.jpg" />
+                                    </ListItemIcon>
+                                    <ListItemText primary={
+                                        item.username
+                                    }
+                                    > {
+                                            item.username
+                                        }                            
+                                </ListItemText>
 
+                                    <ListItemText secondary="online" align="right"></ListItemText>
+                             </ListItem>
 
-                    {/* <ListItem button key="Alice">
+                            )}
+
+                            {/* <ListItem button key="Alice">
                         <ListItemIcon>
                             <Avatar alt="Alice" src="https://material-ui.com/static/images/avatar/3.jpg" />
                         </ListItemIcon>
@@ -191,53 +183,60 @@ render(){
                         </ListItemIcon>
                         <ListItemText primary="Cindy Baker">Cindy Baker</ListItemText>
                     </ListItem> */}
-                </List>
-            </Grid>
-            <Grid item xs={9}>
-                <List className={this.state.classes.messageArea}>
-                    <ListItem key="1">
-                        <Grid container>
-                            <Grid item xs={12}>
-                                <ListItemText align="right" primary="Hey man, What's up ?"></ListItemText>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <ListItemText align="right" secondary="09:30"></ListItemText>
-                            </Grid>
-                        </Grid>
-                    </ListItem>
-                    <ListItem key="2">
-                        <Grid container>
-                            <Grid item xs={12}>
-                                <ListItemText align="left" primary="Hey, Iam Good! What about you ?"></ListItemText>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <ListItemText align="left" secondary="09:31"></ListItemText>
-                            </Grid>
-                        </Grid>
-                    </ListItem>
-                    <ListItem key="3">
-                        <Grid container>
-                            <Grid item xs={12}>
-                                <ListItemText align="right" primary="Cool. i am good, let's catch up!"></ListItemText>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <ListItemText align="right" secondary="10:30"></ListItemText>
-                            </Grid>
-                        </Grid>
-                    </ListItem>
-                </List>
-                <Divider />
-                <Grid container style={{padding: '20px'}}>
-                    <Grid item xs={11}>
-                        <TextField id="outlined-basic-email" label="Type Something" fullWidth />
+
+                        </List>
                     </Grid>
-                    <Grid xs={1} align="right">
-                        <Fab color="primary" aria-label="add"><SendIcon /></Fab>
+                    <Grid item xs={9}>
+                        <List className={this.state.classes.messageArea}>
+                    {
+                     this.state.chat.map((item) => 
+                     <ListItem key={item.id}>
+                        <Grid container>
+                            <Grid item xs={12}>
+                                <ListItemText align={item.is_my_message ? 'right' :  'left'} primary={item.message}></ListItemText>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <ListItemText align={item.is_my_message ? 'right' :  'left'} secondary="09:30"></ListItemText>
+                            </Grid>
+                        </Grid>
+                    </ListItem>                       
+                       )
+                    }
+                                                                                            
+                            {/* <ListItem key="2">
+                                <Grid container>
+                                    <Grid item xs={12}>
+                                        <ListItemText align="left" primary="Hey, Iam Good! What about you ?"></ListItemText>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <ListItemText align="left" secondary="09:31"></ListItemText>
+                                    </Grid>
+                                </Grid>
+                            </ListItem>
+                            <ListItem key="3">
+                                <Grid container>
+                                    <Grid item xs={12}>
+                                        <ListItemText align="right" primary="Cool. i am good, let's catch up!"></ListItemText>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <ListItemText align="right" secondary="10:30"></ListItemText>
+                                    </Grid>
+                                </Grid>
+                            </ListItem> */}
+                        </List>
+                        <Divider />
+                        <Grid container style={{ padding: '20px' }}>
+                            <Grid item xs={11}>
+                                <TextField id="outlined-basic-email" label="Type Something" fullWidth />
+                            </Grid>
+                            <Grid xs={1} align="right" >
+                                <Fab color="primary" aria-label="add" onClick={()=> this.sendmessage(this.state.to)}><SendIcon /></Fab>
+                            </Grid>
+                        </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
-        </Grid>
-      </div>
-  );
-  }}
+            </div>
+        );
+    }
+}
 export default Chat;
