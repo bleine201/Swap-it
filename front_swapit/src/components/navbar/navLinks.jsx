@@ -49,7 +49,7 @@ export function NavLinks(props) {
           <Link href="#">Products</Link>
         </LinkItem>
         <LinkItem>
-          <Link href="#">Admin</Link>
+          <Link href="/admin">Admin</Link>
         </LinkItem>
         <LinkItem>
           <Link href="#">Impact</Link>
