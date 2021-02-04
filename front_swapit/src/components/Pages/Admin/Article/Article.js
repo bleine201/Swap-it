@@ -1,5 +1,6 @@
 import React from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -10,6 +11,9 @@ import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -61,6 +65,10 @@ const StyledTableCell = withStyles((theme) => ({
     title: {
         textAlign: 'center',
     },
+    back: {
+      marginTop: 50,
+      marginLeft: 100,
+    },
   });
 
 const Article = () => {
@@ -69,40 +77,48 @@ const Article = () => {
 
     return (
         <section className='article-index'>
-            <h1 className={classes.title}>Article</h1>
-            <div className={classes.adTable}>
-            <TableContainer component={Paper}>
-                <Table className={classes.table} aria-label="customized table">
-                <TableHead>
-                    <TableRow>
-                    <StyledTableCell>Article</StyledTableCell>
-                    <StyledTableCell align="right">Name</StyledTableCell>
-                    <StyledTableCell align="right">Article</StyledTableCell>
-                    <StyledTableCell align="center">Action</StyledTableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {rows.map((row) => (
-                    <StyledTableRow key={row.name}>
-                        <StyledTableCell component="th" scope="row">
-                        {row.name}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">{row.calories}</StyledTableCell>
-                        <StyledTableCell align="right">{row.fat}</StyledTableCell>
-                        <StyledTableCell align="center">
-                        <IconButton aria-label="edit" color="primary" className={btn.margin}>
-                                <EditIcon/>
-                            </IconButton>
-                            <IconButton aria-label="delete" color="secondary" className={btn.margin}>
-                                <DeleteIcon/>
-                            </IconButton>
-                        </StyledTableCell>
-                    </StyledTableRow>
+          <div className={classes.back}>
+            <Button variant="contained" color="primary">
+            <ArrowBackIosIcon /> Back
+            </Button>
+          </div>
+          <h1 className={classes.title}>Article</h1>
+          <div className={classes.adTable}>
+          <TableContainer component={Paper}>
+            <Table className={classes.table} aria-label="customized table">
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell>Article</StyledTableCell>
+                  <StyledTableCell align="right">Name</StyledTableCell>
+                  <StyledTableCell align="right">Article</StyledTableCell>
+                  <StyledTableCell align="center">Action</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows.map((row) => (
+                <StyledTableRow key={row.name}>
+                  <StyledTableCell component="th" scope="row">
+                    {row.name}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">{row.calories}</StyledTableCell>
+                  <StyledTableCell align="right">{row.fat}</StyledTableCell>
+                  <StyledTableCell align="center">
+                  <IconButton aria-label="show" className={btn.margin}>
+                      <VisibilityIcon/>
+                    </IconButton>
+                    <IconButton aria-label="edit" color="primary" className={btn.margin}>
+                      <EditIcon/>
+                    </IconButton>
+                    <IconButton aria-label="delete" color="secondary" className={btn.margin}>
+                      <DeleteIcon/>
+                    </IconButton>
+                  </StyledTableCell>
+                </StyledTableRow>
                     ))}
-                </TableBody>
-                </Table>
+              </TableBody>
+              </Table>
             </TableContainer>
-            </div>  
+          </div>  
         </section>
     );
 };
