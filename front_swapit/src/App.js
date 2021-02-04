@@ -9,6 +9,7 @@ import ResetPassword from "./components/Pages/ResetPassword";
 import SecretKey from "./components/Pages/SecretKey";
 import NewPassword from "./components/Pages/NewPassword";
 import ProtectedRoute from "./components/hoc/ProtectedRoute"
+import Home from "./components/Pages/Home";
 
 // src 
       // components
@@ -51,6 +52,7 @@ function App() {
               <Chat/>
             </ProtectedRoute>
             <Route path="/resetpassword" component={ResetPassword} />
+            <Route path="/home" component={Home} />
             <Route path="/newpassword" component={NewPassword} />
             <Route path="/secretkey" component={SecretKey} />
 

@@ -1,4 +1,4 @@
-import { React, useState, useEffect} from 'react';
+import { React, useState, useEffect, Component} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -37,27 +37,79 @@ const useStyles = makeStyles({
   }
 });
 
-const Chat = () => {
+class Chat extends Component {
 
-    const [users, setUsers] = useState("");
-   var token = localStorage.getItem("token");
-    const config = {
-        headers: { Authorization: `Bearer ${token}` }
-    };
 
-  const classes = useStyles();
-   var sendmessage = (to) => {
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: [],
+            chat: [],
+            to: [],
+            classes:''
+
+        }
+        //alert(user.id);
+        // this.handleEve = this.handleEve.bind(this);
+        // this.subscribeToPusher = this.subscribeToPusher.bind(this);
+        // this.loadUsers = this.loadUsers.bind(this);
+        // this.loadChats = this.loadChats.bind(this);
+        // this.getActiveUser = this.getActiveUser.bind(this);
+        this.loaduser();
+        this.state.classes =  makeStyles({
+  table: {
+    minWidth: 650,
+  },
+  chatSection: {
+    width: '100%',
+    height: '80vh'
+  },
+  headBG: {
+      backgroundColor: '#e0e0e0'
+  },
+  borderRight500: {
+      borderRight: '1px solid #e0e0e0'
+  },
+  messageArea: {
+    height: '70vh',
+    overflowY: 'auto'
+  }
+});
+    }
+
+
+
+   
+
+
+//   const classes = useStyles();
+    sendmessage = (to) => {
     alert(to)
     };
 
-    var getmessage = () =>{
+    loaduser(){
+        axios
+            .post("http://localhost:8000/api/user")
+            .then((response) => {
+                this.setState({ user:response.data});              
+                console.log('working!')
+            }).catch((error) => {
+                console.log(error)
+            });
+    }
+
+     getmessage = () =>{
+        var  token =  localStorage.getItem("token");
+        const config = {
+            headers: { Authorization: `Bearer ${token}` }
+        };
         axios
            .post("http://localhost:8000/api/getmessage", config, {
                 user_id: 4,
              })
             .then((response) => {
-                setUsers(response.data)  
-                console.log(users)
+               
+               
                 console.log('working!')
             }).catch((error) => {
                 console.log(error)
@@ -81,21 +133,20 @@ const Chat = () => {
     // });
 
 
+render(){
   return  (
 
 
       <div>
-{
-    getmessage()
-}
+
 
         <Grid container>
             <Grid item xs={12} >
                 <Typography variant="h5" className="header-message">Chat</Typography>
             </Grid>
         </Grid>
-        <Grid container component={Paper} className={classes.chatSection}>
-            <Grid item xs={3} className={classes.borderRight500}>
+        <Grid container component={Paper} className={this.state.classes.chatSection}>
+            <Grid item xs={3} className={this.state.classes.borderRight500}>
                 <List>
                     <ListItem button key="RemySharp">
                         <ListItemIcon>
@@ -110,14 +161,25 @@ const Chat = () => {
                 </Grid>
                 <Divider />
                 <List>
-                    <ListItem button key="RemySharp">
+{this.state.user.map((item) =>
+    <ListItem button key={item.id}>
                         <ListItemIcon>
                             <Avatar alt="Remy Sharp" src="https://material-ui.com/static/images/avatar/1.jpg" />
                         </ListItemIcon>
-                        <ListItemText primary="Remy Sharp">Remy Sharp</ListItemText>
+                            <ListItemText primary= {
+                                item.username
+                            }
+                            > {
+                                item.username
+                            }
+                            </ListItemText>
+
                         <ListItemText secondary="online" align="right"></ListItemText>
                     </ListItem>
-                    <ListItem button key="Alice">
+)}
+
+
+                    {/* <ListItem button key="Alice">
                         <ListItemIcon>
                             <Avatar alt="Alice" src="https://material-ui.com/static/images/avatar/3.jpg" />
                         </ListItemIcon>
@@ -128,11 +190,11 @@ const Chat = () => {
                             <Avatar alt="Cindy Baker" src="https://material-ui.com/static/images/avatar/2.jpg" />
                         </ListItemIcon>
                         <ListItemText primary="Cindy Baker">Cindy Baker</ListItemText>
-                    </ListItem>
+                    </ListItem> */}
                 </List>
             </Grid>
             <Grid item xs={9}>
-                <List className={classes.messageArea}>
+                <List className={this.state.classes.messageArea}>
                     <ListItem key="1">
                         <Grid container>
                             <Grid item xs={12}>
@@ -177,6 +239,5 @@ const Chat = () => {
         </Grid>
       </div>
   );
-}
-
+  }}
 export default Chat;
