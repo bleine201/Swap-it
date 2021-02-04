@@ -13,6 +13,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import Typography from '@material-ui/core/Typography';
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -63,6 +64,7 @@ const StyledTableCell = withStyles((theme) => ({
     },
     title: {
         textAlign: 'center',
+        marginBottom: 40,
     },
     back: {
       marginTop: 50,
@@ -77,11 +79,13 @@ const User = () => {
     return (
         <section className='image-index'>
           <div className={classes.back}>
-            <Button variant="contained" color="primary">
+            <Button href="/admin" variant="contained" color="primary">
             <ArrowBackIosIcon /> Back
             </Button>
             </div>
-            <h1 className={classes.title}>User</h1>
+            <Typography variant="h5" component="h2" className={classes.title}>
+            User
+          </Typography>
             <div className={classes.userTable}>
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="customized table">
@@ -104,10 +108,10 @@ const User = () => {
                         <StyledTableCell align="right">{row.fat}</StyledTableCell>
                         <StyledTableCell align="right">{row.fat}</StyledTableCell>
                         <StyledTableCell align="center">
-                          <IconButton aria-label="show" className={btn.margin}>
+                          <IconButton href="/admin/user/id" aria-label="show" className={btn.margin}>
                             <VisibilityIcon/>
                           </IconButton>
-                          <IconButton aria-label="edit" color="primary" disableRipple className={btn.margin}>
+                          <IconButton href="/admin/user/edit/id" aria-label="edit" color="primary" disableRipple className={btn.margin}>
                             <EditIcon/>
                           </IconButton>
                           <IconButton aria-label="delete" color="secondary" className={btn.margin}>
