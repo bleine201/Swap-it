@@ -66,7 +66,7 @@ const Index = () => {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button href="/admin/ad" size="small">+</Button>
+                <Button href="/admin/article" size="small">+</Button>
               </CardActions>
             </Card>
             <Card className={classes.root}>

@@ -54,7 +54,7 @@ const StyledTableCell = withStyles((theme) => ({
     table: {
       minWidth: 700,
     },
-    userTable: {
+    adTable: {
         marginLeft: 100,
         marginRight: 100,
     },
@@ -63,19 +63,19 @@ const StyledTableCell = withStyles((theme) => ({
     },
   });
 
-const User = () => {
+const Article = () => {
     const classes = useStyles();
     const btn = useButton();
 
     return (
-        <section className='image-index'>
-            <h1 className={classes.title}>User</h1>
-            <div className={classes.userTable}>
+        <section className='ad-index'>
+            <h1 className={classes.title}>Article</h1>
+            <div className={classes.adTable}>
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="customized table">
                 <TableHead>
                     <TableRow>
-                    <StyledTableCell>User</StyledTableCell>
+                    <StyledTableCell>Article</StyledTableCell>
                     <StyledTableCell align="right">Name</StyledTableCell>
                     <StyledTableCell align="right">Ad</StyledTableCell>
                     <StyledTableCell align="center">Action</StyledTableCell>
@@ -107,4 +107,4 @@ const User = () => {
     );
 };
 
-export default User;
+export default Article;

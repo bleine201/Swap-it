@@ -9,7 +9,7 @@ import SecretKey from "./components/Pages/SecretKey";
 import NewPassword from "./components/Pages/NewPassword";
 import Index from "./components/Pages/Admin/Index";
 import User from "./components/Pages/Admin/User/User";
-import Ad from "./components/Pages/Admin/Ad/Ad";
+import Article from "./components/Pages/Admin/Article/Article";
 import Comment from "./components/Pages/Admin/Comment/Comment";
 import Image from "./components/Pages/Admin/Image/Image";
 
@@ -31,8 +31,8 @@ function App() {
             <Route path="/newpassword" component={NewPassword} />
             <Route path="/secretkey" component={SecretKey} />
             <Route path="/admin" exact component={Index} />
+            <Route path="/admin/article" component={Article} />
             <Route path="/admin/user" component={User} />
-            <Route path="/admin/ad" component={Ad} />
             <Route path="/admin/image" component={Image} />
             <Route path="/admin/comment" component={Comment} />
 
