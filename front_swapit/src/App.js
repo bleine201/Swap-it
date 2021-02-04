@@ -30,10 +30,10 @@ function App() {
             <Route path="/newpassword" component={NewPassword} />
             <Route path="/secretkey" component={SecretKey} />
             <Route path="/admin" exact component={Index} />
-            <Route path="/admin/article" component={Article} />
-            <Route path="/admin/user" component={User} />
-            <Route path="/admin/image" component={Image} />
-            <Route path="/admin/comment" component={Comment} />
+            <Route path="/admin/article" exact component={Article} />
+            <Route path="/admin/user" exact component={User} />
+            <Route path="/admin/image" exact component={Image} />
+            <Route path="/admin/comment" exact component={Comment} />
 
           </Switch>
         </div>
