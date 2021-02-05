@@ -17,8 +17,8 @@ class CreateImagesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('path');
-            //$table->foreignId('ads_id');
-            //$table->foreign('ads_id')->references('id')->on('ads');
+            $table->foreignId('ads_id');
+            $table->foreign('ads_id')->references('id')->on('ads');
             $table->timestamps();
             
         });

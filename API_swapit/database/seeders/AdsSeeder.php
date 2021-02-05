@@ -14,28 +14,38 @@ class AdsSeeder extends Seeder
      */
     public function run()
     {
-        //
-        Ad::create([
-            'title' => 'PS5',
-            'description' => 'a Brand new PS5, the lastest Sony product. I brought last Christmas',
-            'category_id' => '2',
-            'condition_id' => '1',
-        ]);
-
-        Ad::create([
-            'title' => 'South Park T-Shirt',
-            'description' => 'A T-shirt of the unfamous cartoon tv-show from Central Comedy',
-            'category_id' => '4',
-            'condition_id' => '3',
-        ]);
-
+        
         Ad::create([
             'title' => 'Childish Gambino: Because the internet',
             'description' => 'The second album of Childish Gambino',
-            'category_id' => '2',
-            'condition_id' => '4',
+            'user_id' => '1',
+            'category_id' => '4',
+            'condition_id' => '2',
+            'exchange_id' => '2',
+            'username' => 'MissParis',
+            'address' => '1 rue Los Angles',
         ]);
 
-       
+        Ad::create([
+            'title' => 'PS5',
+            'description' => 'The last console from Sony',
+            'user_id' => '2',
+            'category_id' => '3',
+            'condition_id' => '3',
+            'exchange_id' => '1',
+            'username' => 'Breathtaking',
+            'address' => '66 rue Matrix',
+        ]);
+
+        Ad::create([
+            'title' => 'IPhone 11',
+            'description' => 'The lastest phone from Appel',
+            'user_id' => '1',
+            'category_id' => '2',
+            'condition_id' => '1',
+            'exchange_id' => '3',
+            'username' => 'MissParis',
+            'address' => '1 rue Los Angles',
+        ]);
     }
 }

@@ -16,18 +16,18 @@ class Product_ConditionSeeder extends Seeder
     public function run()
     {
         Condition::create([
-            'name' => 'New',
+            'state' => 'New',
         ]);
 
         Condition::create([
-            'name' => 'Good',
+            'state' => 'Good',
         ]);
 
         Condition::create([
-            'name' => 'Ok',
+            'state' => 'Ok',
         ]);
         Condition::create([
-            'name' => 'Bad',
+            'state' => 'Bad',
         ]);
     }
 }
