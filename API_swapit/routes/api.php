@@ -3,6 +3,8 @@
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdsController;
+use App\Http\Controllers\ImageController;
+use App\Http\Controllers\LocationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -37,17 +39,6 @@ Route::group(
     }
 );
 
-Route::get("search/{name}",[DeviceController::class,'search']);
-
-
-Route::get('/add-product',[ProductController::class,'addProducts']);
-
-Route::get('/search',[ProductController::class,'search']);
-
-
-Route::get('/autocomplete',[ProductController::class,'autocomplete'])->name('autocomplete');
-
-
 
 //Users
 Route::get('user', [UserController::class , 'index']);
@@ -64,6 +55,22 @@ Route::get('get_all_comment/{id}/{number}', [CommentsController::class , 'getAll
 Route::put('update_one_comment', [CommentsController::class , 'updateOne']);// use "comment_id" to identfy comment as params. Send everything as params, content to send is the same as "create" route.
 Route::delete('delete_one_comment', [CommentsController::class , 'deleteOne']);// use "comment_id" to identfy comment as params
 
+//Get all location
+Route::get('/location', [LocationController::class, 'cities']);
+//Post location
+Route::post('/location', [LocationController::class, 'locations']);
+
+
+//Get all images
+Route::get('/images', [ImageController::class, 'images']);
+//Upload image
+Route::post('/upload', [ ImageController::class, 'upload' ]);
+//Get image by ad id
+Route::get('/images/{id}', [ImageController::class, 'post']);
+//Delete image
+Route::delete('images/{id}', [ImageController::class, 'delete']);
+//Update image
+Route::put('images/{id}', [ImageController::class, 'update']);
 
 // Get all Categories
 Route::get('ads/category', [AdsController::class,'categories']);
@@ -76,14 +83,19 @@ Route::get('ads/condition', [AdsController::class,'conditions']);
 Route::get('ads/condition/{id}', [AdsController::class,'CondById']);
 
 //Ad
-
 Route::get('ads', [AdsController::class,'index']);
 Route::post('ads', [AdsController::class,'store']);
 Route::get('ads/{id}', [AdsController::class,'show']);
 Route::put('ads/{id}', [AdsController::class,'update']);
 Route::delete('ads/{id}', [AdsController::class,'destroy']);
 
+
+//Search ad by title
+Route::get('/search/{name}', [AdsController::class, 'search']);
+
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+
+
 
