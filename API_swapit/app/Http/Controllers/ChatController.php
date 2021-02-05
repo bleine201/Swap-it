@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Events\SendMessage;
 use Illuminate\Http\Request;
 use App\Models\Chat;
 use App\Http\Resources\GetMessageCollection;
-class ChatController extends Controller
+class ChatController extends Controller 
 {
 
 
@@ -18,12 +20,15 @@ class ChatController extends Controller
                 'message'=>$request->message
             ]);
 
-            
+        broadcast(new SendMessage($request->message,$to));
         return response()->json('message sent',200); //
 
     
     }
 
+    public function AuthenticatedUser(){
+        return auth()->id();
+    }
 
     public function getMessage(Request $request){
            

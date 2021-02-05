@@ -30,6 +30,7 @@ Route::group(
 //chat message
 Route::post('/getmessage', [ChatController::class , 'getMessage']);
 Route::post('/sendmessage', [ChatController::class , 'SendMessage']);
+Route::post('/AuthenticatedUser', [ChatController::class , 'AuthenticatedUser']);
 
 
 

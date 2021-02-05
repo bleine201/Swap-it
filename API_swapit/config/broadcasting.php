@@ -32,14 +32,15 @@ return [
 
         'pusher' => [
             'driver' => 'pusher',
-            'key' => env('PUSHER_APP_KEY'),
-            'secret' => env('PUSHER_APP_SECRET'),
-            'app_id' => env('PUSHER_APP_ID'),
+            'key' => '80589642a046a570bbcb',
+            'secret' => '721cd03fbe27d31d1207',
+            'app_id' =>'1150973',
             'options' => [
-                'cluster' => env('PUSHER_APP_CLUSTER'),
-                'useTLS' => true,
+                'cluster' => 'eu',
+                'useTLS' => false,
             ],
         ],
+
 
         'ably' => [
             'driver' => 'ably',
