@@ -110,4 +110,12 @@ class AdsController extends Controller
     {
         return Ad::where('condition_id', $request->id)->get();
     }
+    public function search($name){
+
+        return Ad::where('title',"like","%".$name."%")->get();
+
+   }
+
+
 }
+
