@@ -41,17 +41,17 @@ function App() {
             <Route path="/secretkey" component={SecretKey} />
             <Route path="/admin" exact component={Index} />
             <Route path="/admin/article" exact component={Article} />
-            <Route path="/admin/article/id" component={ArticleId} />
-            <Route path="/admin/article/edit/id" component={ArticleEdit} />
+            <Route path="/admin/article/:id" component={ArticleId} />
+            <Route path="/admin/article/edit/:id" component={ArticleEdit} />
             <Route path="/admin/user" exact component={User} />
-            <Route path="/admin/user/id" component={UserId} />
-            <Route path="/admin/user/edit/id" component={UserEdit} />
+            <Route path="/admin/user/:id" component={UserId} />
+            <Route path="/admin/user/edit/:id" component={UserEdit} />
             <Route path="/admin/image" exact component={Image} />
-            <Route path="/admin/image/id" component={ImageId} />
-            <Route path="/admin/image/edit/id" component={ImageEdit} />
+            <Route path="/admin/image/:id" component={ImageId} />
+            <Route path="/admin/image/edit/:id" component={ImageEdit} />
             <Route path="/admin/comment" exact component={Comment} />
-            <Route path="/admin/comment/id" component={CommentId} />
-            <Route path="/admin/comment/edit/id" component={CommentEdit} />
+            <Route path="/admin/comment/:id" component={CommentId} />
+            <Route path="/admin/comment/edit/:id" component={CommentEdit} />
 
 
           </Switch>

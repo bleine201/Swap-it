@@ -67,17 +67,24 @@ const User = () => {
     const btn = useButton();
 
     const api = `http://localhost:8000/api/user`;
-    const [user, setUser] = useState([]);
+    const [users, setUser] = useState([]);
 
     useEffect(() => {
       axios.get(api)
         .then(response => {
           setUser(response.data)
+          // console.log(users);
           })
         }, [api])
+    
+    if(users.is_admin === 1){
+      users.is_admin = 'Admin';
+    }else {
+      users.is_admin = 'User';
+    }
 
     return (
-        <section className='image-index'>
+        <section className='user-index'>
           <div className={classes.back}>
             <Button href="/admin" variant="contained" color="primary">
             <ArrowBackIosIcon /> Back
@@ -91,27 +98,28 @@ const User = () => {
                 <Table className={classes.table} aria-label="customized table">
                 <TableHead>
                     <TableRow>
-                    <StyledTableCell>Lastname</StyledTableCell>
-                    <StyledTableCell align="right">Name</StyledTableCell>
+                    <StyledTableCell align="right">Lastname</StyledTableCell>
+                    <StyledTableCell align="right">Firstame</StyledTableCell>
                     <StyledTableCell align="right">Username</StyledTableCell>
                     <StyledTableCell align="right">Role</StyledTableCell>
                     <StyledTableCell align="center">Action</StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {/* {rows.map((row) => ( */}
-                    <StyledTableRow key="">
-                        <StyledTableCell component="th" scope="row">
-                        
-                        </StyledTableCell>
-                        <StyledTableCell align="right"></StyledTableCell>
-                        <StyledTableCell align="right"></StyledTableCell>
-                        <StyledTableCell align="right"></StyledTableCell>
+                    {users.map((user) => (
+                    <StyledTableRow key={user.id}>
+                        {/* <StyledTableCell component="th" scope="row">
+                        {user.id}
+                        </StyledTableCell> */}
+                        <StyledTableCell align="right">{user.lastname}</StyledTableCell>
+                        <StyledTableCell align="right">{user.firstname}</StyledTableCell>
+                        <StyledTableCell align="right">{user.username}</StyledTableCell>
+                        <StyledTableCell align="right">{user.is_admin}</StyledTableCell> 
                         <StyledTableCell align="center">
-                          <IconButton href="/admin/user/id" aria-label="show" className={btn.margin}>
+                          <IconButton href={`/admin/user/${user.id}`} aria-label="show" className={btn.margin}>
                             <VisibilityIcon/>
                           </IconButton>
-                          <IconButton href="/admin/user/edit/id" aria-label="edit" color="primary" disableRipple className={btn.margin}>
+                          <IconButton href={`/admin/user/edit/${user.id}`} aria-label="edit" color="primary" disableRipple className={btn.margin}>
                             <EditIcon/>
                           </IconButton>
                           <IconButton aria-label="delete" color="secondary" className={btn.margin}>
@@ -119,7 +127,7 @@ const User = () => {
                           </IconButton>
                         </StyledTableCell>
                     </StyledTableRow>
-                    {/* ))} */}
+                      ))}
                 </TableBody>
                 </Table>
             </TableContainer>
