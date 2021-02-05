@@ -15,6 +15,10 @@ import Fab from '@material-ui/core/Fab';
 import SendIcon from '@material-ui/icons/Send';
 import axios from 'axios';
 
+import Echo from 'laravel-echo';
+window.Pusher = require('pusher-js');
+
+
 
 
 const useStyles = makeStyles({
@@ -46,15 +50,29 @@ class Chat extends Component {
             user: [],
             chat: [],
             to: 0,
-            classes: ''
+            message: '',
+            classes: '',
+            my_id: ''
 
         }
-        //alert(user.id);
-        // this.handleEve = this.handleEve.bind(this);
-        // this.subscribeToPusher = this.subscribeToPusher.bind(this);
-        // this.loadUsers = this.loadUsers.bind(this);
-        // this.loadChats = this.loadChats.bind(this);
-        // this.getActiveUser = this.getActiveUser.bind(this);
+
+        this.Echo = new Echo({
+            broadcaster: 'pusher',
+            key: '80589642a046a570bbcb',
+            cluster: 'eu',
+            forceTLS: false,
+            authEndpoint: "http://localhost:8000/broadcasting/auth",
+            transports: ['websocket', 'polling', 'flashsocket'],
+             auth: {
+                headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+             }
+
+        });
+
+
+        this.getMyId();
+
+        setTimeout(this.listen(), 2000);
         this.loaduser();
         this.state.classes = makeStyles({
             table: {
@@ -77,9 +95,59 @@ class Chat extends Component {
         });
     }
 
-    //   const classes = useStyles();
+
+    getMyId() {
+        var token = localStorage.getItem("token");
+        const config = {
+            headers: { Authorization: `Bearer ${token}` }
+        };
+        axios
+            .post("http://localhost:8000/api/AuthenticatedUser", {}, config)
+            .then((response) => {
+                this.setState({ my_id: response.data });
+
+
+            }).catch((error) => {
+                console.log(error)
+            });
+
+
+    }
+    listen() {
+        this.Echo.private('ChatMessages.' + this.state.my_id).listen('MessageEvent', (e) => {
+            alert('hello')
+            console.log(e)
+        })
+    }
+
     sendmessage = (to) => {
-        alert(to)
+        var input = document.getElementById('outlined-basic-email');
+
+
+        var token = localStorage.getItem("token");
+        const config = {
+            headers: { Authorization: `Bearer ${token}` }
+        };
+        if (to != 0 && this.state.message != "") {
+            axios
+                .post("http://localhost:8000/api/sendmessage", {
+                    to: to,
+                    message: this.state.message,
+                }, config)
+                .then((response) => {
+                    input.value = ""
+                    this.setState(
+                        { message: '' }
+                    )
+                    this.getmessage(to)
+                    console.log('working!')
+                }).catch((error) => {
+                    console.log(error)
+                });
+            console.log('lol')
+        }
+
+
     };
 
     loaduser() {
@@ -92,18 +160,18 @@ class Chat extends Component {
                 console.log(error)
             });
     }
-    
+
     getmessage = (id) => {
-         this.setState({ to:id}); 
+        this.setState({ to: id });
         var token = localStorage.getItem("token");
         const config = {
             headers: { Authorization: `Bearer ${token}` }
         };
 
-        axios .post("http://localhost:8000/api/getmessage", {user_id: id},config)
+        axios.post("http://localhost:8000/api/getmessage", { user_id: id }, config)
             .then((response) => {
                 this.setState({ chat: response.data.data });
-  console.log('working!')
+                console.log('working!')
             }).catch((error) => {
                 console.log(error)
             });
@@ -153,56 +221,45 @@ class Chat extends Component {
                         <List>
                             {
 
-            this.state.user.map((item) =>                                
-                <ListItem button="button" key={item.id} onClick={() => this.getmessage(item.id)}>  
-                                    <ListItemIcon>
-                                        <Avatar alt="Remy Sharp" src="https://material-ui.com/static/images/avatar/1.jpg" />
-                                    </ListItemIcon>
-                                    <ListItemText primary={
-                                        item.username
-                                    }
-                                    > {
+                                this.state.user.map((item) =>
+                                    <ListItem button="button" key={item.id} onClick={() => this.getmessage(item.id)}>
+                                        <ListItemIcon>
+                                            <Avatar alt="Remy Sharp" src="https://material-ui.com/static/images/avatar/1.jpg" />
+                                        </ListItemIcon>
+                                        <ListItemText primary={
                                             item.username
-                                        }                            
-                                </ListItemText>
+                                        }
+                                        > {
+                                                item.username
+                                            }
+                                        </ListItemText>
 
-                                    <ListItemText secondary="online" align="right"></ListItemText>
-                             </ListItem>
+                                        <ListItemText secondary="online" align="right"></ListItemText>
+                                    </ListItem>
 
-                            )}
+                                )}
 
-                            {/* <ListItem button key="Alice">
-                        <ListItemIcon>
-                            <Avatar alt="Alice" src="https://material-ui.com/static/images/avatar/3.jpg" />
-                        </ListItemIcon>
-                        <ListItemText primary="Alice">Alice</ListItemText>
-                    </ListItem>
-                    <ListItem button key="CindyBaker">
-                        <ListItemIcon>
-                            <Avatar alt="Cindy Baker" src="https://material-ui.com/static/images/avatar/2.jpg" />
-                        </ListItemIcon>
-                        <ListItemText primary="Cindy Baker">Cindy Baker</ListItemText>
-                    </ListItem> */}
+
 
                         </List>
                     </Grid>
                     <Grid item xs={9}>
                         <List className={this.state.classes.messageArea}>
-                    {
-                     this.state.chat.map((item) => 
-                     <ListItem key={item.id}>
-                        <Grid container>
-                            <Grid item xs={12}>
-                                <ListItemText align={item.is_my_message ? 'right' :  'left'} primary={item.message}></ListItemText>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <ListItemText align={item.is_my_message ? 'right' :  'left'} secondary="09:30"></ListItemText>
-                            </Grid>
-                        </Grid>
-                    </ListItem>                       
-                       )
-                    }
-                                                                                            
+                            {
+                                this.state.chat.map((item) =>
+                                    <ListItem key={item.id}>
+                                        <Grid container>
+                                            <Grid item xs={12}>
+                                                <ListItemText align={item.is_my_message ? 'right' : 'left'} primary={item.message}></ListItemText>
+                                            </Grid>
+                                            <Grid item xs={12}>
+                                                <ListItemText align={item.is_my_message ? 'right' : 'left'} secondary="09:30"></ListItemText>
+                                            </Grid>
+                                        </Grid>
+                                    </ListItem>
+                                )
+                            }
+
                             {/* <ListItem key="2">
                                 <Grid container>
                                     <Grid item xs={12}>
@@ -227,10 +284,17 @@ class Chat extends Component {
                         <Divider />
                         <Grid container style={{ padding: '20px' }}>
                             <Grid item xs={11}>
-                                <TextField id="outlined-basic-email" label="Type Something" fullWidth />
+                                < TextField id="outlined-basic-email" label="Type Something"
+                                    fullWidth onChange={
+
+                                        (event) => this.setState(
+                                            { message: event.target.value }
+                                        )
+                                    } />
+
                             </Grid>
                             <Grid xs={1} align="right" >
-                                <Fab color="primary" aria-label="add" onClick={()=> this.sendmessage(this.state.to)}><SendIcon /></Fab>
+                                <Fab color="primary" aria-label="add" onClick={() => this.sendmessage(this.state.to)}><SendIcon /></Fab>
                             </Grid>
                         </Grid>
                     </Grid>

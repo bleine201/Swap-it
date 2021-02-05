@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -20,7 +20,7 @@ export default function NewPassword(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [code, setCode] = useState("");
-  
+
 
   var newpassword = () => {
 
@@ -29,13 +29,13 @@ export default function NewPassword(props) {
       .post("http://localhost:8000/api/auth/changePassword", {
         email: email,
         password: password,
-        code:code,
-        
+        code: code,
+
 
       })
       .then((response) => {
-       console.log(response)
-       props.history.push('/login');
+        console.log(response)
+        props.history.push('/login');
 
       }).catch((error) => {
         console.log(error.response.data)
@@ -54,7 +54,7 @@ export default function NewPassword(props) {
         </Typography>
         <div className={classes.form} noValidate>
           <Grid container spacing={2}>
-          <Grid item xs={12}>
+            <Grid item xs={12}>
               <TextField
                 variant="outlined"
                 required
@@ -98,7 +98,7 @@ export default function NewPassword(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={()=> newpassword()}
+            onClick={() => newpassword()}
           >
             Submit
           </Button>

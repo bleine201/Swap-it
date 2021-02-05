@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,33 +13,33 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
-import {Redirect} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 
 
 export default function ResetPassword(props) {
-  
+
   const classes = useStyles();
   const [email, setEmail] = useState("");
 
-  
+
 
   var Resetpassword = () => {
-                
+
 
     axios
       .post("http://localhost:8000/api/auth/resetPassword", {
         email: email,
 
-        
+
 
       })
       .then((response) => {
         props.history.push('/newpassword');
-          console.log('working!')
-      
-       
-    
+        console.log('working!')
+
+
+
 
       }).catch((error) => {
         console.log(error)
@@ -70,14 +70,14 @@ export default function ResetPassword(props) {
             autoFocus
             onChange={(event) => setEmail(event.target.value)}
           />
-          
+
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={()=> Resetpassword()}
+            onClick={() => Resetpassword()}
           >
             Submit
           </Button>
