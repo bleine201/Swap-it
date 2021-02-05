@@ -62,7 +62,7 @@ const NewComment = (props) => {
     var val = value;//value to send for the rating
     return (
         <div>
-            <form class={classes.form} id="commentForm">
+            <form className={classes.form} id="commentForm">
                 <input placeholder="Titre du commentaire" className={classes.input} name="title"></input>
                 <input value={val} type="hidden" name="ratings"></input>
                 <input value={props.comment_author} type="hidden" name="comment_author"></input>
