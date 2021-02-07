@@ -63,6 +63,8 @@ Route::post('/location', [LocationController::class, 'locations']);
 
 //Get all images
 Route::get('/images', [ImageController::class, 'images']);
+//Image URL
+Route::get('image/{filename}', [ImageController::class,'getPubliclyStorgeFile']);
 //Upload image
 Route::post('/upload', [ ImageController::class, 'upload' ]);
 //Get image by ad id

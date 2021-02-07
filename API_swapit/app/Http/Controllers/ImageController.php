@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Ad;
 use App\Models\Image;
+use File;
 
 class ImageController extends Controller
 {
@@ -57,5 +58,20 @@ class ImageController extends Controller
     public function delete($id)
     {
         return Image::destroy($id);
+    }
+
+    public function getPubliclyStorgeFile($filename)
+
+    {
+        $path = storage_path('public/storage/uploads'. $filename);
+        if (!File::exists($path)) {
+            abort(404);
+        }
+        $file = File::get($path);
+        $type = File::mimeType($path);
+        $response = Response::make($file, 200);
+        $response->header("Content-Type", $type);
+        return $response;
+
     }
 }

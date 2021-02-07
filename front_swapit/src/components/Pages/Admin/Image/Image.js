@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Table from '@material-ui/core/Table';
@@ -14,6 +14,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Typography from '@material-ui/core/Typography';
+import axios from 'axios';
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -42,18 +43,6 @@ const StyledTableCell = withStyles((theme) => ({
     },
   }));
   
-  function createData(name, calories, fat) {
-    return { name, calories, fat };
-  }
-  
-  const rows = [
-    createData('Frozen', 159, 6.0, 24, 4.0),
-    createData('Ice', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-  ];
-  
   const useStyles = makeStyles({
     table: {
       minWidth: 700,
@@ -75,6 +64,24 @@ const StyledTableCell = withStyles((theme) => ({
 const Image = () => {
     const classes = useStyles();
     const btn = useButton();
+
+
+    const api = `http://localhost:8000/api/images`;
+    const [images, setImage] = useState([]);
+
+    useEffect(() => {
+      axios.get(api)
+        .then(response => {
+          setImage(response.data)
+          })
+        }, [api])
+
+        const onDelete = (id) => {
+          axios.delete(`http://localhost:8000/api/images/${id}`).then(res => {
+            const del = images.filter(image => id !== image.id);
+            setImage(del);
+          })
+        }
 
     return (
         <section className='image-index'>
@@ -98,21 +105,26 @@ const Image = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
-                    <StyledTableRow key={row.name}>
+                    {images.map((image) => (
+                    <StyledTableRow>
                         <StyledTableCell component="th" scope="row">
-                        {row.name}
+                          <img src={`http://localhost:8000/api/image/${image.name}`} alt={image.name}/>
                         </StyledTableCell>
-                        <StyledTableCell align="right">{row.calories}</StyledTableCell>
-                        <StyledTableCell align="right">{row.fat}</StyledTableCell>
+                        <StyledTableCell align="right">{image.name}</StyledTableCell>
+                        <StyledTableCell align="right">{}</StyledTableCell>
                         <StyledTableCell align="center">
-                          <IconButton href="/admin/image/id" aria-label="show" className={btn.margin}>
+                          <IconButton href={`/admin/image/${image.id}`} aria-label="show" className={btn.margin}>
                             <VisibilityIcon/>
                           </IconButton>
-                          <IconButton href="/admin/image/edit/id" aria-label="edit" color="primary" className={btn.margin}>
+                          <IconButton href={`/admin/image/edit/${image.id}`} aria-label="edit" color="primary" className={btn.margin}>
                             <EditIcon/>
                           </IconButton>
-                          <IconButton aria-label="delete" color="secondary" className={btn.margin}>
+                          <IconButton 
+                            aria-label="delete" 
+                            color="secondary" 
+                            className={btn.margin}
+                            onClick={() => onDelete(image.id)}
+                            >
                             <DeleteIcon/>
                           </IconButton>
                         </StyledTableCell>

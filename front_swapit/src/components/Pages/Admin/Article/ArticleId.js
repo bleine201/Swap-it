@@ -8,6 +8,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 const useStyles = makeStyles({
     root: {
@@ -17,7 +18,11 @@ const useStyles = makeStyles({
     article: {
         display: 'flex',
         justifyContent: 'center',
-    }
+    },
+    back: {
+        marginTop: 50,
+        marginLeft: 100,
+      },
 });
 
 const ArticleId = (match) => {
@@ -36,31 +41,38 @@ const ArticleId = (match) => {
     }, [api])
 
     return (
-        <section className={classes.article}>
-            <Card className={classes.root}>
-                <CardActionArea>
-                    <CardMedia
-                        component="img"
-                        alt="Contemplative Reptile"
-                        height="140"
-                        image="/static/images/cards/contemplative-reptile.jpg"
-                        title="Contemplative Reptile"
-                    />
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2">
-                            {article.title}
+        <section>
+            <div className={classes.back}>
+                <Button href="/admin/user" variant="contained" color="primary">
+                <ArrowBackIosIcon /> Back
+                </Button>
+            </div>
+            <div className={classes.article}>
+                <Card className={classes.root}>
+                    <CardActionArea>
+                        <CardMedia
+                            component="img"
+                            alt="Contemplative Reptile"
+                            height="140"
+                            image="/static/images/cards/contemplative-reptile.jpg"
+                            title="Contemplative Reptile"
+                        />
+                        <CardContent>
+                            <Typography gutterBottom variant="h5" component="h2">
+                                {article.title}
+                            </Typography>
+                            <Typography variant="body2" color="textSecondary" component="p">
+                                {article.description}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            {article.description}
-                    </Typography>
-                    </CardContent>
-                </CardActionArea>
-                <CardActions>
-                    <Button size="small" color="primary">
-                        {article.username}
-                    </Button>
-                </CardActions>
-            </Card>
+                        </CardContent>
+                    </CardActionArea>
+                    <CardActions>
+                        <Button size="small" color="primary">
+                            {article.username}
+                        </Button>
+                    </CardActions>
+                </Card>
+            </div>
         </section>
     );
 };
