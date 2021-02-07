@@ -75,7 +75,13 @@ const Article = () => {
           console.log(articles);
           })
         }, [api])
-
+      
+    const onDelete = (id) => {
+      axios.delete(`http://127.0.0.1:8000/api/ads/${id}`).then(res => {
+        const del = articles.filter(article => id !== article.id);
+        setArticle(del);
+      })
+    }
     return (
         <section className='article-index'>
           <div className={classes.back}>
@@ -113,7 +119,12 @@ const Article = () => {
                     <IconButton href={`/admin/article/edit/${article.id}`} aria-label="edit" color="primary" className={btn.margin}>
                       <EditIcon/>
                     </IconButton>
-                    <IconButton aria-label="delete" color="secondary" className={btn.margin}>
+                    <IconButton 
+                      aria-label="delete" 
+                      color="secondary" 
+                      className={btn.margin}
+                      onClick={() => onDelete(article.id)}
+                      >
                       <DeleteIcon/>
                     </IconButton>
                   </StyledTableCell>

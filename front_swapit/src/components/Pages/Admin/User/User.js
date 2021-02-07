@@ -77,10 +77,13 @@ const User = () => {
           })
         }, [api])
     
-    if(users.is_admin === 1){
-      users.is_admin = 'Admin';
-    }else {
-      users.is_admin = 'User';
+  
+
+    const onDelete = (id) => {
+      axios.delete(`http://localhost:8000/api/user/${id}`).then(res => {
+        const del = users.filter(user => id !== user.id);
+        setUser(del);
+      })
     }
 
     return (
@@ -122,7 +125,12 @@ const User = () => {
                           <IconButton href={`/admin/user/edit/${user.id}`} aria-label="edit" color="primary" disableRipple className={btn.margin}>
                             <EditIcon/>
                           </IconButton>
-                          <IconButton aria-label="delete" color="secondary" className={btn.margin}>
+                          <IconButton 
+                            aria-label="delete" 
+                            color="secondary" 
+                            className={btn.margin}
+                            onClick={() => onDelete(user.id)}
+                            >
                             <DeleteIcon/>
                           </IconButton>
                         </StyledTableCell>

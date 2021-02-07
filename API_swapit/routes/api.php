@@ -83,7 +83,7 @@ Route::get('ads/condition', [AdsController::class,'conditions']);
 Route::get('ads/condition/{id}', [AdsController::class,'CondById']);
 
 //Get all ads without pagination
-Route::get('ads', [AdsController::class,'adsAdmin']);
+Route::get('ads', [AdsController::class,'index']);
 
 //Ad
 Route::get('ads-admin', [AdsController::class,'adsAdmin']);
