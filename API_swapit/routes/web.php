@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserSettings;
+use App\Http\Controllers\ChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,5 +18,5 @@ use App\Http\Controllers\UserSettings;
 Route::get('/', function () {
     return rand(10000,99999);
 });
-
+Route::middleware('cors')->post('/auth/chat',[ChatController::class,'auth']);
 Route::get('/callback/{token}/{email}',[UserSettings::class,'activeEmail']);

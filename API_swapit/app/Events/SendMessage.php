@@ -22,11 +22,13 @@ class SendMessage implements ShouldBroadcast
 
     public $message;
     public $to;
+    public $from;
 
-    public function __construct($message,$to)
+    public function __construct($message,$to,$from)
     {
         $this->to = $to;
         $this->message = $message;
+        $this->from = $from;
 
     }
 
@@ -35,8 +37,17 @@ class SendMessage implements ShouldBroadcast
      *
      * @return \Illuminate\Broadcasting\Channel|array
      */
+
+
+//     public function broadcastAs()
+// {
+//     return 'ChatMessages.' . $this->to;
+// }
+
+
     public function broadcastOn()
     {
-        return new PrivateChannel('ChatMessages.' . $this->to);
+       return  new Channel('ChatMessages.' .  $this->to);
+        // return new PrivateChannel('ChatMessages.' . $this->to);
     }
 }
