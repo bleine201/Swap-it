@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Table from '@material-ui/core/Table';
@@ -14,6 +14,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Typography from '@material-ui/core/Typography';
+import axios from 'axios';
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -42,18 +43,6 @@ const StyledTableCell = withStyles((theme) => ({
     },
   }));
   
-  function createData(name, calories, fat) {
-    return { name, calories, fat };
-  }
-  
-  const rows = [
-    createData('Frozen', 159, 6.0, 24, 4.0),
-    createData('Ice', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-  ];
-  
   const useStyles = makeStyles({
     table: {
       minWidth: 700,
@@ -76,6 +65,17 @@ const Article = () => {
     const classes = useStyles();
     const btn = useButton();
 
+    const api = `http://127.0.0.1:8000/api/ads-admin`;
+    const [articles, setArticle] = useState([]);
+
+    useEffect(() => {
+      axios.get(api)
+        .then(response => {
+          setArticle(response.data)
+          console.log(articles);
+          })
+        }, [api])
+
     return (
         <section className='article-index'>
           <div className={classes.back}>
@@ -91,27 +91,26 @@ const Article = () => {
             <Table className={classes.table} aria-label="customized table">
               <TableHead>
                 <TableRow>
-                  <StyledTableCell>Article</StyledTableCell>
-                  <StyledTableCell align="right">Id</StyledTableCell>
-                  <StyledTableCell align="right">Article</StyledTableCell>
+                  <StyledTableCell>Id</StyledTableCell>
+                  <StyledTableCell align="center">Article</StyledTableCell>
                   <StyledTableCell align="right">Seller</StyledTableCell>
                   <StyledTableCell align="center">Action</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row) => (
-                <StyledTableRow key={row.name}>
+                {articles.map((article) => (
+                <StyledTableRow key=''>
                   <StyledTableCell component="th" scope="row">
-                    {row.name}
+                    {article.id}
+
                   </StyledTableCell>
-                  <StyledTableCell align="right">{row.calories}</StyledTableCell>
-                  <StyledTableCell align="right">{row.fat}</StyledTableCell>
-                  <StyledTableCell align="right">{row.fat}</StyledTableCell>
+                  <StyledTableCell align="center">{article.title}</StyledTableCell>
+                  <StyledTableCell align="right">{article.username}</StyledTableCell>
                   <StyledTableCell align="center">
-                  <IconButton href="/admin/article/id" aria-label="show" className={btn.margin}>
+                  <IconButton href={`/admin/article/${article.id}`} aria-label="show" className={btn.margin}>
                       <VisibilityIcon/>
                     </IconButton>
-                    <IconButton href="/admin/article/edit/id" aria-label="edit" color="primary" className={btn.margin}>
+                    <IconButton href={`/admin/article/edit/${article.id}`} aria-label="edit" color="primary" className={btn.margin}>
                       <EditIcon/>
                     </IconButton>
                     <IconButton aria-label="delete" color="secondary" className={btn.margin}>
@@ -119,7 +118,7 @@ const Article = () => {
                     </IconButton>
                   </StyledTableCell>
                 </StyledTableRow>
-                    ))}
+                     ))}
               </TableBody>
               </Table>
             </TableContainer>
