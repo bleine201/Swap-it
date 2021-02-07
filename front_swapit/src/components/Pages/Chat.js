@@ -16,7 +16,7 @@ import SendIcon from '@material-ui/icons/Send';
 import axios from 'axios';
 
 import Echo from 'laravel-echo';
-window.Pusher = require('pusher-js');
+var Pusher = require('pusher-js');
 
 
 
@@ -55,25 +55,35 @@ class Chat extends Component {
             my_id: ''
 
         }
-
-        this.Echo = new Echo({
-            broadcaster: 'pusher',
-            key: '80589642a046a570bbcb',
+        this.Pusher = new Pusher('80589642a046a570bbcb', {
+         authEndpoint: "http://localhost:8000/auth/chat",
             cluster: 'eu',
-            forceTLS: false,
-            authEndpoint: "http://localhost:8000/broadcasting/auth",
-            transports: ['websocket', 'polling', 'flashsocket'],
-             auth: {
-                headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
-             }
+        auth: {
+            headers:  { Authorization: `Bearer ${localStorage.getItem("token")}`
+         }
+        }
+         });
+        
+        // this.Echo = new Echo({
+        //     broadcaster: 'pusher',
+        //     key: '80589642a046a570bbcb',
+        //     cluster: 'eu',
+        //     forceTLS: false,
+        //     disableStats: true,
+        //     authEndpoint: "http://localhost:8000/auth/chat",
+        //     transports: ['websocket', 'polling', 'flashsocket'],
+        //      auth: {
+        //         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+        //      }
 
-        });
+        // });
 
 
         this.getMyId();
 
-        setTimeout(this.listen(), 2000);
+       
         this.loaduser();
+
         this.state.classes = makeStyles({
             table: {
                 minWidth: 650,
@@ -104,20 +114,34 @@ class Chat extends Component {
         axios
             .post("http://localhost:8000/api/AuthenticatedUser", {}, config)
             .then((response) => {
-                this.setState({ my_id: response.data });
-
-
+                     console.log(response)
+                    this.setState({ my_id: response.data });
+                    this.listen(response.data)
             }).catch((error) => {
                 console.log(error)
             });
 
 
     }
-    listen() {
-        this.Echo.private('ChatMessages.' + this.state.my_id).listen('MessageEvent', (e) => {
-            alert('hello')
-            console.log(e)
-        })
+    listen(id) {
+       
+        var channel1 = this.Pusher.subscribe('ChatMessages.' + id);
+            var callback = function (data) {
+                // add comment into page
+                alert('hel')
+            };
+    
+            
+           channel1.bind('App\\Events\\SendMessage', (data) => {
+              
+               this.getmessage(data.from)
+            });
+
+
+        // this.Echo.private('ChatMessages.' + id).listen('MessageEvent', (e) => {
+        //     alert('hello')
+        //     console.log(e)
+        // })
     }
 
     sendmessage = (to) => {
