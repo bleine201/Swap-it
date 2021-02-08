@@ -44,7 +44,7 @@ const ImageId = (match) => {
     return (
         <section className='image-id'>
              <div className={classes.back}>
-                <Button href="/admin/user" variant="contained" color="primary">
+                <Button href="/admin/image" variant="contained" color="primary">
                 <ArrowBackIosIcon /> Back
                 </Button>
             </div>

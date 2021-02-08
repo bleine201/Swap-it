@@ -27,7 +27,7 @@ const useForm = makeStyles((theme) => ({
   }));
 
 const useStyles = makeStyles({
-    user: {
+    article: {
         display: 'flex',
         justifyContent: 'center',  
         alignItems: 'center'
@@ -108,7 +108,7 @@ const ArticleEdit = (match) => {
                 </Button>
             </div>
             <form className={form.root} noValidate autoComplete="off" onSubmit={onUpdate}>
-                <div className={classes.user}>
+                <div className={classes.article}>
                     <TextField
                     id="title"
                     label="Title"

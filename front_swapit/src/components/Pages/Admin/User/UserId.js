@@ -10,6 +10,8 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const useAvatar = makeStyles((theme) => ({
     
@@ -20,6 +22,15 @@ const useAvatar = makeStyles((theme) => ({
     marginLeft: 30,
   },
 }));
+
+const useButton = makeStyles((theme) => ({
+    margin: {
+      margin: theme.spacing(1),
+    },
+    extendedIcon: {
+      marginRight: theme.spacing(1),
+    },
+  }));
 
 const useStyles = makeStyles({
     userid: {
@@ -42,10 +53,13 @@ const useStyles = makeStyles({
 const UserId = ({match}) => {
     const picture = useAvatar();
     const classes = useStyles();
+    const btn = useButton();
 
-    const id = match.params.id
-    const api = `http://localhost:8000/api/user/${id}`;
-    const [user, setUser] = useState([])
+    const idUser = match.params.id
+    const api = `http://localhost:8000/api/user/${idUser}`;
+    const commentAPI = `http://localhost:8000/api/allcomment/${idUser}`;
+    const [user, setUser] = useState([]);
+    const [comments, setComment] = useState([]);
 
     useEffect(() => {
       axios.get(api)
@@ -54,6 +68,22 @@ const UserId = ({match}) => {
           // console.log(users);
           })
         }, [api])
+
+    useEffect(() => {
+      axios.get(commentAPI)
+        .then(response => {
+          setComment(response.data)
+          // console.log(users);
+          })
+        }, [commentAPI])
+
+    
+    const onDelete = (id) => {
+      axios.delete(`http://localhost:8000/api/delete_one_comment/${id}`).then(res => {
+        const del = comments.filter(comment => id !== comment.id);
+        setUser(del);
+      })
+    }
 
     return (
         <setion >
@@ -85,7 +115,26 @@ const UserId = ({match}) => {
                     </CardContent>
                 </CardActionArea>
             </Card>
-            </div>       
+            </div> 
+            <div>
+                <h1>Comment Section</h1>
+            {comments.map((comment => (
+                <div> 
+                <h3>{comment.title} <span>{comment.ratings}</span></h3>
+                <p>{comment.content}</p>
+                <IconButton 
+                    aria-label="delete" 
+                    color="secondary" 
+                    className={btn.margin}
+                    onClick={() => onDelete(comment.id)}
+                            >
+                    <DeleteIcon/>
+                    </IconButton>
+
+                </div>
+            )))}
+            
+            </div>      
         </setion>
     );
 };
