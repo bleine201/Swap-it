@@ -54,6 +54,8 @@ class AuthController extends Controller
             $request->all(),
             [   
                 'username'     => 'required|string|between:2,100',
+                'firstname'=>'required|string|between:2,100',
+                'lastname'=> 'required|string|between:2,100',
                 'email'    => 'required|email|unique:users',
                 'password' => 'required|confirmed|min:6',
             ]
