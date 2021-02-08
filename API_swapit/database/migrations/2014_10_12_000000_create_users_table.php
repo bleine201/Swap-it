@@ -26,10 +26,16 @@ class CreateUsersTable extends Migration
             $table->string('postcode')->nullable();
             $table->string('city')->nullable();
             $table->float('avg_ratings')->nullable();
+
             $table->integer('is_admin')->default(0);
-            //$table->foreign('ads_id')->references('id')->on('ads')->onUpdate('cascade')->onDelete('cascade'); 
+            // $table->string('location');
+            // $table->foreign('location')->references('city')->on('locations');
+
+            // $table->foreignId('ad_id')->constrained('ads');
+
             $table->rememberToken();
             $table->timestamps();
+            // $table->timestamp('email_verified_at')->nullable();
         });
     }
 

@@ -5,16 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Comments extends Model
+class Image extends Model
 {
     use HasFactory;
 
-    protected $table = 'Comments';
     protected $fillable = [
-        'comment_author',
-        'comment_target',
-        'content',
-        'ratings',
-        'title'
+        'name', 'path'
     ];
 }

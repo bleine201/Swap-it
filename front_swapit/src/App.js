@@ -10,23 +10,12 @@ import SecretKey from "./components/Pages/SecretKey";
 import NewPassword from "./components/Pages/NewPassword";
 import ProtectedRoute from "./components/hoc/ProtectedRoute"
 import Home from "./components/Pages/Home";
+import Index from "./components/Pages/Admin/Index";
+import User from "./components/Pages/Admin/User/User";
+import Article from "./components/Pages/Admin/Article/Article";
+import Comment from "./components/Pages/Admin/Comment/Comment";
+import Image from "./components/Pages/Admin/Image/Image";
 
-// src 
-      // components
-          // SignIn (folder)
-            // styles.js
-            // index.js
-            // components
-                //UserInput
-                    //index.js
-                    //styles.js
-            //..
-      // pages (every single route has a page)
-      // hoc
-      // routes
-      // business
-      // redux
-      // helpers
 
 function App() { 
 
@@ -55,6 +44,11 @@ function App() {
             <Route path="/home" component={Home} />
             <Route path="/newpassword" component={NewPassword} />
             <Route path="/secretkey" component={SecretKey} />
+            <Route path="/admin" exact component={Index} />
+            <Route path="/admin/article" component={Article} />
+            <Route path="/admin/user" component={User} />
+            <Route path="/admin/image" component={Image} />
+            <Route path="/admin/comment" component={Comment} />
 
           </Switch>
         </div>

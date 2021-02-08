@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Ad;
+use App\Models\Category;
+use App\Models\Condition;
 
 class AdsController extends Controller
 {
@@ -14,7 +16,7 @@ class AdsController extends Controller
      */
     public function index()
     {
-        return Ad::all();
+        return Ad::all()->paginate(5);
     }
 
     /**
@@ -63,4 +65,57 @@ class AdsController extends Controller
     {
         return Ad::destroy($id);
     }
+
+   /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function categories(Request $request) {
+        return Category::all();
+    }
+    //FILTER SECTION
+
+        //CATEGORY
+
+     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function CatById(Request $request)
+    {
+        return Ad::where('category_id', $request->id)->get();
+    }
+
+        //CONDITION
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function conditions(Request $request) {
+        return Condition::all();
+    }
+
+     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function CondById(Request $request)
+    {
+        return Ad::where('condition_id', $request->id)->get();
+    }
+    public function search($name){
+
+        return Ad::where('title',"like","%".$name."%")->get();
+
+   }
+
+
 }
+
