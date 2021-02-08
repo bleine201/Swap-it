@@ -1,4 +1,4 @@
-import {useEffect , useState } from "react";
+import { useEffect, useState } from "react";
 import { Navbar } from "./components/navbar";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -17,16 +17,16 @@ import Comment from "./components/Pages/Admin/Comment/Comment";
 import Image from "./components/Pages/Admin/Image/Image";
 
 
-function App() { 
+function App() {
 
-  const [isLoggedIn,setIsLoggedIn] = useState(true);
-  
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     setIsLoggedIn(Boolean(token))
-    
+
   }, []);
-  
+
   return (
     <>
 
@@ -38,22 +38,38 @@ function App() {
             <Route path="/login" component={SignIn} />
             <Route path="/register" component={SignUp} />
             <ProtectedRoute isLoggedIn={isLoggedIn} path="/chat">
-              <Chat/>
+              <Chat />
             </ProtectedRoute>
-            <Route path="/resetpassword" component={ResetPassword} />
+            <ProtectedRoute isLoggedIn={isLoggedIn} path="/resetpassword">
+              <ResetPassword />
+            </ProtectedRoute>
             <Route path="/home" component={Home} />
-            <Route path="/newpassword" component={NewPassword} />
-            <Route path="/secretkey" component={SecretKey} />
-            <Route path="/admin" exact component={Index} />
-            <Route path="/admin/article" component={Article} />
-            <Route path="/admin/user" component={User} />
-            <Route path="/admin/image" component={Image} />
-            <Route path="/admin/comment" component={Comment} />
-
+            <ProtectedRoute isLoggedIn={isLoggedIn} path="/newpassword">
+              <NewPassword />
+            </ProtectedRoute>
+            <ProtectedRoute isLoggedIn={isLoggedIn} path="/secretkey">
+              <SecretKey />
+            </ProtectedRoute>
+            <ProtectedRoute isLoggedIn={isLoggedIn} path="/admin">
+              <Index />
+            </ProtectedRoute>
+            <ProtectedRoute isLoggedIn={isLoggedIn} path="/admin/article">
+              <Article />
+            </ProtectedRoute>
+            <ProtectedRoute isLoggedIn={isLoggedIn} path="/admin/user">
+              <User />
+            </ProtectedRoute>
+            <ProtectedRoute isLoggedIn={isLoggedIn} path="/admin/image">
+              <Image />
+            </ProtectedRoute>
+            <ProtectedRoute isLoggedIn={isLoggedIn} path="/admin/comment">
+              <Comment />
+            </ProtectedRoute>
           </Switch>
         </div>
       </Router>
     </>
-  )}
+  )
+}
 
-  export default App;
+export default App;
