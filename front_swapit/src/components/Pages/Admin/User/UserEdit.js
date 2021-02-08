@@ -36,6 +36,9 @@ const useStyles = makeStyles({
         marginTop: 50,
         marginLeft: 100,
       },
+    add: {
+      marginTop:30,
+    }
   });
 
 const UserEdit = (match) => {
@@ -43,20 +46,21 @@ const UserEdit = (match) => {
     const form = useForm();
     const classes = useStyles();
 
-    const api = `http://localhost:8000/api/user`;
+    const id = match.match.params.id
+
+    const api = `http://localhost:8000/api/user/${id}`;
 
     const [admin, setAdmin] = useState('');
     const [user, setUser] = useState([]);
 
     const onUpdate = async () => {
-        const id = match.match.params.id
-        axios
-          .put(`http://localhost:8000/api/user/${id}`, {
-            admin: admin,
-          })
-          .then((response) => {
-            console.log(response);
-          });
+      axios({
+        method: 'put',
+        url: api,
+        data: {
+          is_admin: admin,
+        },
+      });
       };
 
     useEffect(() => {
@@ -135,9 +139,11 @@ const UserEdit = (match) => {
                         <MenuItem value='0'>User</MenuItem>
                         <MenuItem value='1'>Admin</MenuItem>
                         </Select>
+                        <Button variant="contained" color="primary" className={classes.add} type='submit'>
+                          Add
+                        </Button>
                     </FormControl>
                 </div>
-                <input type="submit" value="Add" className="smb" />
             </form>
         </section>
     );

@@ -61,6 +61,11 @@ class ImageController extends Controller
         return Ad::where('images_id', $request->id)->get();
     }
 
+    public function picture($id)
+    {
+        return Image::find($id);
+    }
+
     //Update images
     public function update(Request $request, $id)
     {
@@ -75,18 +80,4 @@ class ImageController extends Controller
         return Image::destroy($id);
     }
 
-    public function getPubliclyStorgeFile($filename)
-
-    {
-        $path = storage_path('public/storage/uploads'. $filename);
-        if (!File::exists($path)) {
-            abort(404);
-        }
-        $file = File::get($path);
-        $type = File::mimeType($path);
-        $response = Response::make($file, 200);
-        $response->header("Content-Type", $type);
-        return $response;
-
-    }
 }

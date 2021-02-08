@@ -69,6 +69,7 @@ Route::get('image/{filename}', [ImageController::class,'getPubliclyStorgeFile'])
 Route::post('/upload', [ ImageController::class, 'upload' ]);
 //Get image by ad id
 Route::get('/images/{id}', [ImageController::class, 'post']);
+Route::get('/picture/{id}', [ImageController::class, 'picture']);
 //Delete image
 Route::delete('images/{id}', [ImageController::class, 'delete']);
 //Update image
