@@ -59,6 +59,9 @@ const StyledTableCell = withStyles((theme) => ({
       marginTop: 50,
       marginLeft: 100,
     },
+    image: {
+      width: '20%',
+    },
   });
 
 const Image = () => {
@@ -108,7 +111,7 @@ const Image = () => {
                     {images.map((image) => (
                     <StyledTableRow>
                         <StyledTableCell component="th" scope="row">
-                          <img src={`http://localhost:8000/api/image/${image.name}`} alt={image.name}/>
+                          <img src={`http://127.0.0.1:8000/storage/uploads/${image.name}`} alt={image.name} className={classes.image}/>
                         </StyledTableCell>
                         <StyledTableCell align="right">{image.name}</StyledTableCell>
                         <StyledTableCell align="right">{}</StyledTableCell>

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+
 use Illuminate\Http\Request;
 use App\Models\Ad;
 use App\Models\Image;
@@ -18,26 +21,38 @@ class ImageController extends Controller
     //Store all image upload
     public function upload(Request $request)
     {
-        $request->validate([
-            'images' => 'required',
+        $validation = Validator::make($request->all(),
+        [
+            'image'=>'required|mimes:jpeg,jpg,png,gif|max:10000'
         ]);
 
-        if ($request->hasFile('images')) {
-            $image = $request->file('images');
-
-            //foreach($images as $image) {
-                $name = $image->getClientOriginalName();
-                $path = $image->storeAs('uploads', $name, 'public');
-
-                Image::create([
-                    'name' => $name,
-                    'path' => '/storage/'.$path
-                  ]);
-            //}
-        } else {
-            return response()->json(['Failure'], 400);
+        if ($validation->fails()){
+            $response=array('status'=>'error','errors'=>$validation->errors()->toArray());  
+            return response()->json($response);
         }
-        return response()->json(['Images uploaded successfully'], 200);
+
+     if($request->hasFile('image')){
+
+        $image = $request->file('image');
+        $uniqueid=uniqid();
+        $original_name=$request->file('image')->getClientOriginalName(); 
+        $size=$request->file('image')->getSize();
+        $extension=$request->file('image')->getClientOriginalExtension();
+
+        $name=$image->getClientOriginalName();
+        $path=$image->storeAs('public/upload',$name);
+
+        Image::create([
+            'name' => $name,
+            'path' => $path,
+          ]);
+          
+        if($path){
+            return response()->json(array('status'=>'success','message'=>'Image successfully uploaded','image'=>'/storage/uploads/'.$name));
+        }else{
+            return response()->json(array('status'=>'error','message'=>'failed to upload image'));
+        }
+    }
     }
 
     //Get image by ad ib
