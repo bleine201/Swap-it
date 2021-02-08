@@ -19,6 +19,8 @@ import axios from 'axios';
 
 export default function SignUp(props) {
   const [username, setUsername] = useState("");
+  const [firstname, setFirstName] = useState("");
+  const [lastname, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
@@ -30,6 +32,8 @@ export default function SignUp(props) {
     axios
       .post("http://localhost:8000/api/auth/register", {
         username: username,
+        firstname: firstname,
+        lastname: lastname,
         email: email,
         password: password,
         password_confirmation: passwordConfirmation
@@ -61,8 +65,32 @@ export default function SignUp(props) {
                 variant="outlined"
                 required
                 fullWidth
+                id="first name"
+                label="First name"
+                name="First Name"
+                autoComplete="First Name"
+                onChange={(event) => setFirstName(event.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
                 id="name"
-                label="name"
+                label="Last name"
+                name="Last Name"
+                autoComplete="Last Name"
+                onChange={(event) => setLastName(event.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="name"
+                label="Username"
                 name="Name"
                 autoComplete="Name"
                 onChange={(event) => setUsername(event.target.value)}
