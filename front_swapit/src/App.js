@@ -41,7 +41,7 @@ function App() {
             <Route path="/secretkey" component={SecretKey} />
             <Route path="/admin" exact component={Index} />
             <Route path="/admin/article" exact component={Article} />
-            <Route path="/admin/article/:id" component={ArticleId} />
+            <Route path="/admin/article/:id" exact component={ArticleId} />
             <Route path="/admin/article/edit/:id" component={ArticleEdit} />
             <Route path="/admin/user" exact component={User} />
             <Route path="/admin/user/:id" exact component={UserId} />
