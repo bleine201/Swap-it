@@ -8,6 +8,7 @@ import Chat from "./components/Pages/Chat";
 import ResetPassword from "./components/Pages/ResetPassword";
 import SecretKey from "./components/Pages/SecretKey";
 import NewPassword from "./components/Pages/NewPassword";
+
 import ProtectedRoute from "./components/hoc/ProtectedRoute"
 import Home from "./components/Pages/Home";
 import Index from "./components/Pages/Admin/Index";
@@ -15,6 +16,7 @@ import User from "./components/Pages/Admin/User/User";
 import Article from "./components/Pages/Admin/Article/Article";
 import Comment from "./components/Pages/Admin/Comment/Comment";
 import Image from "./components/Pages/Admin/Image/Image";
+import HomeProducts from "./containers/HomeProducts";
 
 
 function App() {
@@ -29,14 +31,15 @@ function App() {
 
   return (
     <>
-
       <Router forceRefresh>
         <Navbar isLoggedIn={isLoggedIn} />
 
         <div className="pages">
           <Switch>
+            <Route path="/" component={HomeProducts} />
             <Route path="/login" component={SignIn} />
             <Route path="/register" component={SignUp} />
+
             <ProtectedRoute isLoggedIn={isLoggedIn} path="/chat">
               <Chat />
             </ProtectedRoute>
