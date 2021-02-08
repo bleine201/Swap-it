@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ChatController;
+
 use App\Http\Controllers\AdsController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LocationController;
@@ -38,6 +40,12 @@ Route::group(
         Route::post('refresh', 'AuthController@refresh');
     }
 );
+
+//chat message
+Route::post('/getmessage', [ChatController::class , 'getMessage']);
+Route::post('/sendmessage', [ChatController::class , 'SendMessage']);
+Route::post('/AuthenticatedUser', [ChatController::class , 'AuthenticatedUser']);
+
 
 
 //Users
