@@ -40,7 +40,7 @@ class SearchBar extends React.Component {
           placeholder="Search..."
           value={this.state.term}
           onChange={event => this.onInputChange(event.target.value)}
-          //onKeyPress={this.props.onKeyPress || null}
+          onKeyPress={this.props.onKeyPress || null}
           
           InputProps={{
             startAdornment: (
