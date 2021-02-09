@@ -2,7 +2,6 @@ import { React, useState, useEffect, Component } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
@@ -14,10 +13,22 @@ import Avatar from '@material-ui/core/Avatar';
 import Fab from '@material-ui/core/Fab';
 import SendIcon from '@material-ui/icons/Send';
 import axios from 'axios';
+import Swal from 'sweetalert2'
 
-import Echo from 'laravel-echo';
+
 var Pusher = require('pusher-js');
 
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+})
 
 
 
@@ -52,37 +63,28 @@ class Chat extends Component {
             to: 0,
             message: '',
             classes: '',
-            my_id: ''
+            my_id: '',
+            username: '',
+
 
         }
         this.Pusher = new Pusher('80589642a046a570bbcb', {
-         authEndpoint: "http://localhost:8000/auth/chat",
+            authEndpoint: "http://localhost:8000/auth/chat",
             cluster: 'eu',
-        auth: {
-            headers:  { Authorization: `Bearer ${localStorage.getItem("token")}`
-         }
-        }
-         });
-        
-        // this.Echo = new Echo({
-        //     broadcaster: 'pusher',
-        //     key: '80589642a046a570bbcb',
-        //     cluster: 'eu',
-        //     forceTLS: false,
-        //     disableStats: true,
-        //     authEndpoint: "http://localhost:8000/auth/chat",
-        //     transports: ['websocket', 'polling', 'flashsocket'],
-        //      auth: {
-        //         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
-        //      }
+            auth: {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                }
+            }
+        });
 
-        // });
+
 
 
         this.getMyId();
 
-       
-        this.loaduser();
+        this.loaduser()
+
 
         this.state.classes = makeStyles({
             table: {
@@ -114,9 +116,9 @@ class Chat extends Component {
         axios
             .post("http://localhost:8000/api/AuthenticatedUser", {}, config)
             .then((response) => {
-                     console.log(response)
-                    this.setState({ my_id: response.data });
-                    this.listen(response.data)
+                console.log(response)
+                this.setState({ my_id: response.data });
+                this.listen(response.data)
             }).catch((error) => {
                 console.log(error)
             });
@@ -124,24 +126,26 @@ class Chat extends Component {
 
     }
     listen(id) {
-       
+
         var channel1 = this.Pusher.subscribe('ChatMessages.' + id);
-            var callback = function (data) {
-                // add comment into page
-                alert('hel')
-            };
-    
-            
-           channel1.bind('App\\Events\\SendMessage', (data) => {
-              
-               this.getmessage(data.from)
-            });
+        var callback = function (data) {
+            // add comment into page
+            alert('hel')
+        };
 
 
-        // this.Echo.private('ChatMessages.' + id).listen('MessageEvent', (e) => {
-        //     alert('hello')
-        //     console.log(e)
-        // })
+        channel1.bind('App\\Events\\SendMessage', (data) => {
+
+            this.getmessage(data.from)
+            Toast.fire({
+                icon: 'success',
+                title: 'You Have New Message'
+            })
+
+        });
+
+
+
     }
 
     sendmessage = (to) => {
@@ -175,8 +179,13 @@ class Chat extends Component {
     };
 
     loaduser() {
+        var token = localStorage.getItem("token");
+        const config = {
+            headers: { Authorization: `Bearer ${token}` }
+        };
+
         axios
-            .get("http://localhost:8000/api/user")
+            .get("http://localhost:8000/api/user", config)
             .then((response) => {
                 this.setState({ user: response.data });
                 console.log('working!')
@@ -200,22 +209,17 @@ class Chat extends Component {
                 console.log(error)
             });
 
+
+
+        this.state.user.forEach((item) => {
+            if (item.id == id) {
+                this.setState({ username: item.username });
+            }
+        });
+
+
+
     };
-
-
-    // useEffect(() => {
-    //     axios
-    //         .post("http://localhost:8000/api/getmessage", config, {
-    //             user_id: 4,
-    //         })
-    //         .then((response) => {
-    //             setUsers(response.data)
-    //             console.log('working!')
-    //         }).catch((error) => {
-    //             console.log(error)
-    //         });
-    //     console.log('lol')
-    // });
 
 
     render() {
@@ -233,11 +237,19 @@ class Chat extends Component {
                 <Grid container component={Paper} className={this.state.classes.chatSection}>
                     <Grid item xs={3} className={this.state.classes.borderRight500}>
                         <List>
-                            <ListItem button key="RemySharp">
-                                <ListItemIcon>
-                                    <Avatar alt="Remy Sharp" src="https://material-ui.com/static/images/avatar/1.jpg" />
+                            < ListItem button key={
+                                this.state.username
+                            } >  <ListItemIcon>
+                                    < Avatar alt={
+                                        this.state.username
+                                    }
+                                        src="https://material-ui.com/static/images/avatar/1.jpg" />
+
                                 </ListItemIcon>
-                                <ListItemText primary="John Wick"></ListItemText>
+                                < ListItemText primary={
+                                    this.state.username
+                                } > </ListItemText>
+
                             </ListItem>
                         </List>
                         <Divider />
@@ -246,6 +258,7 @@ class Chat extends Component {
                             {
 
                                 this.state.user.map((item) =>
+
                                     <ListItem button="button" key={item.id} onClick={() => this.getmessage(item.id)}>
                                         <ListItemIcon>
                                             <Avatar alt="Remy Sharp" src="https://material-ui.com/static/images/avatar/1.jpg" />
@@ -258,7 +271,6 @@ class Chat extends Component {
                                             }
                                         </ListItemText>
 
-                                        <ListItemText secondary="online" align="right"></ListItemText>
                                     </ListItem>
 
                                 )}
@@ -274,36 +286,20 @@ class Chat extends Component {
                                     <ListItem key={item.id}>
                                         <Grid container>
                                             <Grid item xs={12}>
+                                                <ListItemText align={item.is_my_message ? 'right' : 'left'} secondary={this.state.username + ':'}></ListItemText>
+                                            </Grid>
+                                            <Grid item xs={12}>
                                                 <ListItemText align={item.is_my_message ? 'right' : 'left'} primary={item.message}></ListItemText>
                                             </Grid>
                                             <Grid item xs={12}>
-                                                <ListItemText align={item.is_my_message ? 'right' : 'left'} secondary="09:30"></ListItemText>
+                                                <ListItemText align={item.is_my_message ? 'right' : 'left'} secondary={item.created_at}></ListItemText>
                                             </Grid>
                                         </Grid>
                                     </ListItem>
                                 )
                             }
 
-                            {/* <ListItem key="2">
-                                <Grid container>
-                                    <Grid item xs={12}>
-                                        <ListItemText align="left" primary="Hey, Iam Good! What about you ?"></ListItemText>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <ListItemText align="left" secondary="09:31"></ListItemText>
-                                    </Grid>
-                                </Grid>
-                            </ListItem>
-                            <ListItem key="3">
-                                <Grid container>
-                                    <Grid item xs={12}>
-                                        <ListItemText align="right" primary="Cool. i am good, let's catch up!"></ListItemText>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <ListItemText align="right" secondary="10:30"></ListItemText>
-                                    </Grid>
-                                </Grid>
-                            </ListItem> */}
+
                         </List>
                         <Divider />
                         <Grid container style={{ padding: '20px' }}>
