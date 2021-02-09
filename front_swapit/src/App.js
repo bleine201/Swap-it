@@ -6,7 +6,6 @@ import SignIn from "./components/Pages/SignIn";
 import SignUp from "./components/Pages/SignUp";
 import Chat from "./components/Pages/Chat";
 import ResetPassword from "./components/Pages/ResetPassword";
-import SecretKey from "./components/Pages/SecretKey";
 import NewPassword from "./components/Pages/NewPassword";
 
 import ProtectedRoute from "./components/hoc/ProtectedRoute"
@@ -60,10 +59,7 @@ function App() {
             <ProtectedRoute isLoggedIn={isLoggedIn} path="/newpassword">
               <NewPassword />
             </ProtectedRoute>
-            <ProtectedRoute isLoggedIn={isLoggedIn} path="/secretkey">
-              <SecretKey />
-            </ProtectedRoute>
-            <ProtectedRoute exact isLoggedIn={isLoggedIn} path="/admin">
+            <ProtectedRoute isLoggedIn={isLoggedIn} path="/admin">
               <Index />
             </ProtectedRoute>
             <ProtectedRoute exact isLoggedIn={isLoggedIn} path="/admin/article">
