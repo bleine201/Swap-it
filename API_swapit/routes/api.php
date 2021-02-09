@@ -62,6 +62,7 @@ Route::get('get_all_comment/{id}/{number}', [CommentsController::class , 'getAll
 /*                      ADMIN ROUTE:        */
 Route::put('update_one_comment', [CommentsController::class , 'updateOne']);// use "comment_id" to identfy comment as params. Send everything as params, content to send is the same as "create" route.
 Route::delete('delete_one_comment', [CommentsController::class , 'deleteOne']);// use "comment_id" to identfy comment as params
+Route::get('allcomment/{id}', [CommentsController::class , 'getAllByTarget']);//id=> de l'utilisateur dont on veut recevoir les comments//
 
 //Get all location
 Route::get('/location', [LocationController::class, 'cities']);
@@ -71,10 +72,13 @@ Route::post('/location', [LocationController::class, 'locations']);
 
 //Get all images
 Route::get('/images', [ImageController::class, 'images']);
+//Image URL
+Route::get('image/{filename}', [ImageController::class,'getPubliclyStorgeFile']);
 //Upload image
 Route::post('/upload', [ ImageController::class, 'upload' ]);
 //Get image by ad id
 Route::get('/images/{id}', [ImageController::class, 'post']);
+Route::get('/picture/{id}', [ImageController::class, 'picture']);
 //Delete image
 Route::delete('images/{id}', [ImageController::class, 'delete']);
 //Update image
@@ -90,8 +94,11 @@ Route::get('ads/condition', [AdsController::class,'conditions']);
 // ROute filter by condition
 Route::get('ads/condition/{id}', [AdsController::class,'CondById']);
 
-//Ad
+//Get all ads without pagination
 Route::get('ads', [AdsController::class,'index']);
+
+//Ad
+Route::get('ads-admin', [AdsController::class,'adsAdmin']);
 Route::post('ads', [AdsController::class,'store']);
 Route::get('ads/{id}', [AdsController::class,'show']);
 Route::put('ads/{id}', [AdsController::class,'update']);
