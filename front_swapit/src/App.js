@@ -36,7 +36,7 @@ function App() {
 
         <div className="pages">
           <Switch>
-            <Route path="/" component={HomeProducts} />
+            <Route path="/" exact component={HomeProducts} />
             <Route path="/login" component={SignIn} />
             <Route path="/register" component={SignUp} />
 
