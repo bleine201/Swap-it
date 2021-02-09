@@ -42,43 +42,42 @@ Route::group(
 );
 
 //chat message
-Route::post('/getmessage', [ChatController::class , 'getMessage']);
-Route::post('/sendmessage', [ChatController::class , 'SendMessage']);
-Route::post('/AuthenticatedUser', [ChatController::class , 'AuthenticatedUser']);
-
+Route::middleware('authenticated')->post('/getmessage', [ChatController::class , 'getMessage']); 
+Route::middleware('authenticated')->post('/sendmessage', [ChatController::class , 'SendMessage']); 
+Route::middleware('authenticated')->post('/AuthenticatedUser', [ChatController::class , 'AuthenticatedUser']);
 
 
 //Users
-Route::get('user', [UserController::class , 'index']);
-Route::get('user/{id}', [UserController::class , 'show']);
-Route::post('user', [UserController::class , 'store']);
-Route::put('user/{id}', [UserController::class , 'update']);
-Route::delete('user/{id}', [UserController::class , 'destroy']);
+Route::middleware('authenticated')->get('user', [UserController::class , 'index']); 
+Route::middleware('authenticated')->get('user/{id}', [UserController::class , 'show']); 
+Route::middleware('authenticated')->post('user', [UserController::class , 'store']); 
+Route::middleware('authenticated')->put('user/{id}', [UserController::class , 'update']); 
+Route::middleware('authenticated')->delete('user/{id}', [UserController::class , 'destroy']); 
 
 //Comments
-Route::post('post_comment', [CommentsController::class , 'create']);//post as body
+Route::middleware('authenticated')->post('post_comment', [CommentsController::class , 'create']);//post as body
 Route::get('get_one_comment', [CommentsController::class , 'getOne']);//use "comment_id" as params
 Route::get('get_all_comment/{id}/{number}', [CommentsController::class , 'getAllById']);//id=> de l'utilisateur dont on veut recevoir les comments// number => pagination, default = 10
 /*                      ADMIN ROUTE:        */
-Route::put('update_one_comment', [CommentsController::class , 'updateOne']);// use "comment_id" to identfy comment as params. Send everything as params, content to send is the same as "create" route.
-Route::delete('delete_one_comment', [CommentsController::class , 'deleteOne']);// use "comment_id" to identfy comment as params
+Route::middleware('authenticated')->put('update_one_comment', [CommentsController::class , 'updateOne']);// use "comment_id" to identfy comment as params. Send everything as params, content to send is the same as "create" route.
+Route::middleware('authenticated')->delete('delete_one_comment', [CommentsController::class , 'deleteOne']);// use "comment_id" to identfy comment as params
 
 //Get all location
 Route::get('/location', [LocationController::class, 'cities']);
 //Post location
-Route::post('/location', [LocationController::class, 'locations']);
+Route::middleware('authenticated')->post('/location', [LocationController::class, 'locations']);
 
 
 //Get all images
-Route::get('/images', [ImageController::class, 'images']);
+Route::middleware('authenticated')->get('/images', [ImageController::class, 'images']);
 //Upload image
-Route::post('/upload', [ ImageController::class, 'upload' ]);
+Route::middleware('authenticated')->post('/upload', [ ImageController::class, 'upload' ]);
 //Get image by ad id
-Route::get('/images/{id}', [ImageController::class, 'post']);
+Route::middleware('authenticated')->get('/images/{id}', [ImageController::class, 'post']);
 //Delete image
-Route::delete('images/{id}', [ImageController::class, 'delete']);
+Route::middleware('authenticated')->delete('images/{id}', [ImageController::class, 'delete']);
 //Update image
-Route::put('images/{id}', [ImageController::class, 'update']);
+Route::middleware('authenticated')->put('images/{id}', [ImageController::class, 'update']);
 
 // Get all Categories
 Route::get('ads/category', [AdsController::class,'categories']);
@@ -92,10 +91,10 @@ Route::get('ads/condition/{id}', [AdsController::class,'CondById']);
 
 //Ad
 Route::get('ads', [AdsController::class,'index']);
-Route::post('ads', [AdsController::class,'store']);
-Route::get('ads/{id}', [AdsController::class,'show']);
-Route::put('ads/{id}', [AdsController::class,'update']);
-Route::delete('ads/{id}', [AdsController::class,'destroy']);
+Route::middleware('authenticated')->post('ads', [AdsController::class,'store']);
+Route::middleware('authenticated')->get('ads/{id}', [AdsController::class,'show']);
+Route::middleware('authenticated')->put('ads/{id}', [AdsController::class,'update']);
+Route::middleware('authenticated')->delete('ads/{id}', [AdsController::class,'destroy']);
 
 
 //Search ad by title
