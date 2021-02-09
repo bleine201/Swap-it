@@ -49,8 +49,8 @@ function App() {
             <Route path="/admin/image" exact component={Image} />
             <Route path="/admin/image/:id" exact component={ImageId} />
             <Route path="/admin/image/edit/:id" component={ImageEdit} />
-            <Route path="/admin/comment" exact component={Comment} />
-            <Route path="/admin/comment/:id" exact component={CommentId} />
+            {/* <Route path="/admin/comment" exact component={Comment} />
+            <Route path="/admin/comment/:id" exact component={CommentId} /> */}
             <Route path="/admin/comment/edit/:id" component={CommentEdit} />
 
 

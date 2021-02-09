@@ -12,6 +12,9 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Rating from '@material-ui/lab/Rating';
+import Box from '@material-ui/core/Box';
+
 
 const useAvatar = makeStyles((theme) => ({
     
@@ -36,6 +39,13 @@ const useStyles = makeStyles({
     userid: {
         display: 'flex',
         justifyContent: 'center',
+        marginBottom: 30,
+    },
+    comment: {
+      marginRight: 30,
+    },
+    text: {
+      textAlign: 'center',
     },
     bold: {
         fontWeight: 'bold',
@@ -60,6 +70,7 @@ const UserId = ({match}) => {
     const commentAPI = `http://localhost:8000/api/allcomment/${idUser}`;
     const [user, setUser] = useState([]);
     const [comments, setComment] = useState([]);
+    
 
     useEffect(() => {
       axios.get(api)
@@ -116,13 +127,28 @@ const UserId = ({match}) => {
                 </CardActionArea>
             </Card>
             </div> 
-            <div>
-                <h1>Comment Section</h1>
+              <Typography gutterBottom variant="h5" className={classes.text}>Comment Section</Typography>
+            <div className={classes.userid}>
             {comments.map((comment => (
-                <div> 
-                <h3>{comment.title} <span>{comment.ratings}</span></h3>
-                <p>{comment.content}</p>
-                <IconButton 
+           <div>
+           <Card className={classes.comment}>
+               <CardActionArea>                
+                   <CardContent>
+                   <Typography gutterBottom variant="h5" component="h2">
+                    {comment.title} 
+                      <span>
+                        <Box component="fieldset" mb={3} borderColor="transparent">
+                        <Typography component="legend">{comment.ratings}</Typography>
+                        <Rating name="read-only" value={`${comment.ratings}`}  readOnly />
+                      </Box>
+                      </span>
+                   </Typography>
+                   <Typography variant="body2" color="textSecondary" component="p">
+                   <div className={classes.info}>
+                      {comment.content}
+                   </div>
+                   </Typography>
+                   <IconButton 
                     aria-label="delete" 
                     color="secondary" 
                     className={btn.margin}
@@ -130,8 +156,12 @@ const UserId = ({match}) => {
                             >
                     <DeleteIcon/>
                     </IconButton>
-
-                </div>
+                   </CardContent>
+               </CardActionArea>
+           </Card>
+           </div> 
+              
+               
             )))}
             
             </div>      
