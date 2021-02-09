@@ -27,7 +27,7 @@ const useStyles = makeStyles({
 
   });
 
-const ImageId = (match) => {
+const ImageId = () => {
 
     const classes = useStyles();
 

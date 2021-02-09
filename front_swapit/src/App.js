@@ -24,6 +24,7 @@ import Image from "./components/Pages/Admin/Image/Image";
 import HomeProducts from "./containers/HomeProducts";
 import ImageId from "./components/Pages/Admin/Image/ImageId";
 import ImageEdit from "./components/Pages/Admin/Image/ImageEdit";
+import AddArticle from "./components/Pages/CRUD/AddArticle";
 
 
 
@@ -91,6 +92,9 @@ function App() {
             </ProtectedRoute>
             <ProtectedRoute exact isLoggedIn={isLoggedIn} path="/admin/comment">
               <Comment />
+            </ProtectedRoute>
+            <ProtectedRoute exact isLoggedIn={isLoggedIn} path="/addarticle">
+              <AddArticle />
             </ProtectedRoute>
             {/* <ProtectedRoute isLoggedIn={isLoggedIn} path="/admin/comment/:id">
               <CommentId />
