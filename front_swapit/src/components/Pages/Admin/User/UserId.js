@@ -79,7 +79,7 @@ const UserId = ({match}) => {
 
     
     const onDelete = (id) => {
-      axios.delete(`http://localhost:8000/api/delete_one_comment/${id}`).then(res => {
+      axios.delete(`http://localhost:8000/api/delete_one_comment?comment_id=${id}`).then(res => {
         const del = comments.filter(comment => id !== comment.id);
         setUser(del);
       })
