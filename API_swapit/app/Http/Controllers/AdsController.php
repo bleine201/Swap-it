@@ -19,6 +19,11 @@ class AdsController extends Controller
         return Ad::all()->paginate(5);
     }
 
+    public function adsAdmin()
+    {
+        return Ad::all();
+    }
+
     /**
      * Store a newly created resource in storage.
      *

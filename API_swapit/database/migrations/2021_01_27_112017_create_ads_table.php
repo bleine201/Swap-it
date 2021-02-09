@@ -21,11 +21,13 @@ class CreateAdsTable extends Migration
             $table->foreignId('exchange_id')->constrained();
             $table->foreignId('condition_id')->constrained();
             $table->foreignId('category_id')->constrained();
+            // $table->foreignId('image_id')->constrained();
+            // $table->string('path');
+            // $table->foreign('path')->references('path')->on('images');
             $table->string('username');
             $table->foreign('username')->references('username')->on('users');
             $table->string('address');
             $table->foreign('address')->references('address')->on('users');
-            // $table->foreignId('image_id')->constrained();
             $table->timestamps();
         });
     }

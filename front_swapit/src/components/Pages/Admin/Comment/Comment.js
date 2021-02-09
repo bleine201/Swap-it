@@ -1,5 +1,6 @@
 import React from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -10,6 +11,10 @@ import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import Typography from '@material-ui/core/Typography';
+
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -60,6 +65,11 @@ const StyledTableCell = withStyles((theme) => ({
     },
     title: {
         textAlign: 'center',
+        marginBottom: 40,
+    },
+    back: {
+      marginTop: 50,
+      marginLeft: 100,
     },
   });
 
@@ -69,7 +79,14 @@ const Comment = () => {
 
     return (
         <section className='comment-index'>
-            <h1 className={classes.title}>Comment</h1>
+          <div className={classes.back}>
+            <Button href="/admin" variant="contained" color="primary">
+            <ArrowBackIosIcon /> Back
+            </Button>
+          </div>
+          <Typography variant="h5" component="h2" className={classes.title}>
+            Comment
+          </Typography>
             <div className={classes.commentTable}>
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="customized table">
@@ -90,7 +107,10 @@ const Comment = () => {
                         <StyledTableCell align="right">{row.calories}</StyledTableCell>
                         <StyledTableCell align="right">{row.fat}</StyledTableCell>
                         <StyledTableCell align="center">
-                        <IconButton aria-label="edit" color="primary" className={btn.margin}>
+                          <IconButton href="/admin/comment/id" aria-label="show" className={btn.margin}>
+                            <VisibilityIcon/>
+                          </IconButton>
+                          <IconButton href="/admin/comment/edit/id" aria-label="edit" color="primary" className={btn.margin}>
                                 <EditIcon/>
                             </IconButton>
                             <IconButton aria-label="delete" color="secondary" className={btn.margin}>

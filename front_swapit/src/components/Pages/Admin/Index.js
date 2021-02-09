@@ -82,7 +82,7 @@ const Index = () => {
                 <Button href="/admin/image" size="small">+</Button>
               </CardActions>
             </Card>
-            <Card className={classes.root}>
+            {/* <Card className={classes.root}>
               <CardContent>
                 <Typography variant="h5" component="h2">
                   Comment Parameter
@@ -94,7 +94,7 @@ const Index = () => {
               <CardActions>
                 <Button href="/admin/comment" size="small">+</Button>
               </CardActions>
-            </Card>
+            </Card> */}
             
       </section>
     );

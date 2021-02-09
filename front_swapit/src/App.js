@@ -12,10 +12,20 @@ import ProtectedRoute from "./components/hoc/ProtectedRoute"
 import Home from "./components/Pages/Home";
 import Index from "./components/Pages/Admin/Index";
 import User from "./components/Pages/Admin/User/User";
+import UserId from "./components/Pages/Admin/User/UserId";
+import UserEdit from "./components/Pages/Admin/User/UserEdit";
 import Article from "./components/Pages/Admin/Article/Article";
+import ArticleId from "./components/Pages/Admin/Article/ArticleId";
+import ArticleEdit from "./components/Pages/Admin/Article/ArticleEdit";
 import Comment from "./components/Pages/Admin/Comment/Comment";
+import CommentId from "./components/Pages/Admin/Comment/CommentId";
+import CommentEdit from "./components/Pages/Admin/Comment/CommentEdit";
 import Image from "./components/Pages/Admin/Image/Image";
 import HomeProducts from "./containers/HomeProducts";
+import ImageId from "./components/Pages/Admin/Image/ImageId";
+import ImageEdit from "./components/Pages/Admin/Image/ImageEdit";
+
+
 
 
 function App() {
@@ -52,18 +62,42 @@ function App() {
             <ProtectedRoute isLoggedIn={isLoggedIn} path="/admin">
               <Index />
             </ProtectedRoute>
-            <ProtectedRoute isLoggedIn={isLoggedIn} path="/admin/article">
+            <ProtectedRoute exact isLoggedIn={isLoggedIn} path="/admin/article">
               <Article />
             </ProtectedRoute>
-            <ProtectedRoute isLoggedIn={isLoggedIn} path="/admin/user">
+            <ProtectedRoute exact isLoggedIn={isLoggedIn} path="/admin/article/:id">
+              <ArticleId />
+            </ProtectedRoute>
+            <ProtectedRoute isLoggedIn={isLoggedIn} path="/admin/article/edit/:id">
+              <ArticleEdit />
+            </ProtectedRoute>
+            <ProtectedRoute exact isLoggedIn={isLoggedIn} path="/admin/user">
               <User />
             </ProtectedRoute>
-            <ProtectedRoute isLoggedIn={isLoggedIn} path="/admin/image">
+            <ProtectedRoute exact isLoggedIn={isLoggedIn} path="/admin/user/:id">
+              <UserId />
+            </ProtectedRoute>
+            <ProtectedRoute isLoggedIn={isLoggedIn} path="/admin/user/edit/:id">
+              <UserEdit />
+            </ProtectedRoute>
+            <ProtectedRoute exact isLoggedIn={isLoggedIn} path="/admin/image">
               <Image />
             </ProtectedRoute>
-            <ProtectedRoute isLoggedIn={isLoggedIn} path="/admin/comment">
+            <ProtectedRoute exact isLoggedIn={isLoggedIn} path="/admin/image/:id">
+              <ImageId />
+            </ProtectedRoute>
+            <ProtectedRoute isLoggedIn={isLoggedIn} path="/admin/image/edit/:id">
+              <ImageEdit />
+            </ProtectedRoute>
+            <ProtectedRoute exact isLoggedIn={isLoggedIn} path="/admin/comment">
               <Comment />
             </ProtectedRoute>
+            {/* <ProtectedRoute isLoggedIn={isLoggedIn} path="/admin/comment/:id">
+              <CommentId />
+            </ProtectedRoute>
+            <ProtectedRoute isLoggedIn={isLoggedIn} path="/admin/comment/edit/:id">
+              <CommentEdit />
+            </ProtectedRoute> */}
           </Switch>
         </div>
       </Router>

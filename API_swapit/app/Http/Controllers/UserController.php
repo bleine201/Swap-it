@@ -51,6 +51,7 @@ class UserController extends Controller
         $users = User::find($id);
         $users->update($request->all());
         return $users;
+
     }
 
     /**

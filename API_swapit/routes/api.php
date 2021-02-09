@@ -59,8 +59,11 @@ Route::middleware('authenticated')->post('post_comment', [CommentsController::cl
 Route::get('get_one_comment', [CommentsController::class , 'getOne']);//use "comment_id" as params
 Route::get('get_all_comment/{id}/{number}', [CommentsController::class , 'getAllById']);//id=> de l'utilisateur dont on veut recevoir les comments// number => pagination, default = 10
 /*                      ADMIN ROUTE:        */
+
 Route::middleware('authenticated')->put('update_one_comment', [CommentsController::class , 'updateOne']);// use "comment_id" to identfy comment as params. Send everything as params, content to send is the same as "create" route.
 Route::middleware('authenticated')->delete('delete_one_comment', [CommentsController::class , 'deleteOne']);// use "comment_id" to identfy comment as params
+Route::get('allcomment/{id}', [CommentsController::class , 'getAllByTarget']);//id=> de l'utilisateur dont on veut recevoir les comments//
+
 
 //Get all location
 Route::get('/location', [LocationController::class, 'cities']);
@@ -69,11 +72,16 @@ Route::middleware('authenticated')->post('/location', [LocationController::class
 
 
 //Get all images
+
 Route::middleware('authenticated')->get('/images', [ImageController::class, 'images']);
+
+//Image URL
+Route::get('image/{filename}', [ImageController::class,'getPubliclyStorgeFile']);
 //Upload image
 Route::middleware('authenticated')->post('/upload', [ ImageController::class, 'upload' ]);
 //Get image by ad id
 Route::middleware('authenticated')->get('/images/{id}', [ImageController::class, 'post']);
+Route::get('/picture/{id}', [ImageController::class, 'picture']);
 //Delete image
 Route::middleware('authenticated')->delete('images/{id}', [ImageController::class, 'delete']);
 //Update image
@@ -89,8 +97,10 @@ Route::get('ads/condition', [AdsController::class,'conditions']);
 // ROute filter by condition
 Route::get('ads/condition/{id}', [AdsController::class,'CondById']);
 
-//Ad
+//Get all ads without pagination
 Route::get('ads', [AdsController::class,'index']);
+//Ad
+Route::get('ads-admin', [AdsController::class,'adsAdmin']);
 Route::middleware('authenticated')->post('ads', [AdsController::class,'store']);
 Route::middleware('authenticated')->get('ads/{id}', [AdsController::class,'show']);
 Route::middleware('authenticated')->put('ads/{id}', [AdsController::class,'update']);

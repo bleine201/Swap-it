@@ -45,6 +45,11 @@ class CommentsController extends Controller
         return Comments::where('comment_target', '=', $id)->paginate($number); //paramètre => chiffre pour la pagination
     }
 
+    public function getAllByTarget(Request $request) //valeur par défaut
+    {
+        return Comments::where('comment_target', $request->id)->get();
+    }
+
     public function updateOne(Request $request)
     {
         if ($request->comment_id !== "null") {
