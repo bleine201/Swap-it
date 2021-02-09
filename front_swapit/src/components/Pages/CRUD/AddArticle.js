@@ -75,33 +75,43 @@ const AddArticle = ({match}) => {
           })
         }, [userProfile])
 
-  const [userId, setUserId] = useState(profile.id);
-  const [userName, setUserName] = useState(profile.username);
-  const [address, setAddress]
+    console.log(config)
+
+    var Post = () => {
+
+      axios
+        .post("http://localhost:8000/api/ads", {
+          title: title,
+          description: description,
+          user_id: profile.id,
+          exchange_id:	'2',
+          condition_id: cond,
+          category_id: cat,
+          username: profile.username,
+          address: profile.address,
+        })
+        .then((response) => {
+          console.log(response.data.token);
+          localStorage.setItem("token",response.data.token)
+        })
+        .catch((error) => {
+          console.log(error.response.data)
+        });
+    };
   
 
-  console.log(config)
-  
-
-    const onPost = async () => {
-    axios.post(api, {
-      title: title,
-      description: description,
-      condition_id: cond,
-      category_id: cat,
-      address: profile.address,
-      user_id: userId,
-      username: userName,
-      exchange_id:	'2'
-    }, config)
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-        };
-    console.log(onPost)
+    // const onPost = async () => {
+    // axios.post(api, {
+      
+    // }, config)
+    // .then(function (response) {
+    //   console.log(response);
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    // });
+    //     };
+    // console.log(onPost)
        
 
     useEffect(() => {
@@ -121,7 +131,7 @@ const AddArticle = ({match}) => {
           // debugger
     return (
         <section>
-             <form className={form.root} noValidate autoComplete="off" onSubmit={onPost}>
+             <form className={form.root} noValidate autoComplete="off" onSubmit={Post}>
                 <TextField 
                 id="title" 
                 label="Title" 
