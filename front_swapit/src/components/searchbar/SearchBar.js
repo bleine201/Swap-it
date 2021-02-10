@@ -1,7 +1,6 @@
 import React from 'react';
 import './SearchBar.css';
 import SearchIcon from '@material-ui/icons/Search';
-import MicIcon from '@material-ui/icons/Mic';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -11,7 +10,7 @@ import Button from '@material-ui/core/Button';
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       term: '',
     };
   }
@@ -22,9 +21,9 @@ class SearchBar extends React.Component {
       this.props.onSearchTermChange({ name, term })
     }
   }
-  searchResult(){
+  searchResult() {
     const result = this.state.term
-    console.log(result);
+    //console.log(result);
   }
 
   render() {
@@ -41,19 +40,14 @@ class SearchBar extends React.Component {
           value={this.state.term}
           onChange={event => this.onInputChange(event.target.value)}
           onKeyPress={this.props.onKeyPress || null}
-          
+
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
                 <Button
-                  onClick = {() => this.searchResult()}
+                  onClick={() => this.searchResult()}
                   startIcon={<SearchIcon />}>
-                  </Button>
-              </InputAdornment>
-            ),
-            endAdornment: (
-              <InputAdornment position="end">
-                <MicIcon />
+                </Button>
               </InputAdornment>
             )
           }}
