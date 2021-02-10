@@ -24,6 +24,9 @@ const useForm = makeStyles((theme) => ({
         margin: theme.spacing(1),
         minWidth: 120,
       },
+      input: {
+        display: 'none',
+      },
   }));
 
 const useStyles = makeStyles({
@@ -64,12 +67,37 @@ const MyArticleEdit = () => {
     const [cat, setCat] = useState('');
     const [cond, setCond] = useState('');
     const [name, setName] = useState('');
-    const [path, setPath] = useState('');
+    const [imageData, setImageData] = useState('');
 
     let token = localStorage.getItem("token");
     const config = {
-      headers: { Authorization: `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${token}`,
+                'Content-Type': 'multipart/form-data'}
     };
+
+    const handleChange = e => {
+        setImageData(e.target.files[0]);
+        console.log(imageData)
+    }
+    
+    const submitData = e => {
+        e.preventDefault();
+        console.log(imageData)
+        const fData = new FormData();
+
+        fData.append('image', imageData);
+        fData.append('ads_id', id);
+
+        
+
+        axios.post('http://localhost:8000/api/upload', fData, config,
+        )
+          .then(res =>{
+              console.log('response', res);
+          }).catch(e => {
+              console.error('echec', e);
+          })
+    }
 
 
     const onUpdate = async () => {
@@ -89,25 +117,7 @@ const MyArticleEdit = () => {
       });
       };
 
-      var Post = () => {
-
-        axios
-          .post("http://localhost:8000/api/ads", {
-            name: name,
-            path: path,
-            ads_id: id,
-          }, {
-            headers: { 
-              'Authorization': `Bearer ${token}`
-             }
-          })
-          .then((response) => {
-            console.log(response);
-          })
-          .catch((error) => {
-            console.log(error)
-          });
-      };
+      
 
     useEffect(() => {
       axios.get(api, config)
@@ -133,7 +143,7 @@ const MyArticleEdit = () => {
     return (
         <section className='article-edit'>
             <div className={classes.back}>
-                <Button href="/admin/article" variant="contained" color="primary">
+                <Button href="/myarticles" variant="contained" color="primary">
                 <ArrowBackIosIcon /> Back
                 </Button>
             </div>
@@ -194,35 +204,34 @@ const MyArticleEdit = () => {
                         </Button>
                 </div>
             </form>
-            <form className={form.root} noValidate autoComplete="off" onSubmit={Post}>
-                <TextField
-                    id="name"
-                    label="name"
-                    onChange={(event) => setName(event.target.value)}
-                    defaultValue="Picture name"
-                />
-                <label htmlFor="contained-button-file">
+            <div className='imageUpload'>
+                <h1>Add a picture</h1>
+            <form className={form.root} noValidate autoComplete="off" onSubmit={submitData}>
                     <input
                         accept="image/*"
                         id="contained-button-file"
-                        multiple
                         type="file"
-                        onChange={(event) => setPath(event.target.value)}
+                        className={form.input}
+                        onChange={handleChange}
                     />
-                    <Button 
+                    <label htmlFor="contained-button-file">
+                        <Button variant="contained" color="primary" component="span">
+                        Upload
+                        </Button>
+                    </label>
+
+                <Button 
                     variant="contained" 
                     color="primary" 
-                    component="span"
-                    onChange={(event) => setPath(event.target.value)}
-                    >
-                    Upload
-                    </Button>
-                </label>
-                <Button variant="contained" color="primary" className={classes.add} type='submit'>
-                          Add picture
+                    className={classes.add} 
+                    type='submit'
+                    onClick={submitData}
+                >
+                        Add picture
                 </Button>
 
             </form>
+            </div>
         </section>
     );
 };

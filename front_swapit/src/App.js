@@ -28,6 +28,7 @@ import AddArticle from "./components/Pages/CRUD/AddArticle";
 import MyArticles from "./components/Pages/CRUD/MyArticles";
 import MyArticleId from "./components/Pages/CRUD/MyArticleId";
 import MyArticleEdit from "./components/Pages/CRUD/MyArticleEdit";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
@@ -63,7 +64,7 @@ function App() {
             <ProtectedRoute isLoggedIn={isLoggedIn} path="/newpassword">
               <NewPassword />
             </ProtectedRoute>
-            <ProtectedRoute isLoggedIn={isLoggedIn} path="/admin">
+            <ProtectedRoute exact isLoggedIn={isLoggedIn} path="/admin">
               <Index />
             </ProtectedRoute>
             <ProtectedRoute exact isLoggedIn={isLoggedIn} path="/admin/article">

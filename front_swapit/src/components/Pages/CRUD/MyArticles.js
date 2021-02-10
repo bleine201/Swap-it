@@ -57,6 +57,13 @@ const MyArticles = () => {
             })
     }, [api])
 
+    const onDelete = (id) => {
+        axios.delete(`http://localhost:8000/api/ads/${id}`, config).then(res => {
+          const del = articles.filter(article => id !== article.id);
+          setArticle(del);
+        })
+      }
+
     return (
         <section>
             <div className={classes.back}>
@@ -98,6 +105,13 @@ const MyArticles = () => {
                             href={`/myarticles/edit/${article.id}`}
                         >
                             Edit
+                        </Button>
+                        <Button 
+                            size="small" 
+                            color="primary"
+                            onClick={() => onDelete(article.id)}
+                        >
+                            Delete
                         </Button>
                     </CardActions>
                 </Card>
