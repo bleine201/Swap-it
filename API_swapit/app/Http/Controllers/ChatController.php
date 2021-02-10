@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Events\SendMessage;
 use Illuminate\Http\Request;
 use App\Models\Chat;
+use App\Models\User;
 use App\Http\Resources\GetMessageCollection;
 class ChatController extends Controller 
 {
@@ -20,7 +21,7 @@ class ChatController extends Controller
                 'message'=>$request->message
             ]);
 
-        broadcast(new SendMessage($request->message,$to,$from))->toOthers();
+        broadcast(new SendMessage($request->message,$to,$from ,User::findOrFail($to)->username))->toOthers();
         return response()->json('message sent',200); //
 
     

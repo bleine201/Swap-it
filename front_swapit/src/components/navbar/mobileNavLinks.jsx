@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
+import {useEffect, useState} from "react";
 import styled from "styled-components";
 import { Accessibility } from "./accessibility";
 import { MenuToggle } from "./menuToggle";
@@ -48,26 +49,33 @@ const Marginer = styled.div`
 
 export function MobileNavLinks(props) {
   const [isOpen, setOpen] = useState(false);
-
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(Boolean(token))
+  
+  }, []);
   return (
     <NavLinksContainer>
       <MenuToggle isOpen={isOpen} toggle={() => setOpen(!isOpen)} />
       {isOpen && (
+
         <LinksWrapper>
            <LinkItem>
           <Link href="/home">Home</Link>
         </LinkItem>
-        <LinkItem>
-          <Link href="/User">User</Link>
-        </LinkItem>
-        <LinkItem>
-          <Link href="/admin">Admin</Link>
-        </LinkItem>
-        <LinkItem>
-          <Link href="/chat">Chat</Link>
-        </LinkItem>
+ 
+{ isLoggedIn ?
+          <>
+        <LinkItem > <Link href="/User"> User </Link>
+        </LinkItem > <LinkItem> <Link href = "/admin" > Admin </Link>
+        </LinkItem > <LinkItem> <Link href = "/chat" > Chat </Link>
+        </LinkItem >
+        </>
+    :  ''
+   }
           <Marginer />
-          <Accessibility />
+          <Accessibility isLoggedIn={isLoggedIn} />
         </LinksWrapper>
       )}
     </NavLinksContainer>

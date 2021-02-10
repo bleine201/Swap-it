@@ -65,9 +65,13 @@ export function Accessibility({isLoggedIn}) {
   }
 
     return (<AccessibilityContainer>
-        <Link to="/register">
-            <RegisterButton>Register</RegisterButton>
-        </Link>
+
+      {
+        !isLoggedIn ?   <Link to="/register">
+          <RegisterButton>Register</RegisterButton>
+        </Link> : ''
+      }
+        
 
 
         {

@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const NavLinksContainer = styled.div`
@@ -38,22 +38,41 @@ const Link = styled.a`
   font-size: inherit;
 `;
 
+
+
 export function NavLinks(props) {
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(Boolean(token))
+
+  }, []);
   return (
     <NavLinksContainer>
       <LinksWrapper>
-        <LinkItem>
-          <Link href="/home">Home</Link>
-        </LinkItem>
-        <LinkItem>
-          <Link href="/User">User</Link>
-        </LinkItem>
-        <LinkItem>
-          <Link href="/admin">Admin</Link>
-        </LinkItem>
-        <LinkItem>
-          <Link href="/chat">Chat</Link>
-        </LinkItem>
+
+        {isLoggedIn ?
+          <>
+            <LinkItem>
+              <Link href="/">Home</Link>
+            </LinkItem>
+            <LinkItem>
+              <Link href="/User">User</Link>
+            </LinkItem>
+            <LinkItem>
+              <Link href="/admin">Admin</Link>
+            </LinkItem>
+            <LinkItem>
+              <Link href="/chat">Chat</Link>
+            </LinkItem>
+
+          </>
+      
+      
+      
+            : ''
+      }
+       
       </LinksWrapper>
     </NavLinksContainer>
   );

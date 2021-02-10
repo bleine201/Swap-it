@@ -139,7 +139,7 @@ class Chat extends Component {
             this.getmessage(data.from)
             Toast.fire({
                 icon: 'success',
-                title: 'You Have New Message'
+                title: 'You Have New Message from ' + data.username
             })
 
         });

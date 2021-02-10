@@ -42,7 +42,7 @@ export function Navbar({isLoggedIn}) {
       <MiddleSection>{!isMobile && <NavLinks />}</MiddleSection>
       <RightSection>
         {!isMobile && <Accessibility isLoggedIn={isLoggedIn} />}
-        {isMobile && <MobileNavLinks />}
+        {isMobile && <MobileNavLinks/>}
       </RightSection>
     </NavbarContainer>
   );

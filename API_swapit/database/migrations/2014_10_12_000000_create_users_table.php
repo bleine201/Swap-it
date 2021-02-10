@@ -26,7 +26,6 @@ class CreateUsersTable extends Migration
             $table->string('postcode')->nullable();
             $table->string('city')->nullable();
             $table->float('avg_ratings')->nullable();
-
             $table->integer('is_admin')->default(0);
             // $table->string('location');
             // $table->foreign('location')->references('city')->on('locations');
