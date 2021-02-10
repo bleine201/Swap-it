@@ -23,12 +23,14 @@ class SendMessage implements ShouldBroadcast
     public $message;
     public $to;
     public $from;
+    public $username;
 
-    public function __construct($message,$to,$from)
+    public function __construct($message,$to,$from,$username)
     {
         $this->to = $to;
         $this->message = $message;
         $this->from = $from;
+        $this->username = $username;
 
     }
 

@@ -24,6 +24,5 @@ class GetMessageCollection extends JsonResource
             'is_my_message'=>$this->from == auth()->id() ? true : false,
             'created_at'=>Carbon::createFromFormat('Y-m-d H:i:s',$this->created_at)->diffForHumans()
         
-        ];
-    }
+        ];    }
 }
