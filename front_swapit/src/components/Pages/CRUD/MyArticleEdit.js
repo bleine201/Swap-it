@@ -8,6 +8,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import Typography from '@material-ui/core/Typography';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const useForm = makeStyles((theme) => ({
     root: {
@@ -27,6 +31,9 @@ const useForm = makeStyles((theme) => ({
       input: {
         display: 'none',
       },
+      margin: {
+        margin: theme.spacing(1),
+      },
   }));
 
 const useStyles = makeStyles({
@@ -45,6 +52,19 @@ const useStyles = makeStyles({
     label: {
         marginTop: 40,
     },
+    text: {
+      textAlign: 'center',
+      marginTop: 50,
+    },
+    img: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',  
+      alignItems: 'center'
+  },
+  size:{
+    width: 100,
+  },
   });
 
 const MyArticleEdit = () => {
@@ -66,8 +86,8 @@ const MyArticleEdit = () => {
     const [description, setDescription] = useState('');
     const [cat, setCat] = useState('');
     const [cond, setCond] = useState('');
-    const [name, setName] = useState('');
     const [imageData, setImageData] = useState('');
+    const [images, setImage] = useState([]);
 
     let token = localStorage.getItem("token");
     const config = {
@@ -117,8 +137,6 @@ const MyArticleEdit = () => {
       });
       };
 
-      
-
     useEffect(() => {
       axios.get(api, config)
         .then(response => {
@@ -140,6 +158,20 @@ const MyArticleEdit = () => {
           })
         }, [filterCondition])
 
+    useEffect(() => {
+        axios.get(`http://localhost:8000/api/images/${id}`, config)
+            .then(response => {
+                setImage(response.data)
+            })
+    }, [`http://localhost:8000/api/images/${id}`])
+
+    const onDelete = (id) => {
+      axios.delete(`http://localhost:8000/api/images/${id}`, config).then(res => {
+        const del = images.filter(image => id !== image.id);
+        setImage(del);
+      })
+    }
+
     return (
         <section className='article-edit'>
             <div className={classes.back}>
@@ -147,6 +179,7 @@ const MyArticleEdit = () => {
                 <ArrowBackIosIcon /> Back
                 </Button>
             </div>
+            <Typography gutterBottom variant="h4" component="h1" className={classes.text}>Edit your product</Typography>
             <form className={form.root} noValidate autoComplete="off" onSubmit={onUpdate}>
                 <div className={classes.article}>
                     <TextField
@@ -157,14 +190,13 @@ const MyArticleEdit = () => {
                     />
                     <TextField
                     id="description"
-                    label="Description"
                     multiline
                     rows={4}
                     onChange={(event) => setDescription(event.target.value)}
                     defaultValue={article.description}
                     />
                 </div>
-                <div className={classes.user}>
+                <div className={classes.article}>
                     <Button className={form.button} >
                             Article condition
                     </Button>
@@ -204,9 +236,9 @@ const MyArticleEdit = () => {
                         </Button>
                 </div>
             </form>
-            <div className='imageUpload'>
-                <h1>Add a picture</h1>
-            <form className={form.root} noValidate autoComplete="off" onSubmit={submitData}>
+            <Typography gutterBottom variant="h4" component="h1" className={classes.text}>Add a picture</Typography>
+            <div className={classes.article}>
+            <form className={classes.img} noValidate autoComplete="off" onSubmit={submitData}>
                     <input
                         accept="image/*"
                         id="contained-button-file"
@@ -215,9 +247,9 @@ const MyArticleEdit = () => {
                         onChange={handleChange}
                     />
                     <label htmlFor="contained-button-file">
-                        <Button variant="contained" color="primary" component="span">
-                        Upload
-                        </Button>
+                    <IconButton color="primary" aria-label="upload picture" component="span">
+                      <PhotoCamera /> Choose a picture
+                    </IconButton>
                     </label>
 
                 <Button 
@@ -231,6 +263,26 @@ const MyArticleEdit = () => {
                 </Button>
 
             </form>
+            </div>
+            <div className={classes.article}>
+              {images.map((image => (
+                <div>
+                  <img 
+                  src={`http://127.0.0.1:8000/storage/uploads/${image.name}`}
+                  alt={image.name}
+                  className={classes.size}
+                />
+                <IconButton 
+                  aria-label="delete" 
+                  color="secondary" 
+                  className={form.margin}
+                  onClick={() => onDelete(image.id)}
+                >
+                    <DeleteIcon/>
+                  </IconButton>
+              </div>
+              
+              )))}
             </div>
         </section>
     );

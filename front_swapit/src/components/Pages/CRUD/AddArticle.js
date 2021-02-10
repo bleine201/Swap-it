@@ -8,6 +8,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import {useHistory} from 'react-router-dom';
 
 const useForm = makeStyles((theme) => ({
     root: {
@@ -27,11 +29,11 @@ const useForm = makeStyles((theme) => ({
   }));
 
 const useStyles = makeStyles({
-    article: {
-        display: 'flex',
-        justifyContent: 'center',  
-        alignItems: 'center'
-    },
+    // article: {
+    //     display: 'flex',
+    //     justifyContent: 'center',  
+    //     alignItems: 'center'
+    // },
     back: {
         marginTop: 50,
         marginLeft: 100,
@@ -42,13 +44,20 @@ const useStyles = makeStyles({
     label: {
         marginTop: 40,
     },
+    center: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center'
+    }
   });
 
 
-const AddArticle = ({match}) => {
+const AddArticle = () => {
 
     const classes = useStyles();
     const form = useForm();
+    let history = useHistory();
 
     const api = `http://localhost:8000/api/ads`;
     const filterCategory = `http://localhost:8000/api/ads/category`;
@@ -95,6 +104,7 @@ const AddArticle = ({match}) => {
         })
         .then((response) => {
           console.log(response);
+          history.push('/myarticles');
         })
         .catch((error) => {
           console.log(error)
@@ -132,7 +142,15 @@ const AddArticle = ({match}) => {
           // debugger
     return (
         <section>
+          <div className={classes.back}>
+                <Button href="/myarticles" variant="contained" color="primary">
+                <ArrowBackIosIcon /> Back
+                </Button>
+            </div>
+            <section className={classes.center}>
+            <Typography gutterBottom variant="h4" component="h1" className={classes.text}>Edit your product</Typography>
              <form className={form.root} noValidate autoComplete="off" onSubmit={Post}>
+             <div className={classes.article}>
                 <TextField 
                 id="title" 
                 label="Title" 
@@ -147,7 +165,8 @@ const AddArticle = ({match}) => {
                     rows={4}
                     onChange={(event) => setDescription(event.target.value)}
                 />
-                <div className={classes.user}>
+                </div>
+                <div className={classes.article}>
                     <Button className={form.button} >
                             Article condition
                     </Button>
@@ -191,6 +210,7 @@ const AddArticle = ({match}) => {
                         </Button>
                 </div>
             </form>
+            </section>
             
         </section>
     );

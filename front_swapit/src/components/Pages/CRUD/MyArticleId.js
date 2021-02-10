@@ -86,6 +86,9 @@ const MyArticleId = () => {
                             <Typography variant="body2" color="textSecondary" component="p">
                                 {article.description}
                         </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                                Address : {article.address}
+                        </Typography>
                         </CardContent>
                 </Card>
             </div>

@@ -4,11 +4,12 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles({
     root: {
@@ -23,8 +24,11 @@ const useStyles = makeStyles({
         flexWrap:'wrap',
     },
     back: {
+        display: 'flex',
+        justifyContent: 'space-between',
         marginTop: 50,
         marginLeft: 100,
+        marginRight: 100,
       },
 });
 
@@ -67,21 +71,22 @@ const MyArticles = () => {
     return (
         <section>
             <div className={classes.back}>
-                <Button href="/admin/user" variant="contained" color="primary">
-                <ArrowBackIosIcon /> Back
+                <Button href="#" variant="contained" color="primary">
+                    <ArrowBackIosIcon /> Back
                 </Button>
+                <Fab 
+                    color="secondary" 
+                    aria-label="add" 
+                    className={classes.margin}
+                    href="/addarticle" 
+                >
+                    <AddIcon />
+                </Fab>
             </div>
             <div className={classes.article}>
                 {articles.map((article) => (
                 <Card className={classes.root}>
                     <CardActionArea>
-                        <CardMedia
-                            component="img"
-                            alt="Contemplative Reptile"
-                            height="140"
-                            image="/static/images/cards/contemplative-reptile.jpg"
-                            title="Contemplative Reptile"
-                        />
                         <CardContent>
                             <Typography gutterBottom variant="h5" component="h2">
                                 {article.title}
@@ -94,7 +99,6 @@ const MyArticles = () => {
                     <CardActions>
                         <Button 
                             size="small" 
-                            color="primary"
                             href={`/myarticles/${article.id}`}
                         >
                             More
@@ -108,7 +112,7 @@ const MyArticles = () => {
                         </Button>
                         <Button 
                             size="small" 
-                            color="primary"
+                            color="secondary"
                             onClick={() => onDelete(article.id)}
                         >
                             Delete
