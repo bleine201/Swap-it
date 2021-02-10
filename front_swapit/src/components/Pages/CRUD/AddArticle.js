@@ -75,7 +75,6 @@ const AddArticle = ({match}) => {
           })
         }, [userProfile])
 
-    console.log(config)
 
     var Post = () => {
 
@@ -84,21 +83,23 @@ const AddArticle = ({match}) => {
           title: title,
           description: description,
           user_id: profile.id,
-          exchange_id:	'2',
+          exchange_id:	6,
           condition_id: cond,
           category_id: cat,
           username: profile.username,
           address: profile.address,
+        }, {
+          headers: { 
+            'Authorization': `Bearer ${token}`
+           }
         })
         .then((response) => {
-          console.log(response.data.token);
-          localStorage.setItem("token",response.data.token)
+          console.log(response);
         })
         .catch((error) => {
-          console.log(error.response.data)
+          console.log(error)
         });
     };
-  
 
     // const onPost = async () => {
     // axios.post(api, {
