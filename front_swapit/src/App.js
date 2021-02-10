@@ -7,102 +7,84 @@ import SignUp from "./components/Pages/SignUp";
 import Chat from "./components/Pages/Chat";
 import ResetPassword from "./components/Pages/ResetPassword";
 import NewPassword from "./components/Pages/NewPassword";
-
 import ProtectedRoute from "./components/hoc/ProtectedRoute"
+import ProtectedRouteAdmin from "./components/hoc/ProtectedRouteAdmin"
 import Home from "./components/Pages/Home";
 import Index from "./components/Pages/Admin/Index";
 import User from "./components/Pages/Admin/User/User";
-import UserId from "./components/Pages/Admin/User/UserId";
-import UserEdit from "./components/Pages/Admin/User/UserEdit";
 import Article from "./components/Pages/Admin/Article/Article";
-import ArticleId from "./components/Pages/Admin/Article/ArticleId";
-import ArticleEdit from "./components/Pages/Admin/Article/ArticleEdit";
 import Comment from "./components/Pages/Admin/Comment/Comment";
-import CommentId from "./components/Pages/Admin/Comment/CommentId";
-import CommentEdit from "./components/Pages/Admin/Comment/CommentEdit";
 import Image from "./components/Pages/Admin/Image/Image";
 import HomeProducts from "./containers/HomeProducts";
-import ImageId from "./components/Pages/Admin/Image/ImageId";
-import ImageEdit from "./components/Pages/Admin/Image/ImageEdit";
-
-
 
 
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(true);
+
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     setIsLoggedIn(Boolean(token))
+    var admin = localStorage.getItem('is_admin');
+    setIsAdmin(admin)
 
   }, []);
 
-  return (
-    <>
-      <Router forceRefresh>
-        <Navbar isLoggedIn={isLoggedIn} />
+  return (<>
+    <Router forceRefresh>
+      <Navbar isLoggedIn={isLoggedIn} />
 
-        <div className="pages">
-          <Switch>
-            <Route path="/" exact component={HomeProducts} />
-            <Route path="/login" component={SignIn} />
-            <Route path="/register" component={SignUp} />
+      <div className="pages">
+        <Switch>
+          <Route path="/" exact
+            component={HomeProducts} />
+          <Route path="/login"
+            component={SignIn} />
+          <Route path="/register"
+            component={SignUp} />
 
-            <ProtectedRoute isLoggedIn={isLoggedIn} path="/chat">
-              <Chat />
-            </ProtectedRoute>
-            <ProtectedRoute isLoggedIn={isLoggedIn} path="/resetpassword">
-              <ResetPassword />
-            </ProtectedRoute>
-            <Route path="/home" component={Home} />
-            <ProtectedRoute isLoggedIn={isLoggedIn} path="/newpassword">
-              <NewPassword />
-            </ProtectedRoute>
-            <ProtectedRoute isLoggedIn={isLoggedIn} path="/admin">
+          <ProtectedRoute isLoggedIn={isLoggedIn}
+            path="/chat">
+            <Chat />
+          </ProtectedRoute>
+          <ProtectedRoute isLoggedIn={isLoggedIn}
+            path="/resetpassword">
+            <ResetPassword />
+          </ProtectedRoute>
+          <Route path="/home"
+            component={Home} />
+          <ProtectedRoute isLoggedIn={isLoggedIn}
+            path="/newpassword">
+            <NewPassword />
+          </ProtectedRoute>
+          <ProtectedRoute isLoggedIn={isLoggedIn}
+            path="/admin">
+            <ProtectedRouteAdmin isAdmin={isAdmin}>
               <Index />
-            </ProtectedRoute>
-            <ProtectedRoute exact isLoggedIn={isLoggedIn} path="/admin/article">
-              <Article />
-            </ProtectedRoute>
-            <ProtectedRoute exact isLoggedIn={isLoggedIn} path="/admin/article/:id">
-              <ArticleId />
-            </ProtectedRoute>
-            <ProtectedRoute isLoggedIn={isLoggedIn} path="/admin/article/edit/:id">
-              <ArticleEdit />
-            </ProtectedRoute>
-            <ProtectedRoute exact isLoggedIn={isLoggedIn} path="/admin/user">
-              <User />
-            </ProtectedRoute>
-            <ProtectedRoute exact isLoggedIn={isLoggedIn} path="/admin/user/:id">
-              <UserId />
-            </ProtectedRoute>
-            <ProtectedRoute isLoggedIn={isLoggedIn} path="/admin/user/edit/:id">
-              <UserEdit />
-            </ProtectedRoute>
-            <ProtectedRoute exact isLoggedIn={isLoggedIn} path="/admin/image">
-              <Image />
-            </ProtectedRoute>
-            <ProtectedRoute exact isLoggedIn={isLoggedIn} path="/admin/image/:id">
-              <ImageId />
-            </ProtectedRoute>
-            <ProtectedRoute isLoggedIn={isLoggedIn} path="/admin/image/edit/:id">
-              <ImageEdit />
-            </ProtectedRoute>
-            <ProtectedRoute exact isLoggedIn={isLoggedIn} path="/admin/comment">
-              <Comment />
-            </ProtectedRoute>
-            {/* <ProtectedRoute isLoggedIn={isLoggedIn} path="/admin/comment/:id">
-              <CommentId />
-            </ProtectedRoute>
-            <ProtectedRoute isLoggedIn={isLoggedIn} path="/admin/comment/edit/:id">
-              <CommentEdit />
-            </ProtectedRoute> */}
-          </Switch>
-        </div>
-      </Router>
-    </>
-  )
+            </ProtectedRouteAdmin>
+          </ProtectedRoute>
+          <ProtectedRoute isLoggedIn={isLoggedIn}
+            path="/admin/article">
+            <Article />
+          </ProtectedRoute>
+          <ProtectedRoute isLoggedIn={isLoggedIn}
+            path="/admin/user">
+            <User />
+          </ProtectedRoute>
+          <ProtectedRoute isLoggedIn={isLoggedIn}
+            path="/admin/image">
+            <Image />
+          </ProtectedRoute>
+          <ProtectedRoute isLoggedIn={isLoggedIn}
+            path="/admin/comment">
+            <Comment />
+          </ProtectedRoute>
+        </Switch>
+      </div>
+    </Router>
+  </>)
 }
 
 export default App;

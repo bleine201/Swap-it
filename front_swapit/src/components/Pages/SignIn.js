@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios'
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 
 
@@ -30,20 +30,35 @@ export default function SignIn() {
       .post("http://localhost:8000/api/auth/login", {
         email: email,
         password: password,
-        
+
 
       })
       .then((response) => {
         console.log(response.data.token);
-        localStorage.setItem("token",response.data.token)
-        history.push('/home');
-       
+        localStorage.setItem("token", response.data.token)
+        var token = localStorage.getItem("token");
+        const config = {
+          headers: { Authorization: `Bearer ${token}` }
+        };
+        axios.get("http://localhost:8000/api/auth/profile", config).then((response) => {
+          console.log(response.data.is_admin);
+          localStorage.setItem("is_admin", response.data.is_admin)
+          history.push('/home');
+        })
+
+          .catch((error) => {
+            console.log(error.response.data)
+          });
       
+
+
 
       })
       .catch((error) => {
         console.log(error.response.data)
       });
+
+
   };
 
   return (
@@ -91,7 +106,7 @@ export default function SignIn() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={()=> login()}
+            onClick={() => login()}
           >
             Sign In
           </Button>
