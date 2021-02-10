@@ -105,6 +105,7 @@ Route::middleware('authenticated')->post('ads', [AdsController::class,'store']);
 Route::middleware('authenticated')->get('ads/{id}', [AdsController::class,'show']);
 Route::middleware('authenticated')->put('ads/{id}', [AdsController::class,'update']);
 Route::middleware('authenticated')->delete('ads/{id}', [AdsController::class,'destroy']);
+Route::middleware('authenticated')->get('ads/user/{id}', [AdsController::class,'userAds']);
 
 
 //Search ad by title

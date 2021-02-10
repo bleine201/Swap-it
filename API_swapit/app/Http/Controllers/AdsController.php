@@ -120,7 +120,8 @@ class AdsController extends Controller
         return Ad::where('title',"like","%".$name."%")->get();
 
    }
-
-
+   public function userAds(Request $request){
+       return Ad::where('user_id', $request->id)->get();
+   }
 }
 

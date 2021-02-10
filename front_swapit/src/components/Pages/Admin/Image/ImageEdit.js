@@ -89,13 +89,14 @@ const ImageEdit = () => {
                     id="contained-button-file"
                     multiple
                     type="file" 
+                    onChange={(event) => setUpload(event.target.value)}
                 />
                  <label htmlFor="contained-button-file">
                     <Button 
                     variant="contained" 
                     color="primary" 
                     component="span"
-                    onChange={(event) => setUpload(event.target.value)}
+                    
                     >
                     Upload
                     </Button>

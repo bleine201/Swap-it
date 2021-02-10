@@ -25,6 +25,9 @@ import HomeProducts from "./containers/HomeProducts";
 import ImageId from "./components/Pages/Admin/Image/ImageId";
 import ImageEdit from "./components/Pages/Admin/Image/ImageEdit";
 import AddArticle from "./components/Pages/CRUD/AddArticle";
+import MyArticles from "./components/Pages/CRUD/MyArticles";
+import MyArticleId from "./components/Pages/CRUD/MyArticleId";
+import MyArticleEdit from "./components/Pages/CRUD/MyArticleEdit";
 
 
 
@@ -96,6 +99,16 @@ function App() {
             <ProtectedRoute exact isLoggedIn={isLoggedIn} path="/addarticle">
               <AddArticle />
             </ProtectedRoute>
+            <ProtectedRoute exact isLoggedIn={isLoggedIn} path="/myarticles">
+              <MyArticles />
+            </ProtectedRoute>
+            <ProtectedRoute exact isLoggedIn={isLoggedIn} path="/myarticles/:id">
+              <MyArticleId />
+            </ProtectedRoute>
+            <ProtectedRoute exact isLoggedIn={isLoggedIn} path="/myarticles/edit/:id">
+              <MyArticleEdit />
+            </ProtectedRoute>
+            
             {/* <ProtectedRoute isLoggedIn={isLoggedIn} path="/admin/comment/:id">
               <CommentId />
             </ProtectedRoute>

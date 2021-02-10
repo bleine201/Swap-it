@@ -11,9 +11,9 @@ import Button from '@material-ui/core/Button';
 
 const useForm = makeStyles((theme) => ({
     root: {
-      '& > *': {
-        margin: theme.spacing(1),
-        width: '25ch',
+      '& .MuiTextField-root': {
+      margin: theme.spacing(1),
+      width: '25ch',
       },
     },
     button: {
@@ -44,109 +44,116 @@ const useStyles = makeStyles({
     },
   });
 
+const MyArticleEdit = () => {
 
-const AddArticle = ({match}) => {
-
-    const classes = useStyles();
     const form = useForm();
+    const classes = useStyles();
 
-    const api = `http://localhost:8000/api/ads`;
+    const id = window.location.pathname.replace("/myarticles/edit/", "");
+
+
+    const api = `http://localhost:8000/api/ads/${id}`;
     const filterCategory = `http://localhost:8000/api/ads/category`;
     const filterCondition = `http://localhost:8000/api/ads/condition`;
-    const userProfile = `http://localhost:8000/api/auth/profile`;
 
+    const [article, setArticle] = useState([]);
     const [categories, setCategory] = useState([]);
     const [conditions, setCondition] = useState([]);
-    const [profile, setProfile] = useState([]);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [cat, setCat] = useState('');
     const [cond, setCond] = useState('');
+    const [name, setName] = useState('');
+    const [path, setPath] = useState('');
 
     let token = localStorage.getItem("token");
     const config = {
       headers: { Authorization: `Bearer ${token}` }
     };
 
-    useEffect(() => {
-      axios.get(userProfile, config)
-        .then(response => {
-          setProfile(response.data)
-          })
-        }, [userProfile])
 
-
-    var Post = () => {
-
-      axios
-        .post("http://localhost:8000/api/ads", {
+    const onUpdate = async () => {
+      axios({
+        method: 'put',
+        url: api, config,
+        data: {
           title: title,
           description: description,
-          user_id: profile.id,
-          exchange_id:	6,
           condition_id: cond,
           category_id: cat,
-          username: profile.username,
-          address: profile.address,
-        }, {
-          headers: { 
-            'Authorization': `Bearer ${token}`
-           }
-        })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error)
-        });
-    };
 
-    // const onPost = async () => {
-    // axios.post(api, {
-      
-    // }, config)
-    // .then(function (response) {
-    //   console.log(response);
-    // })
-    // .catch(function (error) {
-    //   console.log(error);
-    // });
-    //     };
-    // console.log(onPost)
-       
+        },
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+      });
+      };
+
+      var Post = () => {
+
+        axios
+          .post("http://localhost:8000/api/ads", {
+            name: name,
+            path: path,
+            ads_id: id,
+          }, {
+            headers: { 
+              'Authorization': `Bearer ${token}`
+             }
+          })
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            console.log(error)
+          });
+      };
 
     useEffect(() => {
-        axios.get(filterCategory)
-          .then(response => {
-            setCategory(response.data)
-            })
-          }, [filterCategory])
-  
-      useEffect(() => {
-        axios.get(filterCondition)
-          .then(response => {
-            setCondition(response.data)
-            })
-          }, [filterCondition])
+      axios.get(api, config)
+        .then(response => {
+          setArticle(response.data)
+          })
+        }, [api])
+    
+    useEffect(() => {
+      axios.get(filterCategory)
+        .then(response => {
+          setCategory(response.data)
+          })
+        }, [filterCategory])
 
-          // debugger
+    useEffect(() => {
+      axios.get(filterCondition)
+        .then(response => {
+          setCondition(response.data)
+          })
+        }, [filterCondition])
+
     return (
-        <section>
-             <form className={form.root} noValidate autoComplete="off" onSubmit={Post}>
-                <TextField 
-                id="title" 
-                label="Title" 
-                variant="outlined"
-                onChange={(event) => setTitle(event.target.value)}
-                />
-                <TextField 
-                    id="description" 
-                    label="Description" 
-                    variant="outlined"
+        <section className='article-edit'>
+            <div className={classes.back}>
+                <Button href="/admin/article" variant="contained" color="primary">
+                <ArrowBackIosIcon /> Back
+                </Button>
+            </div>
+            <form className={form.root} noValidate autoComplete="off" onSubmit={onUpdate}>
+                <div className={classes.article}>
+                    <TextField
+                    id="title"
+                    label="Title"
+                    onChange={(event) => setTitle(event.target.value)}
+                    defaultValue={article.title}
+                    />
+                    <TextField
+                    id="description"
+                    label="Description"
                     multiline
                     rows={4}
                     onChange={(event) => setDescription(event.target.value)}
-                />
+                    defaultValue={article.description}
+                    />
+                </div>
                 <div className={classes.user}>
                     <Button className={form.button} >
                             Article condition
@@ -182,18 +189,42 @@ const AddArticle = ({match}) => {
                             ))}
                         </Select>
                     </FormControl>
-                    <Button 
-                      variant="contained" 
-                      color="primary" 
-                      className={classes.add} 
-                      type='submit'>
-                          Add
+                    <Button variant="contained" color="primary" className={classes.add} type='submit'>
+                          Update
                         </Button>
                 </div>
             </form>
-            
+            <form className={form.root} noValidate autoComplete="off" onSubmit={Post}>
+                <TextField
+                    id="name"
+                    label="name"
+                    onChange={(event) => setName(event.target.value)}
+                    defaultValue="Picture name"
+                />
+                <label htmlFor="contained-button-file">
+                    <input
+                        accept="image/*"
+                        id="contained-button-file"
+                        multiple
+                        type="file"
+                        onChange={(event) => setPath(event.target.value)}
+                    />
+                    <Button 
+                    variant="contained" 
+                    color="primary" 
+                    component="span"
+                    onChange={(event) => setPath(event.target.value)}
+                    >
+                    Upload
+                    </Button>
+                </label>
+                <Button variant="contained" color="primary" className={classes.add} type='submit'>
+                          Add picture
+                </Button>
+
+            </form>
         </section>
     );
 };
 
-export default AddArticle;
+export default MyArticleEdit;
