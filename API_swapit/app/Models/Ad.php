@@ -19,5 +19,6 @@ class Ad extends Model
         'user_id',
         'pseudo',
         'address',
+        'username',
     ];
 }

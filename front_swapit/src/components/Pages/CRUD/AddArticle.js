@@ -71,6 +71,8 @@ const AddArticle = (props) => {
     const [cat, setCat] = useState('');
     const [cond, setCond] = useState('');
 
+    let history = useHistory();
+
     let token = localStorage.getItem("token");
     const config = {
       headers: { Authorization: `Bearer ${token}` }
@@ -84,30 +86,31 @@ const AddArticle = (props) => {
         }, [userProfile])
 
 
-    let Post = () => {
+        var Post = () => {
 
-      axios
-        .post("http://localhost:8000/api/ads", {
-          title: title,
-          description: description,
-          user_id: profile.id,
-          exchange_id:	6,
-          condition_id: cond,
-          category_id: cat,
-          username: profile.username,
-          address: profile.address,
-        }, {
-          headers: { 
-            'Authorization': `Bearer ${token}`
-           }
-        })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error(error)
-        });
-    };
+          axios
+            .post("http://localhost:8000/api/ads", {
+              title: title,
+              description: description,
+              user_id: profile.id,
+              exchange_id:	6,
+              condition_id: cond,
+              category_id: cat,
+              username: profile.username,
+              address: profile.address,
+            }, {
+              headers: { 
+                'Authorization': `Bearer ${token}`
+               }
+            })
+            .then((response) => {
+              console.log(response);
+              history.push('/myarticles');
+            })
+            .catch((error) => {
+              console.log(error)
+            });
+        };
        
     useEffect(() => {
         axios.get(filterCategory)
@@ -188,7 +191,7 @@ const AddArticle = (props) => {
                       variant="contained" 
                       color="primary" 
                       className={classes.add} 
-                      type='submit'
+                      onClick={() => Post()}
                       >
                           Add
                         </Button>

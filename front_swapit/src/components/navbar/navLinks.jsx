@@ -45,8 +45,8 @@ export function NavLinks(props) {
   useEffect(() => {
     const token = localStorage.getItem('token');
     setIsLoggedIn(Boolean(token))
-
   }, []);
+
   return (
     <NavLinksContainer>
       <LinksWrapper>
@@ -57,7 +57,7 @@ export function NavLinks(props) {
               <Link href="/">Home</Link>
             </LinkItem>
             <LinkItem>
-              <Link href="/User">User</Link>
+              <Link href="/myarticles">My products</Link>
             </LinkItem>
             <LinkItem>
               <Link href="/admin">Admin</Link>
