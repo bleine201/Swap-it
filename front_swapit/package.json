@@ -30,6 +30,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  
+  
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -49,7 +51,9 @@
     ]
   },
   "devDependencies": {
+    "docz": "^2.3.1",
     "laravel-echo": "^1.10.0",
-    "pusher-js": "^7.0.3"
+    "pusher-js": "^7.0.3",
+    "react-docgen": "^5.3.1"
   }
 }
