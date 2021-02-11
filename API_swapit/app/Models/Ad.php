@@ -13,13 +13,11 @@ class Ad extends Model
     protected $fillable = [
         'title',
         'description',
-
         'exchange_id',
         'category_id',
         'condition_id',
         'user_id',
-        'username',
+        'pseudo',
         'address',
-       // 'image_id',
     ];
 }

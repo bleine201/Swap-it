@@ -16,7 +16,8 @@ class AdsController extends Controller
      */
     public function index()
     {
-        return Ad::all()->paginate(5);
+        return Ad::all();
+        // return Ad::all()->paginate(5);
     }
 
     public function adsAdmin()
