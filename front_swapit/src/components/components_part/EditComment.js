@@ -54,6 +54,8 @@ const EDITCOMMENT = (props) => {
             }
         });
 
+    let token = localStorage.getItem("token");
+
     /* Put  */
     const API_URL = url + "update_one_comment"
     const SEND = event => {
@@ -69,7 +71,11 @@ const EDITCOMMENT = (props) => {
                 comment_target:document.getElementById('comment_target').value,
                 comment_author:document.getElementById('comment_author').value,
                 title: document.getElementById('title').value
-            }
+            },
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            
         })
         .then(res => {
             console.log(res.data);

@@ -11,12 +11,6 @@ import axios from 'axios';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import Carousel from 'react-bootstrap/Carousel';
 
-let token = localStorage.getItem("token");
-    const config = {
-      headers: { Authorization: `Bearer ${token}`
-      }
-    };
-
 const useStyles = makeStyles({
     root: {
         maxWidth: 345,
@@ -32,14 +26,20 @@ const useStyles = makeStyles({
       },
 });
 
-const ArticleId = () => {
+const MyArticleId = () => {
     const classes = useStyles();
 
-    let id = window.location.pathname.replace("/admin/article/", "");
+    let id = window.location.pathname.replace("/myarticles/", "");
 
     const api = `http://127.0.0.1:8000/api/ads/${id}`;
     const [article, setArticle] = useState([]);
     const [images, setImage] = useState([]);
+
+    let token = localStorage.getItem("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}`,
+                'Content-Type': 'multipart/form-data'}
+    };
 
     useEffect(() => {
         axios.get(api, config)
@@ -55,45 +55,45 @@ const ArticleId = () => {
             })
     }, [`http://localhost:8000/api/images/${id}`])
 
+
     return (
         <section>
             <div className={classes.back}>
-                <Button href="/admin/article" variant="contained" color="primary">
+                <Button href="/myarticles" variant="contained" color="primary">
                 <ArrowBackIosIcon /> Back
                 </Button>
             </div>
             <div className={classes.article}>
+                
+            </div>
+            <div className={classes.article}>
                 <Card className={classes.root}>
-                    <CardActionArea>
                         <Carousel>
                             {images.map((image => (
-                                <Carousel.Item>
-                                    <img
-                                    className="d-block w-100"
-                                    src={`http://127.0.0.1:8000/storage/uploads/${image.name}`}
-                                    alt={image.name}
-                                    />
-                                </Carousel.Item>
-                                )))}
-                        </Carousel>
-                            <CardContent>
+                            <Carousel.Item>
+                                <img
+                                className="d-block w-100"
+                                src={`http://127.0.0.1:8000/storage/uploads/${image.name}`}
+                                alt={image.name}
+                                />
+                            </Carousel.Item>
+                            )))}
+                            </Carousel>
+                        <CardContent>
                             <Typography gutterBottom variant="h5" component="h2">
                                 {article.title}
                             </Typography>
                             <Typography variant="body2" color="textSecondary" component="p">
                                 {article.description}
                         </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                                Address : {article.address}
+                        </Typography>
                         </CardContent>
-                    </CardActionArea>
-                    <CardActions>
-                        <Button size="small" color="primary">
-                            {article.username}
-                        </Button>
-                    </CardActions>
                 </Card>
             </div>
         </section>
     );
 };
 
-export default ArticleId;
+export default MyArticleId;

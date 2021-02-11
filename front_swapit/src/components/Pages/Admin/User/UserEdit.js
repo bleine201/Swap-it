@@ -9,6 +9,12 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 
+let token = localStorage.getItem("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}`
+      }
+    };
+
 const useForm = makeStyles((theme) => ({
     root: {
       '& .MuiTextField-root': {
@@ -56,20 +62,22 @@ const UserEdit = () => {
     const onUpdate = async () => {
       axios({
         method: 'put',
-        url: api,
+        url: api, config,
         data: {
           is_admin: admin,
         },
+        headers: {
+          'Authorization': `Bearer ${token}`
+      }
       });
       };
 
     useEffect(() => {
-      axios.get(api)
+      axios.get(api, config)
         .then(response => {
           setUser(response.data)
           })
         }, [api])
-
 
     
     return (
@@ -84,7 +92,6 @@ const UserEdit = () => {
                     <TextField
                     disabled
                     id="firstname"
-                    label="Firstname"
                     defaultValue={user.firstname}
                     variant="filled"
                     />

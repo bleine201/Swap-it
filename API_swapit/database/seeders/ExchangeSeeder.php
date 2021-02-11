@@ -24,5 +24,8 @@ class ExchangeSeeder extends Seeder
         Exchange::create([
             'type' => 'Iphone 10',
         ]);
+        Exchange::create([
+            'type' => 'Iphone 10',
+        ]);
     }
 }
