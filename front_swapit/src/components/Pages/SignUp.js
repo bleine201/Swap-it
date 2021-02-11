@@ -18,9 +18,9 @@ import axios from 'axios';
 
 
 export default function SignUp(props) {
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
   const [username, setUsername] = useState("");
-  const [firstname, setFirstName] = useState("");
-  const [lastname, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
@@ -69,7 +69,7 @@ export default function SignUp(props) {
                 label="First name"
                 name="First Name"
                 autoComplete="First Name"
-                onChange={(event) => setFirstName(event.target.value)}
+                onChange={(event) => setFirstname(event.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -81,7 +81,7 @@ export default function SignUp(props) {
                 label="Last name"
                 name="Last Name"
                 autoComplete="Last Name"
-                onChange={(event) => setLastName(event.target.value)}
+                onChange={(event) => setLastname(event.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
