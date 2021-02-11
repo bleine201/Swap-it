@@ -92,7 +92,8 @@ const MyArticleEdit = () => {
     let token = localStorage.getItem("token");
     const config = {
       headers: { Authorization: `Bearer ${token}`,
-                'Content-Type': 'multipart/form-data'}
+                'Content-Type': 'multipart/form-data',
+                'Accept': 'application/json'}
     };
 
     const handleChange = e => {
@@ -237,7 +238,7 @@ const MyArticleEdit = () => {
             </form>
             <Typography gutterBottom variant="h4" component="h1" className={classes.text}>Add a picture</Typography>
             <div className={classes.article}>
-            <form className={classes.img} noValidate autoComplete="off" onSubmit={submitData}>
+            <form className={classes.img} noValidate autoComplete="off" onSubmit={submitData} encType="multipart/form-data">
                     <input
                         accept="image/*"
                         id="contained-button-file"

@@ -19,43 +19,41 @@ class ImageController extends Controller
     }
 
     //Store all image upload
-    public function upload(Request $request)
-    {
+    public function upload(Request $request){
         $validation = Validator::make($request->all(),
-        [
-            'image'=>'required|mimes:jpeg,jpg,png,gif|max:10000'
-        ]);
+          [
+              'image'=>'required|mimes:jpeg,jpg,png,gif|max:10000'
+          ]);
+  
+          if ($validation->fails()){
+              $response=array('status'=>'error','errors'=>$validation->errors()->toArray());  
+              return response()->json($response);
+          }
+  
+       if($request->hasFile('image')){
+  
+          $uniqueid=uniqid();
+          $original_name=$request->file('image')->getClientOriginalName(); 
+          $size=$request->file('image')->getSize();
+          $extension=$request->file('image')->getClientOriginalExtension();
+  
+          $name=$uniqueid.'.'.$extension;
+          $path=$request->file('image')->storeAs('public/uploads',$name);
+          $ads = $request->ads_id;
 
-        if ($validation->fails()){
-            $response=array('status'=>'error','errors'=>$validation->errors()->toArray());  
-            return response()->json($response);
-        }
-
-     if($request->hasFile('image')){
-
-        $image = $request->file('image');
-        $uniqueid=uniqid();
-        $original_name=$request->file('image')->getClientOriginalName(); 
-        $size=$request->file('image')->getSize();
-        $extension=$request->file('image')->getClientOriginalExtension();
-
-        $name=$image->getClientOriginalName();
-        $path=$image->storeAs('public/upload',$name);
-        $ads = $request->ads_id;
-
-        Image::create([
+          if($path){
+              Image::create([
             'name' => $name,
             'path' => $path,
             'ads_id' => $ads,
           ]);
-          
-        if($path){
-            return response()->json(array('status'=>'success','message'=>'Image successfully uploaded','image'=>'/storage/uploads/'.$name));
-        }else{
-            return response()->json(array('status'=>'error','message'=>'failed to upload image'));
-        }
-    }
-    }
+              return response()->json(array('status'=>'success','message'=>'Image successfully uploaded','image'=>'/storage/uploads/'.$name));
+          }else{
+              return response()->json(array('status'=>'error','message'=>'failed to upload image'));
+          }
+      }
+  
+  }
 
     //Get image by ad ib
     public function post(Request $request)
