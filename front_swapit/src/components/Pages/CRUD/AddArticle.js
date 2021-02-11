@@ -53,7 +53,7 @@ const useStyles = makeStyles({
   });
 
 
-const AddArticle = () => {
+const AddArticle = (props) => {
 
     const classes = useStyles();
     const form = useForm();
@@ -84,7 +84,7 @@ const AddArticle = () => {
         }, [userProfile])
 
 
-    const Post = () => {
+    let Post = () => {
 
       axios
         .post("http://localhost:8000/api/ads", {
@@ -105,7 +105,7 @@ const AddArticle = () => {
           console.log(response);
         })
         .catch((error) => {
-          console.log(error)
+          console.error(error)
         });
     };
        
@@ -188,7 +188,8 @@ const AddArticle = () => {
                       variant="contained" 
                       color="primary" 
                       className={classes.add} 
-                      type='submit'>
+                      type='submit'
+                      >
                           Add
                         </Button>
                 </div>

@@ -88,6 +88,7 @@ const MyArticles = () => {
                 <Card className={classes.root}>
                     <CardActionArea>
                         <CardContent>
+                        {article.id}
                             <Typography gutterBottom variant="h5" component="h2">
                                 {article.title}
                             </Typography>
