@@ -27,7 +27,13 @@ const useStyles = makeStyles({
 
   });
 
-const ImageId = (match) => {
+const ImageId = () => {
+
+    let token = localStorage.getItem("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}`
+      }
+    };
 
     const classes = useStyles();
 
@@ -37,7 +43,7 @@ const ImageId = (match) => {
     const [image, setImage] = useState([]);
 
     useEffect(() => {
-      axios.get(api)
+      axios.get(api, config)
         .then(response => {
           setImage(response.data)
           })

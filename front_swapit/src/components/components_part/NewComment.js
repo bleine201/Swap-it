@@ -37,6 +37,12 @@ const NewComment = (props) => {
         }
     }));
 
+    let token = localStorage.getItem("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}`,
+    }
+    };
+
     /* POST  */
     const API_URL = url + "post_comment"
 
@@ -46,7 +52,7 @@ const NewComment = (props) => {
         var formData = new FormData(commentForm);
         axios({
             method: 'post',
-            url: API_URL,
+            url: API_URL, config,
             data: formData
         })
         .then(res => {

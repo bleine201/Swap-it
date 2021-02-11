@@ -8,6 +8,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import Typography from '@material-ui/core/Typography';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const useForm = makeStyles((theme) => ({
     root: {
@@ -23,6 +27,12 @@ const useForm = makeStyles((theme) => ({
       formControl: {
         margin: theme.spacing(1),
         minWidth: 120,
+      },
+      input: {
+        display: 'none',
+      },
+      margin: {
+        margin: theme.spacing(1),
       },
   }));
 
@@ -42,21 +52,27 @@ const useStyles = makeStyles({
     label: {
         marginTop: 40,
     },
+    text: {
+      textAlign: 'center',
+      marginTop: 50,
+    },
+    img: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',  
+      alignItems: 'center'
+  },
+  size:{
+    width: 100,
+  },
   });
 
-
-const ArticleEdit = () => {
+const MyArticleEdit = () => {
 
     const form = useForm();
     const classes = useStyles();
 
-    const id = window.location.pathname.replace("/admin/article/edit/", "");
-
-    let token = localStorage.getItem("token");
-    const config = {
-      headers: { Authorization: `Bearer ${token}`
-      }
-    };
+    const id = window.location.pathname.replace("/myarticles/edit/", "");
 
 
     const api = `http://localhost:8000/api/ads/${id}`;
@@ -70,14 +86,44 @@ const ArticleEdit = () => {
     const [description, setDescription] = useState('');
     const [cat, setCat] = useState('');
     const [cond, setCond] = useState('');
+    const [imageData, setImageData] = useState('');
+    const [images, setImage] = useState([]);
 
-    console.log(config);
+    let token = localStorage.getItem("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}`,
+                'Content-Type': 'multipart/form-data'}
+    };
+
+    const handleChange = e => {
+        setImageData(e.target.files[0]);
+        console.log(imageData)
+    }
+    
+    const submitData = e => {
+        e.preventDefault();
+        console.log(imageData)
+        const fData = new FormData();
+
+        fData.append('image', imageData);
+        fData.append('ads_id', id);
+
+        
+
+        axios.post('http://localhost:8000/api/upload', fData, config,
+        )
+          .then(res =>{
+              console.log('response', res);
+          }).catch(e => {
+              console.error('echec', e);
+          })
+    }
 
 
     const onUpdate = async () => {
       axios({
         method: 'put',
-        url: api, config,
+        url: api,
         data: {
           title: title,
           description: description,
@@ -85,7 +131,7 @@ const ArticleEdit = () => {
           category_id: cat,
         },
         headers: {
-          'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${token}`
         }
       });
       };
@@ -111,13 +157,28 @@ const ArticleEdit = () => {
           })
         }, [filterCondition])
 
+    useEffect(() => {
+        axios.get(`http://localhost:8000/api/images/${id}`, config)
+            .then(response => {
+                setImage(response.data)
+            })
+    }, [`http://localhost:8000/api/images/${id}`])
+
+    const onDelete = (id) => {
+      axios.delete(`http://localhost:8000/api/images/${id}`, config).then(res => {
+        const del = images.filter(image => id !== image.id);
+        setImage(del);
+      })
+    }
+
     return (
         <section className='article-edit'>
             <div className={classes.back}>
-                <Button href="/admin/article" variant="contained" color="primary">
+                <Button href="/myarticles" variant="contained" color="primary">
                 <ArrowBackIosIcon /> Back
                 </Button>
             </div>
+            <Typography gutterBottom variant="h4" component="h1" className={classes.text}>Edit your product</Typography>
             <form className={form.root} noValidate autoComplete="off" onSubmit={onUpdate}>
                 <div className={classes.article}>
                     <TextField
@@ -134,7 +195,7 @@ const ArticleEdit = () => {
                     defaultValue={article.description}
                     />
                 </div>
-                <div className={classes.user}>
+                <div className={classes.article}>
                     <Button className={form.button} >
                             Article condition
                     </Button>
@@ -170,12 +231,60 @@ const ArticleEdit = () => {
                         </Select>
                     </FormControl>
                     <Button variant="contained" color="primary" className={classes.add} type='submit'>
-                          Add
+                          Update
                         </Button>
                 </div>
             </form>
+            <Typography gutterBottom variant="h4" component="h1" className={classes.text}>Add a picture</Typography>
+            <div className={classes.article}>
+            <form className={classes.img} noValidate autoComplete="off" onSubmit={submitData}>
+                    <input
+                        accept="image/*"
+                        id="contained-button-file"
+                        type="file"
+                        className={form.input}
+                        onChange={handleChange}
+                    />
+                    <label htmlFor="contained-button-file">
+                    <IconButton color="primary" aria-label="upload picture" component="span">
+                      <PhotoCamera /> Choose a picture
+                    </IconButton>
+                    </label>
+
+                <Button 
+                    variant="contained" 
+                    color="primary" 
+                    className={classes.add} 
+                    type='submit'
+                    onClick={submitData}
+                >
+                        Add picture
+                </Button>
+
+            </form>
+            </div>
+            <div className={classes.article}>
+              {images.map((image => (
+                <div>
+                  <img 
+                  src={`http://127.0.0.1:8000/storage/uploads/${image.name}`}
+                  alt={image.name}
+                  className={classes.size}
+                />
+                <IconButton 
+                  aria-label="delete" 
+                  color="secondary" 
+                  className={form.margin}
+                  onClick={() => onDelete(image.id)}
+                >
+                    <DeleteIcon/>
+                  </IconButton>
+              </div>
+              
+              )))}
+            </div>
         </section>
     );
 };
 
-export default ArticleEdit;
+export default MyArticleEdit;

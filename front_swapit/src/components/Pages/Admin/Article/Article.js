@@ -16,6 +16,12 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 
+let token = localStorage.getItem("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}`
+      }
+    };
+
 const StyledTableCell = withStyles((theme) => ({
     head: {
       backgroundColor: '#5B89C4',
@@ -69,7 +75,7 @@ const Article = () => {
     const [articles, setArticle] = useState([]);
 
     useEffect(() => {
-      axios.get(api)
+      axios.get(api, config)
         .then(response => {
           setArticle(response.data)
           console.log(articles);
@@ -77,7 +83,7 @@ const Article = () => {
         }, [api])
       
     const onDelete = (id) => {
-      axios.delete(`http://127.0.0.1:8000/api/ads/${id}`).then(res => {
+      axios.delete(`http://127.0.0.1:8000/api/ads/${id}`, config).then(res => {
         const del = articles.filter(article => id !== article.id);
         setArticle(del);
       })

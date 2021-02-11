@@ -8,12 +8,14 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import {useHistory} from 'react-router-dom';
 
 const useForm = makeStyles((theme) => ({
     root: {
-      '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: '25ch',
+      '& > *': {
+        margin: theme.spacing(1),
+        width: '25ch',
       },
     },
     button: {
@@ -27,11 +29,11 @@ const useForm = makeStyles((theme) => ({
   }));
 
 const useStyles = makeStyles({
-    article: {
-        display: 'flex',
-        justifyContent: 'center',  
-        alignItems: 'center'
-    },
+    // article: {
+    //     display: 'flex',
+    //     justifyContent: 'center',  
+    //     alignItems: 'center'
+    // },
     back: {
         marginTop: 50,
         marginLeft: 100,
@@ -42,99 +44,112 @@ const useStyles = makeStyles({
     label: {
         marginTop: 40,
     },
+    center: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center'
+    }
   });
 
 
-const ArticleEdit = () => {
+const AddArticle = () => {
 
-    const form = useForm();
     const classes = useStyles();
+    const form = useForm();
 
-    const id = window.location.pathname.replace("/admin/article/edit/", "");
-
-    let token = localStorage.getItem("token");
-    const config = {
-      headers: { Authorization: `Bearer ${token}`
-      }
-    };
-
-
-    const api = `http://localhost:8000/api/ads/${id}`;
+    const api = `http://localhost:8000/api/ads`;
     const filterCategory = `http://localhost:8000/api/ads/category`;
     const filterCondition = `http://localhost:8000/api/ads/condition`;
+    const userProfile = `http://localhost:8000/api/auth/profile`;
 
-    const [article, setArticle] = useState([]);
     const [categories, setCategory] = useState([]);
     const [conditions, setCondition] = useState([]);
+    const [profile, setProfile] = useState([]);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [cat, setCat] = useState('');
     const [cond, setCond] = useState('');
 
-    console.log(config);
+    let token = localStorage.getItem("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}` }
+    };
+
+    useEffect(() => {
+      axios.get(userProfile, config)
+        .then(response => {
+          setProfile(response.data)
+          })
+        }, [userProfile])
 
 
-    const onUpdate = async () => {
-      axios({
-        method: 'put',
-        url: api, config,
-        data: {
+    const Post = () => {
+
+      axios
+        .post("http://localhost:8000/api/ads", {
           title: title,
           description: description,
+          user_id: profile.id,
+          exchange_id:	6,
           condition_id: cond,
           category_id: cat,
-        },
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      };
-
+          username: profile.username,
+          address: profile.address,
+        }, {
+          headers: { 
+            'Authorization': `Bearer ${token}`
+           }
+        })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error)
+        });
+    };
+       
     useEffect(() => {
-      axios.get(api, config)
-        .then(response => {
-          setArticle(response.data)
-          })
-        }, [api])
-    
-    useEffect(() => {
-      axios.get(filterCategory)
-        .then(response => {
-          setCategory(response.data)
-          })
-        }, [filterCategory])
-
-    useEffect(() => {
-      axios.get(filterCondition)
-        .then(response => {
-          setCondition(response.data)
-          })
-        }, [filterCondition])
+        axios.get(filterCategory)
+          .then(response => {
+            setCategory(response.data)
+            })
+          }, [filterCategory])
+  
+      useEffect(() => {
+        axios.get(filterCondition)
+          .then(response => {
+            setCondition(response.data)
+            })
+          }, [filterCondition])
 
     return (
-        <section className='article-edit'>
-            <div className={classes.back}>
-                <Button href="/admin/article" variant="contained" color="primary">
+        <section>
+          <div className={classes.back}>
+                <Button href="/myarticles" variant="contained" color="primary">
                 <ArrowBackIosIcon /> Back
                 </Button>
             </div>
-            <form className={form.root} noValidate autoComplete="off" onSubmit={onUpdate}>
-                <div className={classes.article}>
-                    <TextField
-                    id="title"
-                    label="Title"
-                    onChange={(event) => setTitle(event.target.value)}
-                    defaultValue={article.title}
-                    />
-                    <TextField
-                    id="description"
+            <section className={classes.center}>
+            <Typography gutterBottom variant="h4" component="h1" className={classes.text}>Add your product</Typography>
+             <form className={form.root} noValidate autoComplete="off" onSubmit={Post}>
+             <div className={classes.article}>
+                <TextField 
+                id="title" 
+                label="Title" 
+                variant="outlined"
+                onChange={(event) => setTitle(event.target.value)}
+                />
+                <TextField 
+                    id="description" 
+                    label="Description" 
+                    variant="outlined"
                     multiline
                     rows={4}
                     onChange={(event) => setDescription(event.target.value)}
-                    defaultValue={article.description}
-                    />
+                />
                 </div>
-                <div className={classes.user}>
+                <div className={classes.article}>
                     <Button className={form.button} >
                             Article condition
                     </Button>
@@ -169,13 +184,19 @@ const ArticleEdit = () => {
                             ))}
                         </Select>
                     </FormControl>
-                    <Button variant="contained" color="primary" className={classes.add} type='submit'>
+                    <Button 
+                      variant="contained" 
+                      color="primary" 
+                      className={classes.add} 
+                      type='submit'>
                           Add
                         </Button>
                 </div>
             </form>
+            </section>
+            
         </section>
     );
 };
 
-export default ArticleEdit;
+export default AddArticle;

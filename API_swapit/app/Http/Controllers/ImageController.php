@@ -41,12 +41,12 @@ class ImageController extends Controller
 
         $name=$image->getClientOriginalName();
         $path=$image->storeAs('public/upload',$name);
-        $articleId=$request->ads_id;
+        $ads = $request->ads_id;
 
         Image::create([
             'name' => $name,
             'path' => $path,
-            'ads_id' =>$articleId,
+            'ads_id' => $ads,
           ]);
           
         if($path){
@@ -60,7 +60,7 @@ class ImageController extends Controller
     //Get image by ad ib
     public function post(Request $request)
     {
-        return Ad::where('images_id', $request->id)->get();
+        return Image::where('ads_id', $request->id)->get();
     }
 
     public function picture($id)
