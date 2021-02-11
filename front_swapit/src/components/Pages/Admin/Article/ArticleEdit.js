@@ -52,6 +52,12 @@ const ArticleEdit = () => {
 
     const id = window.location.pathname.replace("/admin/article/edit/", "");
 
+    let token = localStorage.getItem("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}`
+      }
+    };
+
 
     const api = `http://localhost:8000/api/ads/${id}`;
     const filterCategory = `http://localhost:8000/api/ads/category`;
@@ -65,23 +71,27 @@ const ArticleEdit = () => {
     const [cat, setCat] = useState('');
     const [cond, setCond] = useState('');
 
+    console.log(config);
+
 
     const onUpdate = async () => {
       axios({
         method: 'put',
-        url: api,
+        url: api, config,
         data: {
           title: title,
           description: description,
           condition_id: cond,
           category_id: cat,
-
         },
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
       });
       };
 
     useEffect(() => {
-      axios.get(api)
+      axios.get(api, config)
         .then(response => {
           setArticle(response.data)
           })
@@ -118,7 +128,6 @@ const ArticleEdit = () => {
                     />
                     <TextField
                     id="description"
-                    label="Description"
                     multiline
                     rows={4}
                     onChange={(event) => setDescription(event.target.value)}

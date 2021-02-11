@@ -74,14 +74,11 @@ Route::middleware('authenticated')->post('/location', [LocationController::class
 //Get all images
 
 Route::middleware('authenticated')->get('/images', [ImageController::class, 'images']);
-
-//Image URL
-Route::get('image/{filename}', [ImageController::class,'getPubliclyStorgeFile']);
 //Upload image
 Route::middleware('authenticated')->post('/upload', [ ImageController::class, 'upload' ]);
 //Get image by ad id
-Route::middleware('authenticated')->get('/images/{id}', [ImageController::class, 'post']);
-Route::get('/picture/{id}', [ImageController::class, 'picture']);
+Route::get('/images/{id}', [ImageController::class, 'post']);
+Route::middleware('authenticated')->get('/picture/{id}', [ImageController::class, 'picture']);
 //Delete image
 Route::middleware('authenticated')->delete('images/{id}', [ImageController::class, 'delete']);
 //Update image

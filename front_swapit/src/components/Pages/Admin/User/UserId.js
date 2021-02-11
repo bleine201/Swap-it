@@ -15,6 +15,12 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 
+let token = localStorage.getItem("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}`
+      }
+    };
+
 
 const useAvatar = makeStyles((theme) => ({
     
@@ -74,7 +80,7 @@ const UserId = () => {
     
 
     useEffect(() => {
-      axios.get(api)
+      axios.get(api, config)
         .then(response => {
           setUser(response.data)
           // console.log(users);
