@@ -125,9 +125,9 @@ const Image = () => {
                           <IconButton href={`/admin/image/${image.id}`} aria-label="show" className={btn.margin}>
                             <VisibilityIcon/>
                           </IconButton>
-                          <IconButton href={`/admin/image/edit/${image.id}`} aria-label="edit" color="primary" className={btn.margin}>
+                          {/* <IconButton href={`/admin/image/edit/${image.id}`} aria-label="edit" color="primary" className={btn.margin}>
                             <EditIcon/>
-                          </IconButton>
+                          </IconButton> */}
                           <IconButton 
                             aria-label="delete" 
                             color="secondary" 

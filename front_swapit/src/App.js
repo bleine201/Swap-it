@@ -112,10 +112,10 @@ function App() {
             
             {/* <ProtectedRoute isLoggedIn={isLoggedIn} path="/admin/comment/:id">
               <CommentId />
-            </ProtectedRoute>
+            </ProtectedRoute> */}
             <ProtectedRoute isLoggedIn={isLoggedIn} path="/admin/comment/edit/:id">
               <CommentEdit />
-            </ProtectedRoute> */}
+            </ProtectedRoute>
           </Switch>
         </div>
       </Router>

@@ -123,13 +123,12 @@ const MyArticleEdit = () => {
     const onUpdate = async () => {
       axios({
         method: 'put',
-        url: api, config,
+        url: api,
         data: {
           title: title,
           description: description,
           condition_id: cond,
           category_id: cat,
-
         },
         headers: {
             'Authorization': `Bearer ${token}`

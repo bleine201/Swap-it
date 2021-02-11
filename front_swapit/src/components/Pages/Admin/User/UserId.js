@@ -14,6 +14,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
+import EditIcon from '@material-ui/icons/Edit';
 
 let token = localStorage.getItem("token");
     const config = {
@@ -97,7 +98,7 @@ const UserId = () => {
 
     
     const onDelete = (id) => {
-      axios.delete(`http://localhost:8000/api/delete_one_comment?comment_id=${id}`).then(res => {
+      axios.delete(`http://localhost:8000/api/delete_one_comment?comment_id=${id}`, config).then(res => {
         const del = comments.filter(comment => id !== comment.id);
         setUser(del);
       })
@@ -155,6 +156,13 @@ const UserId = () => {
                       {comment.content}
                    </div>
                    </Typography>
+                   <IconButton 
+                      href={`/admin/comment/edit/${comment.id}`} 
+                      aria-label="edit" 
+                      color="primary" 
+                      className={btn.margin}>
+                      <EditIcon/>
+                    </IconButton>
                    <IconButton 
                     aria-label="delete" 
                     color="secondary" 
