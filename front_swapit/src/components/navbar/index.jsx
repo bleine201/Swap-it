@@ -6,7 +6,7 @@ import { Accessibility } from "./accessibility";
 import { NavLinks } from "./navLinks";
 import { DeviceSize } from "../responsive";
 import { MobileNavLinks } from "./mobileNavLinks";
-import {Footer} from "./footer.jsx";
+
 
 const NavbarContainer = styled.div`
   width: 100%;
@@ -45,7 +45,6 @@ export function Navbar({isLoggedIn}) {
         {!isMobile && <Accessibility isLoggedIn={isLoggedIn} />}
         {isMobile && <MobileNavLinks/>}
       </RightSection>
-      <Footer/>
     </NavbarContainer>
   );
 }
