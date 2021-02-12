@@ -30,7 +30,7 @@ export function Logo(props) {
   return (
     <LogoWrapper>
       <LogoImg>
-      <Link to="/HomeProducts">
+      <Link to="/">
       <img src={GreenlandLogoImg} alt="Greenland logo" />
         </Link>
       </LogoImg>

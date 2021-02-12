@@ -47,8 +47,6 @@ function App() {
             component={ResetPassword}/>
           <Route path="/newpassword"
             component={NewPassword}/>
-          <Route path="/"
-              component={HomeProducts} />
 
           <ProtectedRoute isLoggedIn={isLoggedIn}
             path="/chat">

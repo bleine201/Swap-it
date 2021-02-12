@@ -57,13 +57,16 @@ export function NavLinks(props) {
               <Link href="/">Home</Link>
             </LinkItem>
             <LinkItem>
-              <Link href="/User">User</Link>
-            </LinkItem>
-            <LinkItem>
-              <Link href="/admin">Admin</Link>
+              <Link href="/">My products</Link>
             </LinkItem>
             <LinkItem>
               <Link href="/chat">Chat</Link>
+            </LinkItem>
+            <LinkItem>
+              <Link href="/User">Profile</Link>
+            </LinkItem>
+            <LinkItem>
+              <Link href="/admin">Dashboard</Link>
             </LinkItem>
 
           </>
