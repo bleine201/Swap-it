@@ -62,6 +62,242 @@ Components [
     
 },
 
+{
+    "name": Article.js,
+    "description": "display all products in admin table".
+    "functionalities":
+    "show, delete and edit products",
+    "endpoints": 
+    "http://localhost:8000/api/ads-admin", 
+    "http://localhost:8000/api/ads/{id}",
+    "method": "axios",
+    
+},
+
+{
+    "name": ArticleEdit.js,
+    "description": "Edit the products in admin section".
+    "functionalities":
+    "edit products",
+    "display all categories and conditions"
+    "endpoints": 
+    "http://localhost:8000/api/ads/{id}",
+    "http://localhost:8000/api/ads/category",
+    "http://localhost:8000/api/ads/condition",
+    "method": "axios",
+    
+},
+
+{
+    "name": ArticleId.js,
+    "description": "Display by id informations of a product in admin section".
+    "functionalities":
+    "display a unique product",
+    "display images of product",
+    "endpoints": 
+    "http://localhost:8000/api/ads/{id}",
+    "http://localhost:8000/api/images/{id}"
+    "method": "axios",
+    
+},
+
+{
+    "name": ImageId.js,
+    "description": "Display by id informations of a image in admin section".
+    "functionalities":
+    "display a unique image",
+    "endpoints": 
+    "http://localhost:8000/api/picture/{id}"
+    "http://localhost:8000/storage/uploads/{image.name}"
+    "method": "axios",
+    
+},
+
+{
+    "name": Image.js,
+    "description": "display all images in admin table".
+    "functionalities":
+    "show, delete images",
+    "endpoints": 
+    "http://localhost:8000/api/image", 
+    "http://localhost:8000/api/image/{id}",
+    "method": "axios",
+    
+},
+
+{
+    "name": User.js,
+    "description": "display all users in admin table".
+    "functionalities":
+    "show, delete, update users",
+    "endpoints": 
+    "http://localhost:8000/api/user", 
+    "http://localhost:8000/api/user/{id}",
+    "method": "axios",
+    
+},
+
+{
+    "name": UserId.js,
+    "description": "Display by id informations of a user in admin section".
+    "functionalities":
+    "display all user informations and his comments and reviews",
+    "delete his comment and reviews",
+    "endpoints": 
+    "http://localhost:8000/api/user/{id}",
+    "http://localhost:8000/api/delete_one_comment?comment_id={id}"
+    "http://localhost:8000/api/allcomment/{id}"
+    "method": "axios",
+    
+},
+
+{
+    "name": UserEdit.js,
+    "description": "Edit the users in admin section".
+    "functionalities":
+    "edit user role",
+    "endpoints": 
+    "http://localhost:8000/api/user/{id}",
+    "method": "axios",
+    
+},
+
+{
+    "name": AddArticle.js,
+    "description": "create a product".
+    "functionalities":
+    "add product",
+    "endpoints": 
+    "http://localhost:8000/api/ads",
+    "http://localhost:8000/api/auth/profile",
+    "http://localhost:8000/api/ads/condition",
+    "http://localhost:8000/api/ads/category",
+    "method": "axios",
+    
+},
+
+{
+    "name": MyArticleEdit.js,
+    "description": "edit a product and add pictures".
+    "functionalities":
+    "edit product",
+    "add & delete pictures"
+    "endpoints": 
+    "http://localhost:8000/api/ads",
+    "http://localhost:8000/api/auth/profile",
+    "http://localhost:8000/api/ads/condition",
+    "http://localhost:8000/api/ads/category",
+    "http://localhost:8000/api/images/{id}",
+    "http://localhost:8000/api/upload",
+    "method": "axios",
+    
+},
+
+{
+    "name": MyArticleId.js,
+    "description": "edit a product and add pictures".
+    "functionalities":
+    "edit product",
+    "add & delete pictures"
+    "endpoints": 
+    "http://localhost:8000/api/ads",
+    "http://localhost:8000/storage/uploads/{image.name}",
+    "method": "axios",
+    
+},
+
+{
+    "name": MyArticles.js,
+    "description": "display all product add by user".
+    "functionalities":
+    "display all informations of product",
+    "delete product",
+    "edit product",
+    "endpoints": 
+    "http://localhost:8000/api/auth/profile"
+    "http://localhost:8000/api/ads/{id}",
+    "http://localhost:8000/api/ads/user/{profile.id}",
+    "method": "axios",
+    
+},
+
+{
+    "name": Profile.js,
+    "description": "display user login informations".
+    "functionalities":
+    "display all user informations",
+    "button to update informations",
+    "endpoints": 
+    "http://localhost:8000/api/auth/profile",
+    "method": "axios",
+    
+},
+
+{
+    "name": UpdateProfile.js,
+    "description": "update user login informations".
+    "functionalities":
+    "update all user informations",
+    "endpoints": 
+    "http://localhost:8000/api/auth/profile",
+    "method": "axios",
+    
+},
+
+[3:31 PM] Elias Gouirhate
+    
+
+{​​​​​​​
+    "name": HomeProducts.js,
+    "description": "renders all images and details of ads".
+    "functionalities":
+    "see all the ads",
+}​​​​​​​,
+
+
+{​​​​​​​
+    "name": ProductDetails.js,
+    "description": "display all details of the ads".
+    "functionalities":
+    "see details: title category of an ad",
+    "chat with the vendor",
+    "endpoints": 
+    "http://localhost:8000/api/ads",
+    "method": "axios",
+}​​​​​​​,
+
+
+{​​​​​​​
+    "name": Details.js,
+    "description": "display details of the ad".
+    "functionalities":
+    "renders all the details info of the ad",
+}​​​​​​​,
+
+
+{​​​​​​​
+    "name": ProductImages.js,
+    "description": "display all images of the ads".
+    "functionalities":
+    "see image of an ad",
+    "endpoints": 
+    "http://localhost:8000/api/ads",
+    "method": "axios",
+}​​​​​​​,
+
+
+{​​​​​​​
+    "name": Image.js,
+    "description": "display image of the ad".
+    "functionalities":
+    "renders image of the ad",
+}​​​​​​​,
+
+
+
+
+
+
 
 
 
