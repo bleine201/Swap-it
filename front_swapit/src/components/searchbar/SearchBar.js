@@ -23,7 +23,7 @@ class SearchBar extends React.Component {
   }
   searchResult() {
     const result = this.state.term
-    //console.log(result);
+    console.log(result);
   }
 
   render() {
