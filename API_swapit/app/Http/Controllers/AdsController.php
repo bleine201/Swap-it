@@ -80,6 +80,11 @@ class AdsController extends Controller
     public function categories(Request $request) {
         return Category::all();
     }
+
+    public function CatCreate(Request $request)
+    {
+        return Category::create($request->all());
+    }
     //FILTER SECTION
 
         //CATEGORY
@@ -104,6 +109,11 @@ class AdsController extends Controller
      */
     public function conditions(Request $request) {
         return Condition::all();
+    }
+
+    public function CondCreate(Request $request)
+    {
+        return Condition::create($request->all());
     }
 
      /**

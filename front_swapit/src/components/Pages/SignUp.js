@@ -31,9 +31,9 @@ export default function SignUp(props) {
 
     axios
       .post("http://localhost:8000/api/auth/register", {
-        username: username,
         firstname: firstname,
         lastname: lastname,
+        username: username,
         email: email,
         password: password,
         password_confirmation: passwordConfirmation

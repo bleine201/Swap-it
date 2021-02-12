@@ -89,10 +89,15 @@ Route::get('ads/category', [AdsController::class,'categories']);
 // Route filter by category
 Route::get('ads/category/{id}', [AdsController::class,'CatById']);
 
+Route::post('ads/category', [AdsController::class,'CatCreate']);
+
 // Get all Conditions
 Route::get('ads/condition', [AdsController::class,'conditions']);
 // ROute filter by condition
 Route::get('ads/condition/{id}', [AdsController::class,'CondById']);
+
+Route::post('ads/condition', [AdsController::class,'CondCreate']);
+
 
 //Get all ads without pagination
 Route::get('ads', [AdsController::class,'index']);
