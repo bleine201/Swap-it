@@ -9,7 +9,6 @@ import ResetPassword from "./components/Pages/ResetPassword";
 import NewPassword from "./components/Pages/NewPassword";
 import ProtectedRoute from "./components/hoc/ProtectedRoute"
 import ProtectedRouteAdmin from "./components/hoc/ProtectedRouteAdmin"
-import Home from "./components/Pages/Home";
 import Index from "./components/Pages/Admin/Index";
 import User from "./components/Pages/Admin/User/User";
 import Article from "./components/Pages/Admin/Article/Article";
@@ -44,43 +43,43 @@ function App() {
             component={SignIn} />
           <Route path="/register"
             component={SignUp} />
+          <Route path="/resetpassword"
+            component={ResetPassword}/>
+          <Route path="/newpassword"
+            component={NewPassword}/>
+          <Route path="/"
+              component={HomeProducts} />
 
           <ProtectedRoute isLoggedIn={isLoggedIn}
             path="/chat">
             <Chat />
           </ProtectedRoute>
-          <ProtectedRoute isLoggedIn={isLoggedIn}
-            path="/resetpassword">
-            <ResetPassword />
-          </ProtectedRoute>
-          <Route path="/home"
-            component={Home} />
-          <ProtectedRoute isLoggedIn={isLoggedIn}
-            path="/newpassword">
-            <NewPassword />
-          </ProtectedRoute>
-          <ProtectedRoute isLoggedIn={isLoggedIn}
-            path="/admin">
-            <ProtectedRouteAdmin isAdmin={isAdmin}>
-              <Index />
-            </ProtectedRouteAdmin>
-          </ProtectedRoute>
-          <ProtectedRoute isLoggedIn={isLoggedIn}
-            path="/admin/article">
-            <Article />
-          </ProtectedRoute>
-          <ProtectedRoute isLoggedIn={isLoggedIn}
-            path="/admin/user">
-            <User />
-          </ProtectedRoute>
-          <ProtectedRoute isLoggedIn={isLoggedIn}
-            path="/admin/image">
-            <Image />
-          </ProtectedRoute>
-          <ProtectedRoute isLoggedIn={isLoggedIn}
-            path="/admin/comment">
-            <Comment />
-          </ProtectedRoute>
+            <ProtectedRoute isLoggedIn={isLoggedIn}
+              path="/newpassword">
+              <NewPassword />
+            </ProtectedRoute>
+            <ProtectedRoute isLoggedIn={isLoggedIn}
+              path="/admin">
+              <ProtectedRouteAdmin isAdmin={isAdmin}>
+                <Index />
+              </ProtectedRouteAdmin>
+            </ProtectedRoute>
+            <ProtectedRoute isLoggedIn={isLoggedIn}
+              path="/admin/article">
+              <Article />
+            </ProtectedRoute>
+            <ProtectedRoute isLoggedIn={isLoggedIn}
+              path="/admin/user">
+              <User />
+            </ProtectedRoute>
+            <ProtectedRoute isLoggedIn={isLoggedIn}
+              path="/admin/image">
+              <Image />
+            </ProtectedRoute>
+            <ProtectedRoute isLoggedIn={isLoggedIn}
+              path="/admin/comment">
+              <Comment />
+            </ProtectedRoute>
         </Switch>
       </div>
     </Router>

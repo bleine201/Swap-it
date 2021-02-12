@@ -1,0 +1,69 @@
+Components [
+
+    {
+    "name": "Chat.js",
+    "description": "Create a live chat with Pusher".
+    "functionalities":
+    "send a message",
+    "receive a message", 
+    "view time", 
+    "get a list of user authenticated",
+    "get notifications"
+    "endpoints": 
+    "http://localhost:8000/auth/chat", 
+    "http://localhost:8000/api/AuthenticatedUser", 
+    "http://localhost:8000/api/sendmessage",
+    "http://localhost:8000/api/user",
+    "http://localhost:8000/api/getmessage"
+    "method": "axios",
+    
+},
+
+{
+    "name": SignIn.js,
+    "description": "Login to the website".
+    "functionalities":
+    "login with email and password",
+    "reset password", 
+    "endpoints": 
+    "http://localhost:8000/auth/login", 
+    "method": "axios",
+    
+},
+{
+    "name": SignUp.js,
+    "description": "Sign up form ".
+    "functionalities":
+    "register by firstname, lastname, email, username, password confirmation", "email verified",
+    "endpoints": 
+    "http://localhost:8000/auth/register", 
+    "method": "axios",
+    
+},
+{
+    "name": NewPassword.js,
+    "description": "enter email to reset password and receive a NIP by mailtrap".
+    "functionalities":
+    "enter email",
+    "endpoints": 
+    "http://localhost:8000/auth/changePassword", 
+    "method": "axios",
+    
+},
+{
+    "name": ResetPassword.js,
+    "description": "reset password form".
+    "functionalities":
+    "enter code sent via mailtrap",
+    "type your email end retype your new password"
+    "endpoints": 
+    "http://localhost:8000/auth/resetPassword", 
+    "method": "axios",
+    
+},
+
+
+
+
+
+]

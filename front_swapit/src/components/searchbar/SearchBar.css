@@ -2,9 +2,11 @@
 {
     text-align: center;
     margin-top: 2%;
+    border-radius: 20px;
 
 }
 
 .search-input {
     width: 50%;
+    border-radius: 20px;
 }

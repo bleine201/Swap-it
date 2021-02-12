@@ -19,6 +19,7 @@ const RegisterButton = styled.button `
   background-image: linear-gradient(to right, transparent 0%, #00c9ff 100%);
   transition: all 240ms ease-in-out;
   cursor: pointer;
+  margin-right: 10px;
 
   &:hover {
     background-color: #00c9ff;
