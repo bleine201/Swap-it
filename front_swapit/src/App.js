@@ -26,6 +26,8 @@ import AddArticle from "./components/Pages/CRUD/AddArticle";
 import MyArticles from "./components/Pages/CRUD/MyArticles";
 import MyArticleId from "./components/Pages/CRUD/MyArticleId";
 import MyArticleEdit from "./components/Pages/CRUD/MyArticleEdit";
+import Profile from "./components/Pages/Profile/Profile";
+import UpdateProfile from "./components/Pages/Profile/UpdateProfile";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -80,6 +82,12 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute exact isLoggedIn={isLoggedIn} path="/myarticles/edit/:id">
             <MyArticleEdit />
+          </ProtectedRoute>
+          <ProtectedRoute exact isLoggedIn={isLoggedIn} path="/myprofile">
+            <Profile />
+          </ProtectedRoute>
+          <ProtectedRoute exact isLoggedIn={isLoggedIn} path="/profileupdate">
+            <UpdateProfile />
           </ProtectedRoute>
             
 
