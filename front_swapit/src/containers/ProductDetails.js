@@ -33,7 +33,7 @@ class ProductDetails extends Component {
           key={detail.id}
           detail={this.state.details}
           title={detail.title}
-          price={detail.price}
+          category={detail.category}
         />
       );
     }));

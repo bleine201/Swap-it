@@ -5,7 +5,7 @@ import "./Details.css";
 const Details = (props) => (
   <div className="DetailsProducts">
     <p>{props.title}</p>
-    <p>Price : {props.price}$</p>
+    <p>{props.category}</p>
     <Button
       href="/chat"
       variant="contained"

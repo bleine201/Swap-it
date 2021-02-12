@@ -244,6 +244,60 @@ Components [
     
 },
 
+[3:31 PM] Elias Gouirhate
+    
+
+{​​​​​​​
+    "name": HomeProducts.js,
+    "description": "renders all images and details of ads".
+    "functionalities":
+    "see all the ads",
+}​​​​​​​,
+
+
+{​​​​​​​
+    "name": ProductDetails.js,
+    "description": "display all details of the ads".
+    "functionalities":
+    "see details: title category of an ad",
+    "chat with the vendor",
+    "endpoints": 
+    "http://localhost:8000/api/ads",
+    "method": "axios",
+}​​​​​​​,
+
+
+{​​​​​​​
+    "name": Details.js,
+    "description": "display details of the ad".
+    "functionalities":
+    "renders all the details info of the ad",
+}​​​​​​​,
+
+
+{​​​​​​​
+    "name": ProductImages.js,
+    "description": "display all images of the ads".
+    "functionalities":
+    "see image of an ad",
+    "endpoints": 
+    "http://localhost:8000/api/ads",
+    "method": "axios",
+}​​​​​​​,
+
+
+{​​​​​​​
+    "name": Image.js,
+    "description": "display image of the ad".
+    "functionalities":
+    "renders image of the ad",
+}​​​​​​​,
+
+
+
+
+
+
 
 
 
