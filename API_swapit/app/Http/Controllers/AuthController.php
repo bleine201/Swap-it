@@ -58,6 +58,9 @@ class AuthController extends Controller
                 'lastname'=> 'required|string|between:2,100',
                 'email'    => 'required|email|unique:users',
                 'password' => 'required|confirmed|min:6',
+                'address' => 'required|string|min:2,100',
+                'city' => 'required|string|min:2,100',
+                'postcode' => 'required|string|min:6',
             ]
         );
 

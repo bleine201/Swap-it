@@ -24,6 +24,9 @@ export default function SignUp(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [address, setAddress] = useState("");
+  const [postcode, setPostcode] = useState("");
+  const [city, setCity] = useState("");
   const classes = useStyles();
 
   var register = () => {
@@ -34,9 +37,12 @@ export default function SignUp(props) {
         firstname: firstname,
         lastname: lastname,
         username: username,
+        address: address,
+        postcode:postcode,
+        city:city,
         email: email,
         password: password,
-        password_confirmation: passwordConfirmation
+        password_confirmation: passwordConfirmation,
 
       })
       .then((response) => {
@@ -94,6 +100,42 @@ export default function SignUp(props) {
                 name="Name"
                 autoComplete="Name"
                 onChange={(event) => setUsername(event.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="address"
+                label="Address"
+                name="Name"
+                autoComplete="Name"
+                onChange={(event) => setAddress(event.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="postcode"
+                label="Postcode"
+                name="Name"
+                autoComplete="Name"
+                onChange={(event) => setPostcode(event.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="city"
+                label="City"
+                name="Name"
+                autoComplete="Name"
+                onChange={(event) => setCity(event.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
