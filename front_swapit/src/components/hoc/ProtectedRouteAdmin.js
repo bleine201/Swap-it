@@ -23,7 +23,7 @@ console.log("🚀 ~ file: ProtectedRoute.js ~ line 8 ~ ProtectedRoute ~ isLogged
                 ) : (
                         <Redirect
                             to={{
-                                pathname: "/home",
+                                pathname: "/",
                                 state: { from: location }
                             }}
                         />
