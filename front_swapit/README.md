@@ -7,14 +7,25 @@
 ## Overview
 
 
+# Back-END / API
 
-- [Getting started with Create React App](#Getting-started-with-Create-React-App)
+- [Getting started with Laravel](#Getting-started-with-Laravel)
+- [Clone the repository](#Switch-to-the-repo-folder)
+- [Switch to the repo folder](#Clone-the-repository)
+- [Install all the dependencies using composer](#Install-all-the-dependencies-using-composer)
+- [Run the database migrations](#Run-the-database-migrations)
+- [Start the local development server](#Start-the-local-development-server)
+
+
+
+# Front-END
+
 - [Getting started with Create React App](#Getting-started-with-Create-React-App)
 - [Available Scripts](##Available-Scripts)
 - [npm start](##npm-start)
 - [npm test](###npm-test)
 - [npm run build](###npm-run-build)
-- [npm run eject](###npm-run-eject )
+- [npm run build](###npm-run-eject)
 - [Learn More](##Learn-More)
 - [Code Splitting](###Code-Splitting)
 - [Analyzing the Bundle Size](#Analyzing-the-Bundle-Size)
@@ -25,11 +36,38 @@
 - [Contributors](#contributors)
 
 
+
+# Back-END / API:
+
 # Getting started with Laravel
 
 Please check the official laravel installation guide for server requirements before you start. (https://laravel.com/docs/8.x/installation)
 
+# Clone the repository
 
+git clone git@github.com:EpitechIT2020/C-COD-260-PAR-2-1-ecp-marie.jacquier.git
+
+# Switch to the repo folder
+
+cd API_swapit
+
+# Install all the dependencies using composer
+
+composer install
+
+# Run the database migrations
+
+php artisan migrate
+
+# Start the local development server
+
+php artisan serve
+You can now access the server at http://localhost:8000
+
+
+
+
+# Front-END:
 
 # Getting Started with Create React App
 
