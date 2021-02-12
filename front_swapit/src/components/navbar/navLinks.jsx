@@ -63,7 +63,7 @@ export function NavLinks(props) {
               <Link href="/chat">Chat</Link>
             </LinkItem>
             <LinkItem>
-              <Link href="/User">Profile</Link>
+              <Link href="/myprofile">Profile</Link>
             </LinkItem>
             <LinkItem>
               <Link href="/admin">Dashboard</Link>
