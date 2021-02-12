@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import GreenlandLogoImg from "../../assets/images/logo.png";
+import { Link } from "react-router-dom";
 
 const LogoWrapper = styled.div`
   display: flex;
@@ -29,7 +30,9 @@ export function Logo(props) {
   return (
     <LogoWrapper>
       <LogoImg>
-        <img src={GreenlandLogoImg} alt="Greenland logo" />
+      <Link to="/">
+      <img src={GreenlandLogoImg} alt="Greenland logo" />
+        </Link>
       </LogoImg>
       <LogoText></LogoText>
     </LogoWrapper>

@@ -9,7 +9,6 @@ import ResetPassword from "./components/Pages/ResetPassword";
 import NewPassword from "./components/Pages/NewPassword";
 import ProtectedRoute from "./components/hoc/ProtectedRoute"
 import ProtectedRouteAdmin from "./components/hoc/ProtectedRouteAdmin"
-import Home from "./components/Pages/Home";
 import Index from "./components/Pages/Admin/Index";
 import User from "./components/Pages/Admin/User/User";
 import Article from "./components/Pages/Admin/Article/Article";
@@ -58,21 +57,16 @@ function App() {
             component={SignIn} />
           <Route path="/register"
             component={SignUp} />
+          <Route path="/resetpassword"
+            component={ResetPassword}/>
+          <Route path="/newpassword"
+            component={NewPassword}/>
 
           <ProtectedRoute isLoggedIn={isLoggedIn}
             path="/chat">
             <Chat />
           </ProtectedRoute>
-          <ProtectedRoute isLoggedIn={isLoggedIn}
-            path="/resetpassword">
-            <ResetPassword />
-          </ProtectedRoute>
-          <Route path="/home"
-            component={Home} />
-          <ProtectedRoute isLoggedIn={isLoggedIn}
-            path="/newpassword">
-            <NewPassword />
-          </ProtectedRoute>
+
 
           {/* ADS CRUD */}
           <ProtectedRoute exact isLoggedIn={isLoggedIn} path="/addarticle">

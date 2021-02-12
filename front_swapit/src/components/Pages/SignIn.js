@@ -43,7 +43,7 @@ export default function SignIn() {
         axios.get("http://localhost:8000/api/auth/profile", config).then((response) => {
           console.log(response.data.is_admin);
           localStorage.setItem("is_admin", response.data.is_admin)
-          history.push('/home');
+          history.push('/');
         })
 
           .catch((error) => {
@@ -117,7 +117,7 @@ export default function SignIn() {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="/register" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

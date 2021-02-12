@@ -7,6 +7,7 @@ import { NavLinks } from "./navLinks";
 import { DeviceSize } from "../responsive";
 import { MobileNavLinks } from "./mobileNavLinks";
 
+
 const NavbarContainer = styled.div`
   width: 100%;
   height: 60px;
