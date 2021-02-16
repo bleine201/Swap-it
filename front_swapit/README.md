@@ -1,6 +1,7 @@
 # Swap it 
 
-![Swap it logo](/https://raw.githubusercontent.com/EpitechIT2020/C-COD-260-PAR-2-1-ecp-marie.jacquier/master/front_swapit/src/assets/images/logo.png?token=ARIGVFWLGIBLADMD7KY2QI3AF7GFU)
+![logo](https://user-images.githubusercontent.com/72378848/108052529-9126da00-704c-11eb-8ce6-15d5a93a1a53.png)
+
 
 ### Swap it is a troc web application.
 
